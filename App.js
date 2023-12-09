@@ -32,6 +32,20 @@ const App = () => {
 const MainTabScreen = () => {
   return (
     <Tab.Navigator initialRouteName="Home"
+    // screenOptions={({ route }) => ({
+    //   tabBarIcon: ({ focused, color, size }) => {
+    //     let iconName;
+
+    //     if (route.name === "Home") {
+    //       iconName = focused ? "home" : "home-outline"; // Change to your home icons
+    //     } else if (route.name === "Account") {
+    //       iconName = focused ? "account" : "account-outline"; // Change to your account icons
+    //     }
+
+    //     // You can return any component that you like here!
+    //     return <Text>{iconName}</Text>;
+    //   },
+    // })}
     >
       <Tab.Screen
         name="Home"
