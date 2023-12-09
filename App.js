@@ -41,9 +41,9 @@ const App = () => {
 
 const MainTabScreen = () => {
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator initialRouteName="TabHome">
       <Tab.Screen
-        name="Home"
+        name="TabHome"
         options={screenBottomOption}
         component={HomeScreen}
       />
