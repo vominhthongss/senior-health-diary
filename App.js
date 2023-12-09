@@ -1,9 +1,50 @@
-import { Text, View } from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "./screens/Home/HomeScreen";
+import LoginScreen from "./screens/Login/LoginScreen";
+import AccountScreen from "./screens/Account/Account";
+import { Text } from "react-native";
 
-export default function App() {
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View className="flex justify-center items-center h-full">
-      <Text className="text-blue-500">Hello Senior Health Diary</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerLeft: null, headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          options={{ headerShown: false, headerLeft: null }}
+          component={MainTabScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
+
+const MainTabScreen = () => {
+  return (
+    <Tab.Navigator initialRouteName="Home"
+    >
+      <Tab.Screen
+        name="Home"
+        options={{ headerTitleAlign: "left" }}
+        component={HomeScreen}
+      />
+      <Tab.Screen
+        name="Account"
+        options={{ headerTitleAlign: "left" }}
+        component={AccountScreen}
+      />
+    </Tab.Navigator>
+  );
+};
+
+export default App;
