@@ -1,3 +1,6 @@
+import * as COLORS from "./colors";
+import * as STRINGS from "./strings";
+
 export const screenParentOption = {
   headerLeft: null,
   headerShown: false,
@@ -5,11 +8,12 @@ export const screenParentOption = {
 export const screenBottomOption = {
   headerTitleAlign: "left",
   tabBarShowLabel: false,
+  tabBarActiveTintColor: COLORS.main,
 };
 export const screenChildOption = {
   title: false,
   headerLeftLabelVisible: true,
-  headerBackTitle: "Trở lại",
-  headerBackTitleStyle: { color: "blue" },
-  headerTintColor: "red",
+  headerBackTitle: STRINGS.headerBackTitle,
+  headerBackTitleStyle: { color: COLORS.main },
+  headerTintColor: COLORS.main,
 };

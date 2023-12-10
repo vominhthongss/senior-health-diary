@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import * as SCREENS_NAME from "../../constants/screensName";
 
 function AccountScreen() {
   const navigation = useNavigation();
 
   const goToUserInformation = () => {
-    navigation.navigate("UserInformation");
+    navigation.navigate(SCREENS_NAME.userInformation);
   };
 
   return (
