@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { screenBottomOption } from "../constants/options";
 import * as SCREENS_NAME from "../constants/screensName";
 import * as STRINGS from "../constants/strings";
