@@ -3,7 +3,9 @@ import { View, Text, TextInput, Button } from "react-native";
 import * as SCREENS_NAME from "../../constants/screensName";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import CustomizeTextInput from "../../components/CustomizeTextInput/CustomizetextInput";
-const LoginScreen = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+function LoginScreen() {
+  const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,6 +37,6 @@ const LoginScreen = ({ navigation }) => {
       </View>
     </View>
   );
-};
+}
 
 export default LoginScreen;

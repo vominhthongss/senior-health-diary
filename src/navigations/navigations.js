@@ -6,7 +6,7 @@ import AccountScreen from "../screens/Account/Account";
 import HomeScreen from "../screens/Home/HomeScreen";
 import ScheduleScreen from "../screens/Schedule/ScheduleScreen";
 import DiaryScreen from "../screens/Diary/DiaryScreen";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export const home = {
   index: 1,
@@ -20,20 +20,9 @@ export const home = {
     ),
   },
 };
-export const account = {
-  index: 2,
-  name: SCREENS_NAME.account,
-  component: AccountScreen,
-  options: {
-    ...screenBottomOption,
-    headerTitle: () => <Text>{STRINGS.account}</Text>,
-    tabBarIcon: ({ color, size }) => (
-      <Icon name="user" size={size} color={color} />
-    ),
-  },
-};
+
 export const schedule = {
-  index: 3,
+  index: 2,
   name: SCREENS_NAME.schedule,
   component: ScheduleScreen,
   options: {
@@ -45,7 +34,7 @@ export const schedule = {
   },
 };
 export const diary = {
-  index: 4,
+  index: 3,
   name: SCREENS_NAME.diary,
   component: DiaryScreen,
   options: {
@@ -57,4 +46,15 @@ export const diary = {
   },
 };
 
-
+export const account = {
+  index: 4,
+  name: SCREENS_NAME.account,
+  component: AccountScreen,
+  options: {
+    ...screenBottomOption,
+    headerTitle: () => <Text>{STRINGS.account}</Text>,
+    tabBarIcon: ({ color, size }) => (
+      <Icon name="user" size={size} color={color} />
+    ),
+  },
+};
