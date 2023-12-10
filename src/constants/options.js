@@ -4,11 +4,12 @@ export const screenParentOption = {
 };
 export const screenBottomOption = {
   headerTitleAlign: "left",
+  tabBarShowLabel: false,
 };
 export const screenChildOption = {
   title: false,
   headerLeftLabelVisible: true,
   headerBackTitle: "Trở lại",
-  headerBackTitleStyle: { color: "red" },
+  headerBackTitleStyle: { color: "blue" },
   headerTintColor: "red",
 };
