@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
 import * as SCREENS_NAME from "../../constants/screensName";
-import * as COLORS from "../../constants/colors";
+import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,11 +26,8 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <View
-        style={{ backgroundColor: COLORS.main }}
-        className="w-[80%] rounded-md"
-      >
-        <Button color={"white"} title="Login" onPress={handleLogin} />
+      <View className="w-[80%]">
+        <CustomizeButton title={"Login"} onPress={handleLogin} />
       </View>
     </View>
   );
