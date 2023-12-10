@@ -1,9 +1,12 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { screenBottomOption } from "../constants/options";
 import * as SCREENS_NAME from "../constants/screensName";
 import * as STRINGS from "../constants/strings";
 import AccountScreen from "../screens/Account/Account";
 import HomeScreen from "../screens/Home/HomeScreen";
+import ScheduleScreen from "../screens/Schedule/ScheduleScreen";
+import DiaryScreen from "../screens/Diary/DiaryScreen";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const home = {
   index: 1,
@@ -12,6 +15,9 @@ export const home = {
   options: {
     ...screenBottomOption,
     headerTitle: () => <Text>{STRINGS.home}</Text>,
+    tabBarIcon: ({ color, size }) => (
+      <Icon name="home" size={size} color={color} />
+    ),
   },
 };
 export const account = {
@@ -21,5 +27,34 @@ export const account = {
   options: {
     ...screenBottomOption,
     headerTitle: () => <Text>{STRINGS.account}</Text>,
+    tabBarIcon: ({ color, size }) => (
+      <Icon name="user" size={size} color={color} />
+    ),
   },
 };
+export const schedule = {
+  index: 3,
+  name: SCREENS_NAME.schedule,
+  component: ScheduleScreen,
+  options: {
+    ...screenBottomOption,
+    headerTitle: () => <Text>{STRINGS.schedule}</Text>,
+    tabBarIcon: ({ color, size }) => (
+      <Icon name="table" size={size} color={color} />
+    ),
+  },
+};
+export const diary = {
+  index: 4,
+  name: SCREENS_NAME.diary,
+  component: DiaryScreen,
+  options: {
+    ...screenBottomOption,
+    headerTitle: () => <Text>{STRINGS.diary}</Text>,
+    tabBarIcon: ({ color, size }) => (
+      <Icon name="bell" size={size} color={color} />
+    ),
+  },
+};
+
+
