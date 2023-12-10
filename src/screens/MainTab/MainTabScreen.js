@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as NAVIGATIONS from "../../navigations/navigations";
 import * as SCREENS_NAME from "../../constants/screensName";
-import { Text } from "react-native";
 
 const Tab = createBottomTabNavigator();
 function MainTabScreen() {
