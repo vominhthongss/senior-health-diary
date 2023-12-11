@@ -1,16 +1,18 @@
-import { Button, View } from "react-native";
+import { Text } from "react-native";
 import * as COLORS from "../../constants/colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 
 function CustomizeButton({ title, onPress }) {
   return (
-    <View
-      style={{
-        backgroundColor: COLORS.main,
-      }}
-      className="w-full rounded-md"
-    >
-      <Button color={"white"} title={title} onPress={onPress} />
-    </View>
+    <TouchableOpacity style={{
+      backgroundColor: COLORS.main,
+      alignItems: "center",
+    }}
+      className="w-full rounded-md py-4"
+      onPress={onPress}>
+      <Text className="text-white font-bold text-lg">{title}</Text>
+    </TouchableOpacity>
   );
 }
 
