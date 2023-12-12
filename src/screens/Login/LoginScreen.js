@@ -18,7 +18,6 @@ function LoginScreen() {
 
   const handleLoginGoogle = () => {
     navigation.navigate(SCREENS_NAME.mainTab);
-    console.log("Username:", username, "Password:", password);
   };
 
   return (
