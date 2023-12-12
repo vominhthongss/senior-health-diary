@@ -23,8 +23,8 @@ function LoginScreen() {
   return (
     <View className="bg-white h-full w-full flex justify-center items-center space-y-2">
       <Image
-         source={require('../../../assets/images/logo.jpg')}
-        style={{ width: 200, height: 200 }} // Kích thước của ảnh
+        source={require("../../../assets/images/logo.jpg")}
+        style={{ width: 200, height: 200 }}
       />
 
       <Text className="pb-4 text-2xl uppercase">Senior Health Diary</Text>
