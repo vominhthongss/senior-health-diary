@@ -3,3 +3,7 @@ export const home = "Trang chủ";
 export const account = "Tài khoản";
 export const schedule = "Lịch trình";
 export const diary = "Nhật ký";
+export const no_schedule = "Không có nhắc nhở hôm nay";
+export const add_date = "Thêm ngày";
+export const alert_name = "Thông báo";
+export const alert_info = "Vui lòng nhập ngày và nội dung sự kiện";
