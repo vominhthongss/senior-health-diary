@@ -1,4 +1,4 @@
-import { TouchableHighlight, View } from "react-native";
+import { View } from "react-native";
 import * as COLORS from "../constants/colors";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
@@ -26,7 +26,7 @@ function ShareButton({ symptoms, description, date }) {
   return (
     <View>
       <TouchableOpacity onPress={shareHealthLog}>
-        <Icon name="share" size={"20"} color={COLORS.main} />
+        <Icon name="share" size={20} color={COLORS.main} />
       </TouchableOpacity>
     </View>
   );

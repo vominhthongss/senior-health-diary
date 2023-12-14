@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, Alert } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { Agenda, LocaleConfig } from "react-native-calendars";
 import * as COLORS from "../../constants/colors";
 import * as STRINGS from "../../constants/strings";
