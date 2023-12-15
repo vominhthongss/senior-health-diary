@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import * as SCREENS_NAME from "../../constants/screensName";
-import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
-import CustomizeTextInput from "../../components/CustomizeTextInput/CustomizetextInput";
 import { useNavigation } from "@react-navigation/native";
 import GoogleButton from "../../components/GoogleButton/GoogleButton";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
-import { parseToForm } from "../../helps/parseToForm";
 import * as STRINGS from "../../constants/strings";
 
 function LoginScreen() {
   const navigation = useNavigation();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleLogin = (values) => {
     navigation.navigate(SCREENS_NAME.mainTab);
@@ -47,7 +42,7 @@ function LoginScreen() {
         style={{ width: 200, height: 200 }}
       />
 
-      <Text className="pb-4 text-2xl uppercase">Senior Health Diary</Text>
+      <Text className="pb-4 text-2xl uppercase">{STRINGS.appName}</Text>
 
       <View className="w-[80%]">
         <GeneralForm
@@ -58,7 +53,7 @@ function LoginScreen() {
         <GoogleButton onPress={handleLoginGoogle} />
       </View>
       <View className="w-[80%] flex justify-start py-5">
-        <Text>Fogot password?</Text>
+        <Text>{STRINGS.forgotPassword}</Text>
       </View>
     </View>
   );
