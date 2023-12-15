@@ -1,7 +1,7 @@
 export const headerBackTitle = "Trở lại";
 export const home = "Trang chủ";
 export const account = "Tài khoản";
-export const schedule = "Lịch trình";
+export const schedule = "Lịch & nhật ký bệnh";
 export const diary = "Nhật ký";
 export const noSchedule = "Không có nhắc nhở hôm nay";
 export const addDate = "Thêm nhắc nhở";
