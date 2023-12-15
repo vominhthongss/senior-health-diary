@@ -9,3 +9,4 @@ export const alert_name = "Thông báo";
 export const alert_info = "Vui lòng nhập ngày và nội dung sự kiện";
 export const share_health_log = "Chia sẻ Nhật ký Bệnh";
 export const share = "Chia sẻ";
+export const signIn = "SIGN IN";
