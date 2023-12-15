@@ -16,7 +16,7 @@ function ShareButton({ symptoms, description, date }) {
 
       await Sharing.shareAsync(path, {
         mimeType: "application/pdf",
-        dialogTitle: STRINGS.share_health_log,
+        dialogTitle: STRINGS.shareHealthLog,
       });
     } catch (error) {
       console.error("Error sharing health log:", error.message);
