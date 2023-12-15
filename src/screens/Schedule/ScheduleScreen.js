@@ -55,7 +55,7 @@ function ScheduleScreen() {
     );
   };
   const [newDate, setNewDate] = useState("");
-  const [newItemText, setNewItemText] = useState("");
+  const [newItemText, setNewItemText] = useState("text");
 
   const handleAddDate = () => {
     if (!newDate || !newItemText) {
@@ -65,7 +65,7 @@ function ScheduleScreen() {
     dispatch(
       updateSchedule({
         date: newDate,
-        newItem: { type: "remind", time: "12:00", text: "newItemText" },
+        newItem: { type: "remind", time: "12:00", text: newItemText },
       })
     );
   };
