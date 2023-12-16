@@ -1,6 +1,7 @@
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
+import * as STRINGS from "../../constants/strings";
 
 function GoogleButton({ onPress }) {
   return (
@@ -14,7 +15,7 @@ function GoogleButton({ onPress }) {
         color="#eb3448"
         style={{ marginRight: 10 }}
       />
-      <Text className="text-lg text-red-500 ">SIGN IN WITH GOOGLE</Text>
+      <Text className="text-lg text-red-500 ">{STRINGS.signInGoogle}</Text>
     </TouchableOpacity>
   );
 }

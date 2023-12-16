@@ -27,7 +27,7 @@ function LoginScreen() {
   const fields = [
     {
       name: "email",
-      placeholder: "Email",
+      placeholder: "Địa chỉ email",
       value: "",
       type: "email",
       label: "Địa chỉ email",
@@ -35,7 +35,7 @@ function LoginScreen() {
     },
     {
       name: "password",
-      placeholder: "Password",
+      placeholder: "Mật khẩu",
       type: "password",
       value: "",
       label: "Mật khẩu",
@@ -47,7 +47,7 @@ function LoginScreen() {
     if (token && token !== "" && status === SUCCEEDED) {
       navigation.navigate(SCREENS_NAME.mainTab);
     }
-  }, [token,status]);
+  }, [token, status]);
 
   return (
     <View className="bg-white h-full w-full flex justify-center items-center space-y-2">
@@ -66,8 +66,8 @@ function LoginScreen() {
         />
         <GoogleButton onPress={handleLoginGoogle} />
       </View>
-      <View className="w-[80%] flex justify-start py-5">
-        <Text>{STRINGS.forgotPassword}</Text>
+      <View className="w-[80%] flex justify-start py-5 ">
+        <Text className="text-blue-500">{STRINGS.forgotPassword}</Text>
       </View>
     </View>
   );

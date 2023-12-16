@@ -84,6 +84,8 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
     <Formik
       initialValues={parseToForm(fields)}
       onSubmit={(values) => handleData(values)}
+      validateOnChange={false}
+      validateOnBlur={false}
       validate={(values) => {
         const errors = {};
         fields.map((field) => {
