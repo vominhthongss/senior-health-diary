@@ -27,13 +27,18 @@ function LoginScreen() {
       name: "email",
       placeholder: "Email",
       value: "",
-      type: "text",
+      type: "email",
+      label: "Địa chỉ email",
+      isRequired: true,
     },
     {
       name: "password",
       placeholder: "Password",
       type: "password",
       value: "",
+      label: "Mật khẩu",
+      minLength: 6,
+      isRequired: true,
     },
   ];
   const [data, setData] = useState({});
