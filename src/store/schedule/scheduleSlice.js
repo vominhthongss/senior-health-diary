@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { scheduleMock } from "../../mock/schedule";
 import { parseToSchedule } from "../../helps/parseToSchedule";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
+import api from "../../services/api";
 
 const initialState = {
-  schedules: parseToSchedule(scheduleMock),
+  schedules: undefined,
   status: "idle",
   error: null,
 };
@@ -13,7 +13,7 @@ export const fetchSchedule = createAsyncThunk(
   "schedules/fetchSchedule",
   async () => {
     try {
-      const response = await api.get("/some-endpoint");
+      const response = await api.get("/schedules");
       return response.data;
     } catch (error) {
       throw error;
@@ -40,7 +40,7 @@ const scheduleSlice = createSlice({
       })
       .addCase(fetchSchedule.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        state.data = action.payload;
+        state.schedules = parseToSchedule(action.payload);
       })
       .addCase(fetchSchedule.rejected, (state, action) => {
         state.status = FAILED;

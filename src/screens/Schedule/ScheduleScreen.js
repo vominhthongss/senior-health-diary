@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Alert } from "react-native";
 import { Agenda, LocaleConfig } from "react-native-calendars";
 import * as COLORS from "../../constants/colors";
@@ -8,7 +8,10 @@ import { ScrollView } from "react-native-gesture-handler";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import ShareButton from "../../ShareButton/ShareButton";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSchedule } from "../../store/schedule/scheduleSlice";
+import {
+  fetchSchedule,
+  updateSchedule,
+} from "../../store/schedule/scheduleSlice";
 
 LocaleConfig.locales["vi"] = localeConfig;
 LocaleConfig.defaultLocale = "vi";
@@ -16,6 +19,9 @@ LocaleConfig.defaultLocale = "vi";
 function ScheduleScreen() {
   const dispatch = useDispatch();
   const { schedules } = useSelector((state) => state.schedule);
+  useEffect(() => {
+    dispatch(fetchSchedule());
+  }, [dispatch]);
 
   const renderItem = (item) => {
     return (

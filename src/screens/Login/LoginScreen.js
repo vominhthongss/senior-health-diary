@@ -11,7 +11,6 @@ function LoginScreen() {
 
   const handleLogin = (values) => {
     navigation.navigate(SCREENS_NAME.mainTab);
-    console.log("values :", values);
   };
 
   const handleLoginGoogle = () => {

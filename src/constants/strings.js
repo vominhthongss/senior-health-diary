@@ -12,3 +12,4 @@ export const share = "Chia sẻ";
 export const signIn = "SIGN IN";
 export const appName = "Senior Health Diary";
 export const forgotPassword = "Fogot password?";
+export const errorResponse = "Đã có lỗi xảy ra";
