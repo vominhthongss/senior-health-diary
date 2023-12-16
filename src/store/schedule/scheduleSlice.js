@@ -1,23 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { scheduleMock } from "../../mock/schedule";
+import { parseToSchedule } from "../../helps/parseToSchedule";
 
 const initialState = {
-  schedules: {
-    "2023-12-01": [{ type: "remind", time: "12:00", text: "Meeting at 10am" }],
-    "2023-12-12": [
-      { type: "remind", time: "12:00", text: "Lunch with colleagues" },
-      { type: "remind", time: "12:00", text: "Shopping" },
-    ],
-    "2023-12-13": [{ type: "remind", time: "12:00", text: "Gym at 5pm" }],
-    "2023-12-14": [
-      {
-        type: "diary",
-        sick: "Cao huyết áp",
-        symptoms: "Nhức đầu",
-        description: "Đau hoài",
-        date: "2023-12-14",
-      },
-    ],
-  },
+  schedules: parseToSchedule(scheduleMock),
 };
 
 const scheduleSlice = createSlice({

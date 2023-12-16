@@ -68,6 +68,18 @@ function ScheduleScreen() {
         newItem: { type: "remind", time: "12:00", text: newItemText },
       })
     );
+    dispatch(
+      updateSchedule({
+        date: newDate,
+        newItem: {
+          type: "diary",
+          sick: "Mỏi",
+          symptoms: "Đau chân",
+          description: "Mỏi",
+          date: newDate,
+        },
+      })
+    );
   };
 
   return (
