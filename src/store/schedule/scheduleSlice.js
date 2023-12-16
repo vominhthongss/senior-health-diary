@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { parseToSchedule } from "../../helps/parseToSchedule";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const initialState = {
   schedules: undefined,
@@ -13,7 +14,8 @@ export const fetchSchedule = createAsyncThunk(
   "schedules/fetchSchedule",
   async () => {
     try {
-      const response = await api.get("/schedules");
+      const userEmail = await AsyncStorage.getItem("userEmail");
+      const response = await api.get(`/schedules/?userEmail=${userEmail}`);
       return response.data;
     } catch (error) {
       throw error;

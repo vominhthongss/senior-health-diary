@@ -26,7 +26,8 @@
           "text": "Meeting at 10am",
           "scheduleId": 555
         }
-      ]
+      ],
+      "userEmail": "nguyenvana@gmail.com"
     },
     {
       "id": 666,
@@ -44,7 +45,8 @@
           "text": "Shopping",
           "scheduleId": 666
         }
-      ]
+      ],
+      "userEmail": "nguyenvana@gmail.com"
     },
     {
       "id": 777,
@@ -56,7 +58,8 @@
           "text": "Gym at 5pm",
           "scheduleId": 777
         }
-      ]
+      ],
+      "userEmail": "tranthib@gmail.com"
     },
     {
       "id": 888,
@@ -69,7 +72,8 @@
           "description": "Đau hoài",
           "scheduleId": 888
         }
-      ]
+      ],
+      "userEmail": "nguyenvana@gmail.com"
     }
   ]
 }

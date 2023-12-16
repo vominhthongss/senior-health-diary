@@ -17,10 +17,12 @@ export const login = createAsyncThunk(
       const response = await api.get(
         `/users/?email=${email}&?password=${password}`
       );
+      AsyncStorage.setItem("userEmail", email);
+
       //đây chỉ là mô phỏng lấy token
       //khi có api login thực thì bỏ nó đi
+
       if (response.data[0].id) {
-        
         return { token: JSON.stringify(response.data[0]) };
       }
       //khi có api login thực thì bỏ nó đi
