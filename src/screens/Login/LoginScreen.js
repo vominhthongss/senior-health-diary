@@ -8,13 +8,15 @@ import * as STRINGS from "../../constants/strings";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/auth/authSlice";
 import { SUCCEEDED } from "../../constants/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function LoginScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { token, status } = useSelector((state) => state.auth);
 
-  const handleLogin = async (values) => {
+  const handleLogin = (values) => {
+    console.log("values :", values);
     dispatch(login({ email: values.email, password: values.password }));
   };
 
@@ -41,12 +43,11 @@ function LoginScreen() {
       isRequired: true,
     },
   ];
-  const [data, setData] = useState({});
   useEffect(() => {
-    if (token !== null && token && token !== "" && status === SUCCEEDED) {
+    if (token && token !== "" && status === SUCCEEDED) {
       navigation.navigate(SCREENS_NAME.mainTab);
     }
-  }, [data, token, status]);
+  }, [token,status]);
 
   return (
     <View className="bg-white h-full w-full flex justify-center items-center space-y-2">

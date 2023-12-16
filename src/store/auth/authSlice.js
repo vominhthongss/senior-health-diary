@@ -24,6 +24,8 @@ export const login = createAsyncThunk(
 
       if (response.data[0].id) {
         return { token: JSON.stringify(response.data[0]) };
+      } else {
+        return { token: "" };
       }
       //khi có api login thực thì bỏ nó đi
 

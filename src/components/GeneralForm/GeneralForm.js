@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import CustomizeTextInput from "../CustomizeTextInput/CustomizetextInput";
 import { parseToForm } from "../../helps/parseToForm";
 import CustomizeButton from "../CustomizeButton/CustomizeButton";
+import ErrorText from "../ErrorText/ErrorText";
 
 function GeneralForm({ fields, handleData, titleSubmitBtn }) {
   const fieldRender = (field, key, { handleChange, values, errors }) => {
@@ -21,7 +22,7 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
               secureTextEntry={false}
             />
             <View className="absolute -bottom-6">
-              {errors[field.name] && <Text>{errors[field.name]}</Text>}
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
             </View>
           </View>
         );
@@ -37,7 +38,7 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
               secureTextEntry={false}
             />
             <View className="absolute -bottom-6">
-              {errors[field.name] && <Text>{errors[field.name]}</Text>}
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
             </View>
           </View>
         );
@@ -53,7 +54,7 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
               secureTextEntry={true}
             />
             <View className="absolute -bottom-6">
-              {errors[field.name] && <Text>{errors[field.name]}</Text>}
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
             </View>
           </View>
         );
@@ -69,7 +70,7 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
               secureTextEntry={false}
             />
             <View className="absolute -bottom-6">
-              {errors[field.name] && <Text>{errors[field.name]}</Text>}
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
             </View>
           </View>
         );
@@ -89,14 +90,19 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
           if (!values[field.name] && field.isRequired) {
             errors[field.name] = `Vui lòng nhập ${field.label.toLowerCase()}.`;
           } else if (
-            (field.type = "email" && !/\S+@\S+\.\S+/.test(values[field.name]))
+            field.type === "email" &&
+            !/\S+@\S+\.\S+/.test(values[field.name])
           ) {
             errors[field.name] = "Địa chỉ email không hợp lệ.";
-          } else if (field.minLength && values[field.name] < field.minLength) {
+          } else if (
+            field.minLength &&
+            values[field.name].length < field.minLength
+          ) {
             errors[
               field.name
             ] = `${field.label} phải có ít nhất ${field.minLength} ký tự.`;
           }
+          return;
         });
         return errors;
       }}
@@ -108,7 +114,7 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
               {fieldRender(field, key, { handleChange, values, errors })}
             </View>
           ))}
-          <View className="my-3">
+          <View className="mt-6 mb-3">
             <CustomizeButton title={titleSubmitBtn} onPress={handleSubmit} />
           </View>
         </View>

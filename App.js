@@ -21,7 +21,7 @@ function App() {
       }
     };
     checkToken();
-  }, []);
+  }, [initialRoute]);
   if (initialRoute === null) {
     return null;
   }
