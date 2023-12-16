@@ -54,29 +54,29 @@ function ScheduleScreen() {
       </View>
     );
   };
-  const [newDate, setNewDate] = useState("");
-  const [newItemText, setNewItemText] = useState("text");
+  const [dataSelected, setDateSelected] = useState("");
+  const [remindText, setRemindText] = useState("text");
 
   const handleAddDate = () => {
-    if (!newDate || !newItemText) {
+    if (!dataSelected || !remindText) {
       Alert.alert(STRINGS.alertName, STRINGS.alertInfo);
       return;
     }
     dispatch(
       updateSchedule({
-        date: newDate,
-        newItem: { type: "remind", time: "12:00", text: newItemText },
+        date: dataSelected,
+        schedule: { type: "remind", time: "12:00", text: remindText },
       })
     );
     dispatch(
       updateSchedule({
-        date: newDate,
-        newItem: {
+        date: dataSelected,
+        schedule: {
           type: "diary",
           sick: "Mỏi",
           symptoms: "Đau chân",
           description: "Mỏi",
-          date: newDate,
+          date: dataSelected,
         },
       })
     );
@@ -85,7 +85,7 @@ function ScheduleScreen() {
   return (
     <View className="flex-1">
       <Agenda
-        onDayPress={(value) => setNewDate(value.dateString)}
+        onDayPress={(value) => setDateSelected(value.dateString)}
         theme={{
           todayBackgroundColor: COLORS.todayBackgroundColor,
           selectedDayBackgroundColor: COLORS.selectedDayBackgroundColor,

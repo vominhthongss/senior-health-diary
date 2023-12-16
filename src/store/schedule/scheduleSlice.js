@@ -14,8 +14,8 @@ const scheduleSlice = createSlice({
       state.schedules = action.payload;
     },
     updateSchedule: (state, action) => {
-      const { date, newItem } = action.payload;
-      state.schedules[date] = [...(state.schedules[date] || []), newItem];
+      const { date, schedule } = action.payload;
+      state.schedules[date] = [...(state.schedules[date] || []), schedule];
     },
   },
 });
