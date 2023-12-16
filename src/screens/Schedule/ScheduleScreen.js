@@ -8,6 +8,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import ShareButton from "../../ShareButton/ShareButton";
 import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
 import {
   fetchSchedule,
   updateSchedule,
@@ -87,11 +88,15 @@ function ScheduleScreen() {
       })
     );
   };
+  const handleDayPress = _.debounce(
+    (value) => setDateSelected(value.dateString),
+    100
+  );
 
   return (
     <View className="flex-1">
       <Agenda
-        onDayPress={(value) => setDateSelected(value.dateString)}
+        onDayPress={handleDayPress}
         theme={{
           todayBackgroundColor: COLORS.todayBackgroundColor,
           selectedDayBackgroundColor: COLORS.selectedDayBackgroundColor,
