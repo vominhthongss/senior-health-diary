@@ -5,12 +5,17 @@ import { useNavigation } from "@react-navigation/native";
 import GoogleButton from "../../components/GoogleButton/GoogleButton";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import * as STRINGS from "../../constants/strings";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/auth/authSlice";
+import { SUCCEEDED } from "../../constants/store";
 
 function LoginScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { token, status } = useSelector((state) => state.auth);
 
-  const handleLogin = (values) => {
-    navigation.navigate(SCREENS_NAME.mainTab);
+  const handleLogin = async (values) => {
+    dispatch(login({ email: values.email, password: values.password }));
   };
 
   const handleLoginGoogle = () => {
@@ -19,8 +24,8 @@ function LoginScreen() {
 
   const fields = [
     {
-      name: "username",
-      placeholder: "Username",
+      name: "email",
+      placeholder: "Email",
       value: "",
       type: "text",
     },
@@ -32,7 +37,11 @@ function LoginScreen() {
     },
   ];
   const [data, setData] = useState({});
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    if (token !== null && token && token !== "" && status === SUCCEEDED) {
+      navigation.navigate(SCREENS_NAME.mainTab);
+    }
+  }, [data, token, status]);
 
   return (
     <View className="bg-white h-full w-full flex justify-center items-center space-y-2">
