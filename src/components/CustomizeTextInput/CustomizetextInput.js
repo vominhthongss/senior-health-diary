@@ -7,9 +7,9 @@ function CustomizeTextInput({
   secureTextEntry,
 }) {
   return (
-    <View className="w-full">
+    <View className="w-full border rounded-lg bg-slate-100">
       <TextInput
-        className="p-5 border rounded-md text-lg"
+        className="px-5 border-none text-lg h-20 -mt-2"
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
