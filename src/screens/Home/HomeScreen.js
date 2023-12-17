@@ -10,14 +10,6 @@ function HomeScreen() {
   return (
     <View>
       <Text className="text-blue-500">Home Screen</Text>
-      <TouchableOpacity
-        onPress={async () => {
-          await AsyncStorage.removeItem("token");
-          navigation.navigate(SCREENS_NAME.login);
-        }}
-      >
-        <Text>Log out</Text>
-      </TouchableOpacity>
     </View>
   );
 }

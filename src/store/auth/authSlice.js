@@ -23,7 +23,11 @@ export const login = createAsyncThunk(
       //khi có api login thực thì bỏ nó đi
 
       if (response.data[0].id) {
-        return { token: JSON.stringify(response.data[0]) };
+        return {
+          token: JSON.stringify(response.data[0]),
+          name: response.data[0].name,
+          age: JSON.stringify(response.data[0].age),
+        };
       } else {
         return { token: "" };
       }
@@ -49,8 +53,10 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        const { token } = action.payload;
+        const { token, name, age } = action.payload;
         AsyncStorage.setItem("token", token);
+        AsyncStorage.setItem("name", name);
+        AsyncStorage.setItem("age", age);
         state.token = token;
       })
       .addCase(login.rejected, (state, action) => {

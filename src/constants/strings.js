@@ -15,4 +15,5 @@ export const appName = "Senior Health Diary";
 export const forgotPassword = "Quên mật khẩu?";
 export const errorResponse = "Đã có lỗi xảy ra";
 export const optionText = "Tuỳ chọn";
-export const ageText = "Tuổi"
+export const ageText = "Tuổi";
+export const logOut = "Đăng xuất";

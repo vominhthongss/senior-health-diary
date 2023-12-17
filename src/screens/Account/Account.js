@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as SCREENS_NAME from "../../constants/screensName";
 import * as ACCOUNT_MENU from "../../constants/account";
 import * as STRINGS from "../../constants/strings";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function AccountScreen() {
   const navigation = useNavigation();
+  const [user, setUser] = useState({});
 
   const goToUserInformation = () => {
     navigation.navigate(SCREENS_NAME.userInformation);
@@ -18,6 +20,16 @@ function AccountScreen() {
       className="w-5 h-5"
     />
   );
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const name = await AsyncStorage.getItem("name");
+      const age = await AsyncStorage.getItem("age");
+      if (name && age) {
+        setUser({ name: name, age: age });
+      }
+    };
+    getUserInfo();
+  }, [user]);
 
   return (
     <ScrollView>
@@ -30,9 +42,9 @@ function AccountScreen() {
                 className="w-20 h-20 rounded-full"
               />
               <View>
-                <Text className="text-xl">Catalin Viciu</Text>
+                <Text className="text-xl">{user.name}</Text>
                 <Text className="text-lg text-gray-400">
-                  70 {STRINGS.ageText}
+                  {user.age} {STRINGS.ageText}
                 </Text>
               </View>
             </View>
@@ -60,7 +72,16 @@ function AccountScreen() {
         <TouchableOpacity className="mt-20">
           <View className="border border-gray-400 w-full">
             <View className="flex justify-start p-5">
-              <Text className="text-red-500 font-bold text-lg">Đăng xuất</Text>
+              <TouchableOpacity
+                onPress={async () => {
+                  await AsyncStorage.clear();
+                  navigation.navigate(SCREENS_NAME.login);
+                }}
+              >
+                <Text className="text-red-500 font-bold text-lg">
+                  {STRINGS.logOut}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </TouchableOpacity>
