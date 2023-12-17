@@ -14,3 +14,5 @@ export const signInGoogle = "ĐĂNG NHẬP VỚI GOOGLE";
 export const appName = "Senior Health Diary";
 export const forgotPassword = "Quên mật khẩu?";
 export const errorResponse = "Đã có lỗi xảy ra";
+export const optionText = "Tuỳ chọn";
+export const ageText = "Tuổi"

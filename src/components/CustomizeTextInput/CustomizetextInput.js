@@ -9,7 +9,7 @@ function CustomizeTextInput({
   return (
     <View className="w-full">
       <TextInput
-        className="p-5 border rounded-md"
+        className="p-5 border rounded-md text-lg"
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}

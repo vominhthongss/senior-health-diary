@@ -58,7 +58,7 @@ function LoginScreen() {
 
       <Text className="pb-4 text-2xl uppercase">{STRINGS.appName}</Text>
 
-      <View className="w-[80%]">
+      <View className="w-[90%]">
         <GeneralForm
           fields={fields}
           handleData={handleLogin}
@@ -66,7 +66,7 @@ function LoginScreen() {
         />
         <GoogleButton onPress={handleLoginGoogle} />
       </View>
-      <View className="w-[80%] flex justify-start py-5 ">
+      <View className="w-[90%] flex justify-start py-5 ">
         <Text className="text-blue-500">{STRINGS.forgotPassword}</Text>
       </View>
     </View>
