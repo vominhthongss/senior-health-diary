@@ -2,7 +2,7 @@ import { Text } from "react-native";
 import { screenBottomOption } from "../constants/options";
 import * as SCREENS_NAME from "../constants/screensName";
 import * as STRINGS from "../constants/strings";
-import AccountScreen from "../screens/Account/Account";
+import AccountScreen from "../screens/Account/AccountScreen";
 import HomeScreen from "../screens/Home/HomeScreen";
 import ScheduleScreen from "../screens/Schedule/ScheduleScreen";
 import DiaryScreen from "../screens/Diary/DiaryScreen";
