@@ -13,6 +13,7 @@ import {
   fetchSchedule,
   updateSchedule,
 } from "../../store/schedule/scheduleSlice";
+import RemindOrDiaryModal from "../Modals/RemindOrDiaryModal";
 
 LocaleConfig.locales["vi"] = localeConfig;
 LocaleConfig.defaultLocale = "vi";
@@ -64,9 +65,17 @@ function ScheduleScreen() {
   const [dataSelected, setDateSelected] = useState("");
   const [remindText, setRemindText] = useState("text");
 
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [inputData, setInputData] = useState('');
+
+  const handleSaveData = (data) => {
+    // Xử lý logic khi nhận dữ liệu từ modal
+    setInputData(data);
+  };
+
   const handleAddDate = () => {
-    if (!dataSelected || !remindText) {
-      Alert.alert(STRINGS.alertName, STRINGS.alertInfo);
+    setModalVisible(true)
+    if (!dataSelected || !remindText) {    
       return;
     }
     // trường hợp là "remind"
@@ -112,6 +121,11 @@ function ScheduleScreen() {
 
       <View className="absolute bottom-1 right-0 w-[100%] px-2">
         <CustomizeButton onPress={handleAddDate} title={STRINGS.addDate} />
+        <RemindOrDiaryModal
+        isVisible={isModalVisible}
+        onClose={() => setModalVisible(false)}
+        onSave={handleSaveData}
+      />
       </View>
     </View>
   );
