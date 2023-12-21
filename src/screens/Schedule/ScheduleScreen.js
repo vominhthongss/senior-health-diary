@@ -69,24 +69,26 @@ function ScheduleScreen() {
       Alert.alert(STRINGS.alertName, STRINGS.alertInfo);
       return;
     }
-    dispatch(
-      updateSchedule({
-        date: dataSelected,
-        schedule: { type: "remind", time: "12:00", text: remindText },
-      })
-    );
-    dispatch(
-      updateSchedule({
-        date: dataSelected,
-        schedule: {
-          type: "diary",
-          sick: "Mỏi",
-          symptoms: "Đau chân",
-          description: "Mỏi",
-          date: dataSelected,
-        },
-      })
-    );
+    // trường hợp là "remind"
+    // dispatch(
+    //   updateSchedule({
+    //     date: dataSelected,
+    //     schedule: { type: "remind", time: "12:00", text: remindText },
+    //   })
+    // );
+    // trường hợp là "diary"›
+    // dispatch(
+    //   updateSchedule({
+    //     date: dataSelected,
+    //     schedule: {
+    //       type: "diary",
+    //       sick: "Mỏi",
+    //       symptoms: "Đau chân",
+    //       description: "Mỏi",
+    //       date: dataSelected,
+    //     },
+    //   })
+    // );
   };
   const handleDayPress = _.debounce(
     (value) => setDateSelected(value.dateString),
