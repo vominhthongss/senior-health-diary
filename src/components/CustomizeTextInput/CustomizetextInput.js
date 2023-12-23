@@ -5,6 +5,7 @@ function CustomizeTextInput({
   value,
   onChangeText,
   secureTextEntry,
+  numericInput,
 }) {
   return (
     <View className="w-full border rounded-lg bg-slate-100">
@@ -14,6 +15,7 @@ function CustomizeTextInput({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
+        keyboardType={numericInput ? "numeric" : "default"}
       />
     </View>
   );

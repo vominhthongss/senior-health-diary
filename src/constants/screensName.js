@@ -1,4 +1,5 @@
 export const login = "Login";
+export const signUp = "SignUp";
 export const mainTab = "MainTab";
 export const userInformation = "UserInformation";
 export const home = "Home";

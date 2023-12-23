@@ -1,4 +1,4 @@
-export const headerBackTitle = "Trở lại";
+export const backTitle = "Trở lại";
 export const home = "Trang chủ";
 export const account = "Tài khoản";
 export const schedule = "Lịch & nhật ký bệnh";
@@ -17,3 +17,5 @@ export const errorResponse = "Đã có lỗi xảy ra";
 export const optionText = "Tuỳ chọn";
 export const ageText = "Tuổi";
 export const logOut = "Đăng xuất";
+export const createAccount = "Tạo tài khoản";
+export const signUp = "Đăng ký";

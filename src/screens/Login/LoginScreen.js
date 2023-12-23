@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/auth/authSlice";
 import { SUCCEEDED } from "../../constants/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function LoginScreen() {
   const navigation = useNavigation();
@@ -22,6 +23,10 @@ function LoginScreen() {
 
   const handleLoginGoogle = () => {
     navigation.navigate(SCREENS_NAME.mainTab);
+  };
+
+  const handleGoToSignUp = () => {
+    navigation.navigate(SCREENS_NAME.signUp);
   };
 
   const fields = [
@@ -66,8 +71,11 @@ function LoginScreen() {
         />
         <GoogleButton onPress={handleLoginGoogle} />
       </View>
-      <View className="w-[90%] flex justify-start py-5 ">
+      <View className="w-[90%] flex flex-row justify-between py-5 ">
         <Text className="text-blue-500">{STRINGS.forgotPassword}</Text>
+        <TouchableOpacity onPress={handleGoToSignUp}>
+          <Text className="text-blue-500">{STRINGS.signUp}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

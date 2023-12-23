@@ -13,7 +13,7 @@ export const screenBottomOption = {
 export const screenChildOption = {
   title: false,
   headerLeftLabelVisible: true,
-  headerBackTitle: STRINGS.headerBackTitle,
+  headerBackTitle: STRINGS.backTitle,
   headerBackTitleStyle: { color: COLORS.main },
   headerTintColor: COLORS.main,
 };
