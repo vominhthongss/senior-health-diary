@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import * as STRINGS from "../../constants/strings";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function SignUpScreen() {
   const navigation = useNavigation();
@@ -13,6 +14,10 @@ function SignUpScreen() {
   const handleLogin = (values) => {
     console.log("values :", values);
     dispatch(login({ email: values.email, password: values.password }));
+  };
+
+  const handleBack = () => {
+    navigation.goBack();
   };
 
   const fields = [
@@ -73,6 +78,14 @@ function SignUpScreen() {
             handleData={handleLogin}
             titleSubmitBtn={STRINGS.createAccount}
           />
+          <View className="flex flex-row justify-start py-5 ">
+            <TouchableOpacity onPress={handleBack}>
+              <Text className="text-blue-500">
+                {"<< "}
+                {STRINGS.backTitle}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>
