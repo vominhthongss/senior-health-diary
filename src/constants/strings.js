@@ -19,3 +19,6 @@ export const ageText = "Tuổi";
 export const logOut = "Đăng xuất";
 export const createAccount = "Tạo tài khoản";
 export const signUp = "Đăng ký";
+export const save = "Lưu";
+export const editTitle = "Chỉnh sửa thông tin";
+export const changePassword = "Đổi mật khẩu";

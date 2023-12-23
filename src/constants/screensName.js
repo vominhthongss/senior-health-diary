@@ -6,3 +6,4 @@ export const home = "Home";
 export const account = "Account";
 export const schedule = "Schedule";
 export const diary = "Diary";
+export const changePassword = "changePassword";

@@ -13,6 +13,9 @@ function AccountScreen() {
   const goToUserInformation = () => {
     navigation.navigate(SCREENS_NAME.userInformation);
   };
+  const goToScreen = (screen) => {
+    navigation.navigate(screen);
+  };
 
   const arrow = (
     <Image
@@ -58,7 +61,10 @@ function AccountScreen() {
         </View>
         {ACCOUNT_MENU.accountOptionMenu.map((menu, key) => {
           return (
-            <TouchableOpacity key={key}>
+            <TouchableOpacity
+              key={key}
+              onPress={() => goToScreen(menu.navigateToScreen)}
+            >
               <View className="border-b border-gray-400 w-full">
                 <View className="flex justify-between p-5 flex-row">
                   <Text className="text-lg">{menu.title}</Text>
