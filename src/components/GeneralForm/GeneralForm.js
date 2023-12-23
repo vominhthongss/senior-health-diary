@@ -5,12 +5,30 @@ import CustomizeTextInput from "../CustomizeTextInput/CustomizetextInput";
 import { parseToForm } from "../../helps/parseToForm";
 import CustomizeButton from "../CustomizeButton/CustomizeButton";
 import ErrorText from "../ErrorText/ErrorText";
+import CustomizeRadio from "../CustomizeRadio/CustomizeRadio";
 
 function GeneralForm({ fields, handleData, titleSubmitBtn }) {
   const fieldRender = (field, key, { handleChange, values, errors }) => {
     let element = null;
 
     switch (field.type) {
+      case "number":
+        element = (
+          <View className="relative">
+            <CustomizeTextInput
+              key={key}
+              placeholder={field.placeholder}
+              value={values[field.name]}
+              onChangeText={handleChange(field.name)}
+              secureTextEntry={false}
+              numericInput={true}
+            />
+            <View className="absolute -bottom-6">
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
+            </View>
+          </View>
+        );
+        break;
       case "text":
         element = (
           <View className="relative">
@@ -52,6 +70,21 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
               value={values[field.name]}
               onChangeText={handleChange(field.name)}
               secureTextEntry={true}
+            />
+            <View className="absolute -bottom-6">
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
+            </View>
+          </View>
+        );
+        break;
+      case "radio":
+        element = (
+          <View className="relative flex flex-row justify-start">
+            <CustomizeRadio
+              key={key}
+              value={values[field.name]}
+              options={field.options}
+              onChangeText={handleChange(field.name)}
             />
             <View className="absolute -bottom-6">
               {errors[field.name] && <ErrorText content={errors[field.name]} />}

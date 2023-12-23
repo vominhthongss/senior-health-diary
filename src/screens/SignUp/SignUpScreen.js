@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import * as STRINGS from "../../constants/strings";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import CustomizeRadio from "../../components/CustomizeRadio/CustomizeRadio";
+import { login } from "../../store/auth/authSlice";
 
 function SignUpScreen() {
   const navigation = useNavigation();
@@ -12,7 +14,6 @@ function SignUpScreen() {
   const { token, status } = useSelector((state) => state.auth);
 
   const handleLogin = (values) => {
-    console.log("values :", values);
     dispatch(login({ email: values.email, password: values.password }));
   };
 
@@ -53,6 +54,33 @@ function SignUpScreen() {
       value: "",
       label: "Nhập lại mật khẩu",
       minLength: 6,
+      isRequired: true,
+    },
+    {
+      name: "sex",
+      type: "radio",
+      options: [
+        {
+          id: "1",
+          label: "Nam",
+          value: "0",
+        },
+        {
+          id: "2",
+          label: "Nữ",
+          value: "1",
+        },
+      ],
+      value: "",
+      label: "Giới tính",
+      isRequired: true,
+    },
+    {
+      name: "age",
+      placeholder: "Tuổi",
+      value: "",
+      type: "number",
+      label: "Tuổi",
       isRequired: true,
     },
   ];
