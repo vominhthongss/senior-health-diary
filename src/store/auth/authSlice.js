@@ -41,6 +41,37 @@ export const login = createAsyncThunk(
     }
   }
 );
+export const signUp = createAsyncThunk(
+  "auth/signUp",
+  async ({ fullName, email, password, age }) => {
+    try {
+      const response = await api.post("/users", {
+        email: email,
+        password: password,
+      });
+      AsyncStorage.setItem("userEmail", email);
+
+      //đây chỉ là mô phỏng lấy token
+      //khi có api signup thực thì bỏ nó đi
+
+      if (response.data) {
+        return {
+          token: "token",
+          name: fullName,
+          age: age,
+        };
+      }
+
+      //khi có api signup thực thì bỏ nó đi
+
+      //thay bằng
+
+      //return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -60,6 +91,21 @@ const authSlice = createSlice({
         state.token = token;
       })
       .addCase(login.rejected, (state, action) => {
+        state.status = FAILED;
+        state.error = action.error.message;
+      })
+      .addCase(signUp.pending, (state) => {
+        state.status = LOADING;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        state.status = SUCCEEDED;
+        const { token, name, age } = action.payload;
+        AsyncStorage.setItem("token", token);
+        AsyncStorage.setItem("name", name);
+        AsyncStorage.setItem("age", age);
+        state.token = token;
+      })
+      .addCase(signUp.rejected, (state, action) => {
         state.status = FAILED;
         state.error = action.error.message;
       });
