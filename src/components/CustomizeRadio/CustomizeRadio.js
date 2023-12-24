@@ -20,7 +20,7 @@ function CustomizeRadio({ options, value, onChangeText }) {
     []
   );
 
-  const [selectedId, setSelectedId] = useState(value?.id);
+  const [selectedId, setSelectedId] = useState(value?.id || value);
   const handleChange = (data) => {
     setSelectedId(data);
     onChangeText(data);

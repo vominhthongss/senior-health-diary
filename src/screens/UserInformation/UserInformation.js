@@ -8,7 +8,9 @@ import { fetchUser } from "../../store/userInformation/userInformationSlice";
 function UserInformationScreen() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInformation);
-  const handleSave = (data) => {};
+  const handleSave = (data) => {
+    console.log("data :", data);
+  };
   const fields = [
     {
       name: "email",
