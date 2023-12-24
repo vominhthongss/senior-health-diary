@@ -25,7 +25,7 @@ export const login = createAsyncThunk(
       if (response.data[0].id) {
         return {
           token: JSON.stringify(response.data[0]),
-          name: response.data[0].name,
+          fullName: response.data[0].fullName,
           age: JSON.stringify(response.data[0].age),
         };
       } else {
@@ -57,7 +57,7 @@ export const signUp = createAsyncThunk(
       if (response.data) {
         return {
           token: "token",
-          name: fullName,
+          fullName: fullName,
           age: age,
         };
       }
@@ -84,9 +84,9 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        const { token, name, age } = action.payload;
+        const { token, fullName, age } = action.payload;
         AsyncStorage.setItem("token", token);
-        AsyncStorage.setItem("name", name);
+        AsyncStorage.setItem("fullName", fullName);
         AsyncStorage.setItem("age", age);
         state.token = token;
       })
@@ -99,9 +99,9 @@ const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        const { token, name, age } = action.payload;
+        const { token, fullName, age } = action.payload;
         AsyncStorage.setItem("token", token);
-        AsyncStorage.setItem("name", name);
+        AsyncStorage.setItem("fullName", fullName);
         AsyncStorage.setItem("age", age);
         state.token = token;
       })

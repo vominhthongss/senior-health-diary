@@ -4,15 +4,17 @@
       "id": 1,
       "email": "nguyenvana@gmail.com",
       "password": "1234567",
-      "name": "Nguyễn Văn A",
-      "age": 25
+      "fullName": "Nguyễn Văn A",
+      "sex": "1",
+      "age": "25"
     },
     {
       "id": 2,
       "email": "tranthib@gmail.com",
       "password": "1234567",
-      "name": "Trần Thị B",
-      "age": 30
+      "fullName": "Trần Thị B",
+      "sex": "0",
+      "age": "30"
     }
   ],
   "schedules": [

@@ -1,14 +1,19 @@
 import { ScrollView, Text, View } from "react-native";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import * as STRINGS from "../../constants/strings";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchUser } from "../../store/userInformation/userInformationSlice";
 
 function UserInformationScreen() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userInformation);
   const handleSave = (data) => {};
   const fields = [
     {
       name: "email",
       placeholder: "Địa chỉ email",
-      value: "",
+      value: user?.email,
       type: "email",
       label: "Địa chỉ email",
       isRequired: true,
@@ -16,7 +21,7 @@ function UserInformationScreen() {
     {
       name: "fullName",
       placeholder: "Họ và tên",
-      value: "",
+      value: user?.fullName,
       type: "text",
       label: "Họ và tên",
       isRequired: true,
@@ -36,31 +41,38 @@ function UserInformationScreen() {
           value: "1",
         },
       ],
-      value: "",
+      value: user?.sex,
       label: "Giới tính",
       isRequired: true,
     },
     {
       name: "age",
       placeholder: "Tuổi",
-      value: "",
+      value: user?.age,
       type: "number",
       label: "Tuổi",
       isRequired: true,
     },
   ];
+  useEffect(() => {
+    if (!user) {
+      dispatch(fetchUser());
+    }
+  }, [user, dispatch]);
   return (
     <ScrollView>
-      <View className="flex flex-column items-center">
-        <Text className="text-2xl my-5 uppercase">{STRINGS.editTitle}</Text>
-        <View className="w-[90%] ">
-          <GeneralForm
-            fields={fields}
-            handleData={handleSave}
-            titleSubmitBtn={STRINGS.save}
-          />
+      {user && (
+        <View className="flex flex-column items-center">
+          <Text className="text-2xl my-5 uppercase">{STRINGS.editTitle}</Text>
+          <View className="w-[90%] ">
+            <GeneralForm
+              fields={fields}
+              handleData={handleSave}
+              titleSubmitBtn={STRINGS.save}
+            />
+          </View>
         </View>
-      </View>
+      )}
     </ScrollView>
   );
 }

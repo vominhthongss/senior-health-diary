@@ -25,10 +25,10 @@ function AccountScreen() {
   );
   useEffect(() => {
     const getUserInfo = async () => {
-      const name = await AsyncStorage.getItem("name");
+      const fullName = await AsyncStorage.getItem("fullName");
       const age = await AsyncStorage.getItem("age");
-      if (name && age) {
-        setUser({ name: name, age: age });
+      if (fullName && age) {
+        setUser({ fullName: fullName, age: age });
       }
     };
     getUserInfo();
@@ -45,7 +45,7 @@ function AccountScreen() {
                 className="w-20 h-20 rounded-full"
               />
               <View>
-                <Text className="text-xl">{user.name}</Text>
+                <Text className="text-xl">{user.fullName}</Text>
                 <Text className="text-lg text-gray-400">
                   {user.age} {STRINGS.ageText}
                 </Text>
