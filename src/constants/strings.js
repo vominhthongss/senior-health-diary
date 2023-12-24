@@ -25,6 +25,7 @@ export const createAccount = "Tạo tài khoản";
 export const signUp = "Đăng ký";
 export const addDiary = "Thêm nhật ký";
 export const save = "Lưu";
+export const close = "Đóng";
 export const editTitle = "Chỉnh sửa thông tin";
 export const changePassword = "Đổi mật khẩu";
 export const search = "Tìm kiếm";

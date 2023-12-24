@@ -8,6 +8,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import ShareButton from "../../ShareButton/ShareButton";
 import { useDispatch, useSelector } from "react-redux";
+import Icon from "react-native-vector-icons/FontAwesome";
 import _ from "lodash";
 import {
   fetchSchedule,
@@ -94,7 +95,6 @@ function ScheduleScreen() {
       type: "text",
       label: "Tên bệnh",
       isRequired: true,
-      status: 0,
     },
     {
       name: "symptoms",
@@ -103,7 +103,6 @@ function ScheduleScreen() {
       type: "text",
       label: "Triệu chứng",
       isRequired: true,
-      status: 0,
     },
     {
       name: "description",
@@ -112,7 +111,6 @@ function ScheduleScreen() {
       type: "text",
       label: "Mô tả",
       isRequired: true,
-      status: 0,
     },
   ];
 
@@ -128,6 +126,7 @@ function ScheduleScreen() {
         schedule: { type: "remind", time: values?.time, text: values?.text },
       })
     );
+    setModalRemindVisible(false);
   };
   const handleAddDiary = (values) => {
     dispatch(
@@ -142,6 +141,7 @@ function ScheduleScreen() {
         },
       })
     );
+    setModalDiaryVisible(false);
   };
 
   return (
@@ -164,18 +164,9 @@ function ScheduleScreen() {
           animationType="fade"
           transparent={true}
           visible={modalRemindVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
         >
-          <View className="flex-1 justify-center content-center items-center">
-            <View className="bg-white p-4 rounded-lg w-80">
-              <TouchableOpacity
-                className="absolute top-2 right-2"
-                onPress={() => setModalRemindVisible(!modalRemindVisible)}
-              >
-                <Text>X</Text>
-              </TouchableOpacity>
+          <View className="flex-1 bg-gray-400/30 justify-center content-center items-center">
+            <View className="bg-white p-4 rounded-lg w-[90%]">
               <Text className="text-center text-lg font-bold mb-4">
                 {STRINGS.addRemind}
               </Text>
@@ -183,6 +174,10 @@ function ScheduleScreen() {
                 fields={fields}
                 titleSubmitBtn={STRINGS.save}
                 handleData={handleAddRemind}
+              />
+              <CustomizeButton
+                onPress={() => setModalRemindVisible(false)}
+                title={STRINGS.close}
               />
             </View>
           </View>
@@ -193,23 +188,9 @@ function ScheduleScreen() {
           animationType="fade"
           transparent={true}
           visible={modalDiaryVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalDiaryVisible(!modalDiaryVisible);
-          }}
         >
-          <View className="flex-1 justify-center content-center items-center">
-            <View className="bg-white p-4 rounded-lg w-80">
-              <TouchableOpacity
-                style={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                }}
-                onPress={() => setModalDiaryVisible(!modalDiaryVisible)}
-              >
-                <Text>X</Text>
-              </TouchableOpacity>
+          <View className="flex-1 bg-gray-400/30 justify-center content-center items-center">
+            <View className="bg-white p-4 rounded-lg w-[90%]">
               <Text className="text-center text-lg font-bold mb-4">
                 {STRINGS.addDiary}
               </Text>
@@ -222,6 +203,10 @@ function ScheduleScreen() {
                 titleSubmitBtn={STRINGS.save}
                 handleData={handleAddDiary}
               ></GeneralForm>
+              <CustomizeButton
+                onPress={() => setModalDiaryVisible(false)}
+                title={STRINGS.close}
+              />
             </View>
           </View>
         </Modal>
