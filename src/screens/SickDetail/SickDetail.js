@@ -1,28 +1,51 @@
 import { useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../store/userInformation/userInformationSlice";
-import { fetchSavedSicks } from "../../store/sickDetail/sickDetailSlice";
+import {
+  fetchSavedSicks,
+  resetState,
+  saveSavedSicks,
+} from "../../store/sickDetail/sickDetailSlice";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import * as STRINGS from "../../constants/strings";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { SUCCEEDED } from "../../constants/store";
 
 function SickDetailScreen() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInformation);
   const { sick } = useSelector((state) => state.home);
-  const { savedSicks } = useSelector((state) => state.sickDetail);
+  const { savedSicks, state } = useSelector((state) => state.sickDetail);
   const isSaved = () => {
     return savedSicks.some(
       (x) => x.usersId === user.id && x.sicksId === sick.id
     );
+  };
+  const handleSave = () => {
+    dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
   };
   useEffect(() => {
     if (!user || !savedSicks) {
       dispatch(fetchUser());
       dispatch(fetchSavedSicks());
     }
-  }, [user, savedSicks, dispatch]);
+    if (state === SUCCEEDED) {
+      Alert.alert(
+        STRINGS.alertName,
+        STRINGS.alerUpdate,
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              dispatch(resetState());
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }, [user, savedSicks, isSaved, dispatch]);
   return (
     <View className="flex flex-row justify-center relative">
       <View className="w-[90%]">
@@ -57,7 +80,7 @@ function SickDetailScreen() {
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">
-          <CustomizeButton title={STRINGS.savesickBtn} />
+          <CustomizeButton onPress={handleSave} title={STRINGS.savesickBtn} />
         </View>
       </View>
     </View>

@@ -19,13 +19,31 @@ export const fetchSavedSicks = createAsyncThunk(
     }
   }
 );
+export const saveSavedSicks = createAsyncThunk(
+  "sickDetail/saveSavedSicks",
+  async ({ usersId, sicksId }) => {
+    try {
+      const response = await api.post("/savedSicks", {
+        usersId: usersId,
+        sicksId: sicksId,
+      });
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 const sickDetailSlice = createSlice({
   name: "sickDetail",
   initialState,
-  reducers: {},
+  reducers: {
+    resetState: (state, action) => {
+      state.status = "idle";
+    },
+  },
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchSavedSicks.pending, (state) => {
         state.status = LOADING;
       })
@@ -35,10 +53,19 @@ const sickDetailSlice = createSlice({
       })
       .addCase(fetchSavedSicks.rejected, (state, action) => {
         state.status = FAILED;
+      })
+      .addCase(saveSavedSicks.pending, (state) => {
+        state.status = LOADING;
+      })
+      .addCase(saveSavedSicks.fulfilled, (state, action) => {
+        state.status = SUCCEEDED;
+      })
+      .addCase(saveSavedSicks.rejected, (state, action) => {
+        state.status = FAILED;
       });
   },
 });
 
-export const {} = sickDetailSlice.actions;
+export const { resetState } = sickDetailSlice.actions;
 
 export default sickDetailSlice.reducer;
