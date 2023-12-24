@@ -28,7 +28,12 @@ export const saveSavedSicks = createAsyncThunk(
         sicksId: sicksId,
       });
 
-      return response.data;
+      if (response.data) {
+        return {
+          usersId: usersId,
+          sicksId: sicksId,
+        };
+      }
     } catch (error) {
       throw error;
     }
@@ -74,6 +79,7 @@ const sickDetailSlice = createSlice({
       })
       .addCase(saveSavedSicks.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
+        state.savedSicks.push(action.payload);
       })
       .addCase(saveSavedSicks.rejected, (state, action) => {
         state.status = FAILED;

@@ -20,8 +20,8 @@ function SickDetailScreen() {
   const isSaved = () => {
     return savedSicks?.some(
       (x) =>
-        x.usersId.toString() === user.id.toString() &&
-        x.sicksId.toString() === sick.id.toString()
+        x.usersId.toString() === user?.id.toString() &&
+        x.sicksId.toString() === sick?.id.toString()
     );
   };
   const handleSave = () => {
@@ -50,7 +50,7 @@ function SickDetailScreen() {
         { cancelable: false }
       );
     }
-  }, [user, savedSicks, isSaved, dispatch]);
+  }, [user, sick, savedSicks, state, isSaved, dispatch]);
   return (
     <View className="flex flex-row justify-center ">
       <View className="w-[90%] ">
