@@ -26,3 +26,4 @@ export const signUp = "Đăng ký";
 export const save = "Lưu";
 export const editTitle = "Chỉnh sửa thông tin";
 export const changePassword = "Đổi mật khẩu";
+export const search = "Tìm kiếm";
