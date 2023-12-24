@@ -1,5 +1,5 @@
 export const backTitle = "Trở lại";
-export const home = "Trang chủ";
+export const home = "Trang chia sẻ kiến thức";
 export const account = "Tài khoản";
 export const schedule = "Lịch & nhật ký bệnh";
 export const diary = "Nhật ký";

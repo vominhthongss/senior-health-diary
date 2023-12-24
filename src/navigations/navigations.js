@@ -33,21 +33,21 @@ export const schedule = {
     ),
   },
 };
-export const diary = {
-  index: 3,
-  name: SCREENS_NAME.diary,
-  component: DiaryScreen,
-  options: {
-    ...screenBottomOption,
-    headerTitle: () => <Text>{STRINGS.diary}</Text>,
-    tabBarIcon: ({ color, size }) => (
-      <Icon name="bell" size={size} color={color} />
-    ),
-  },
-};
+// export const diary = {
+//   index: 3,
+//   name: SCREENS_NAME.diary,
+//   component: DiaryScreen,
+//   options: {
+//     ...screenBottomOption,
+//     headerTitle: () => <Text>{STRINGS.diary}</Text>,
+//     tabBarIcon: ({ color, size }) => (
+//       <Icon name="bell" size={size} color={color} />
+//     ),
+//   },
+// };
 
 export const account = {
-  index: 4,
+  index: 3,
   name: SCREENS_NAME.account,
   component: AccountScreen,
   options: {
