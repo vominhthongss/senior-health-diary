@@ -80,124 +80,18 @@
   ],
   "sicks": [
     {
+      "id": "1",
       "name": "Đái tháo đường"
     },
     {
+      "id": "2",
       "name": "Tim"
-    },
+    }
+  ],
+  "savedSick": [
     {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
-    },
-    {
-      "name": "Đái tháo đường"
-    },
-    {
-      "name": "Tim"
+      "usersId": "1",
+      "sicksId": "1"
     }
   ]
 }
