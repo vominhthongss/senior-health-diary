@@ -6,6 +6,7 @@ import {
   fetchSavedSicks,
   resetState,
   saveSavedSicks,
+  unSaveSavedSicks,
 } from "../../store/sickDetail/sickDetailSlice";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import * as STRINGS from "../../constants/strings";
@@ -28,7 +29,14 @@ function SickDetailScreen() {
     dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
   };
   const handleUnSave = () => {
-    // dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
+    const obj = savedSicks.find(
+      (x) =>
+        x.usersId.toString() === user?.id.toString() &&
+        x.sicksId.toString() === sick?.id.toString()
+    );
+    dispatch(
+      unSaveSavedSicks({ id: obj?.id, usersId: user.id, sicksId: sick.id })
+    );
   };
   useEffect(() => {
     if (!user || !savedSicks) {
