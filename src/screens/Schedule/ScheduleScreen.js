@@ -68,7 +68,7 @@ function ScheduleScreen() {
   const [modalRemindVisible, setModalRemindVisible] = useState(false);
   const [modalDiaryVisible, setModalDiaryVisible] = useState(false);
 
-  const fields = [
+  const fieldsRemind = [
     {
       name: "time",
       placeholder: "Thời gian",
@@ -176,7 +176,7 @@ function ScheduleScreen() {
                 {STRINGS.addRemind}
               </Text>
               <GeneralForm
-                fields={fields}
+                fields={fieldsRemind}
                 titleSubmitBtn={STRINGS.save}
                 handleData={handleAddRemind}
               />
