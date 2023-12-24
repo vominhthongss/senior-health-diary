@@ -34,6 +34,23 @@ export const saveSavedSicks = createAsyncThunk(
     }
   }
 );
+export const unSaveSavedSicks = createAsyncThunk(
+  "sickDetail/unSaveSavedSicks",
+  async ({ id, usersId, sicksId }) => {
+    try {
+      const response = await api.delete(`/savedSicks/${id}`, {
+        usersId: usersId,
+        sicksId: sicksId,
+      });
+
+      if (response.data) {
+        return { id };
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 const sickDetailSlice = createSlice({
   name: "sickDetail",
   initialState,
@@ -59,8 +76,20 @@ const sickDetailSlice = createSlice({
       })
       .addCase(saveSavedSicks.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
+        state.savedSicks.push(action.payload);
       })
       .addCase(saveSavedSicks.rejected, (state, action) => {
+        state.status = FAILED;
+      })
+      .addCase(unSaveSavedSicks.pending, (state) => {
+        state.status = LOADING;
+      })
+      .addCase(unSaveSavedSicks.fulfilled, (state, action) => {
+        state.status = SUCCEEDED;
+        const { id } = action.payload;
+        state.savedSicks = state.savedSicks.filter((x) => x.id !== id);
+      })
+      .addCase(unSaveSavedSicks.rejected, (state, action) => {
         state.status = FAILED;
       });
   },

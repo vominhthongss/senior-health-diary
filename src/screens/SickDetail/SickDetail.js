@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../store/userInformation/userInformationSlice";
 import {
   fetchSavedSicks,
   resetState,
   saveSavedSicks,
+  unSaveSavedSicks,
 } from "../../store/sickDetail/sickDetailSlice";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import * as STRINGS from "../../constants/strings";
@@ -18,12 +19,24 @@ function SickDetailScreen() {
   const { sick } = useSelector((state) => state.home);
   const { savedSicks, state } = useSelector((state) => state.sickDetail);
   const isSaved = () => {
-    return savedSicks.some(
-      (x) => x.usersId === user.id && x.sicksId === sick.id
+    return savedSicks?.some(
+      (x) =>
+        x.usersId.toString() === user?.id.toString() &&
+        x.sicksId.toString() === sick?.id.toString()
     );
   };
   const handleSave = () => {
     dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
+  };
+  const handleUnSave = () => {
+    const obj = savedSicks.find(
+      (x) =>
+        x.usersId.toString() === user?.id.toString() &&
+        x.sicksId.toString() === sick?.id.toString()
+    );
+    dispatch(
+      unSaveSavedSicks({ id: obj?.id, usersId: user.id, sicksId: sick.id })
+    );
   };
   useEffect(() => {
     if (!user || !savedSicks) {
@@ -45,42 +58,64 @@ function SickDetailScreen() {
         { cancelable: false }
       );
     }
-  }, [user, savedSicks, isSaved, dispatch]);
+  }, [user, sick, savedSicks, state, isSaved, dispatch]);
   return (
-    <View className="flex flex-row justify-center relative">
-      <View className="w-[90%]">
-        <View className="flex flex-row items-center space-x-2 mt-2">
-          <Icon size={30} name="heart" color={"red"} />
-          <Text className="text-xl">{isSaved && STRINGS.saveSick}</Text>
-        </View>
+    <View className="flex flex-row justify-center ">
+      <View className="w-[90%] ">
+        {isSaved() ? (
+          <View className="flex flex-row items-center space-x-2 mt-2">
+            <Icon size={30} name="heart" color={"red"} />
+            <Text className="text-xl">{STRINGS.saveSick}</Text>
+          </View>
+        ) : (
+          <View className="flex flex-row items-center space-x-2 mt-2">
+            <Icon size={30} name="heart" color={"black"} />
+            <Text className="text-xl">{STRINGS.unSaveSick}</Text>
+          </View>
+        )}
         <ScrollView className="h-full mt-5">
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickName}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl text-blue-800 font-bold mb-3">
+              {sick?.name}
+            </Text>
+          </View>
+          <View className="flex flex-row justify-center">
+            <Image
+              className="w-96 h-96 object-fill"
+              source={{ uri: sick?.images }}
+            />
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickReason}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl">{sick?.reason}</Text>
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickSimptom}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl">{sick?.simpton}</Text>
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickRevention}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl">{sick?.revention}</Text>
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">
-          <CustomizeButton onPress={handleSave} title={STRINGS.savesickBtn} />
+          {!isSaved() ? (
+            <CustomizeButton onPress={handleSave} title={STRINGS.savesickBtn} />
+          ) : (
+            <CustomizeButton
+              onPress={handleUnSave}
+              title={STRINGS.unSavesickBtn}
+            />
+          )}
         </View>
       </View>
     </View>

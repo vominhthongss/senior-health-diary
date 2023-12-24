@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Image } from "react-native";
 import * as STRINGS from "../../constants/strings";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,15 +50,25 @@ function HomeScreen() {
         </View>
       </View>
       <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
-        <View className="roundet-t-xl">
-          {sicks?.map((sick, key) => (
-            <TouchableOpacity
-              key={key}
-              onPress={() => handleGoToSickDetail(sick)}
-            >
-              <Text>{sick.name}</Text>
-            </TouchableOpacity>
-          ))}
+        <View className="rounded-t-xl space-y-2">
+          {sicks && sicks.length ? (
+            sicks?.map((sick, key) => (
+              <TouchableOpacity
+                key={key}
+                onPress={() => handleGoToSickDetail(sick)}
+              >
+                <View className="flex flex-row items-center space-x-3 bg-slate-200 p-1 rounded-md">
+                  <Image
+                    className="w-20 h-20 object-fill"
+                    source={{ uri: sick?.images }}
+                  />
+                  <Text className="text-xl font-bold">{sick.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text className="text-red-500 text-center">{STRINGS.noData}</Text>
+          )}
         </View>
       </ScrollView>
     </View>
