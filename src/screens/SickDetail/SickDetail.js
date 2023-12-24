@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../store/userInformation/userInformationSlice";
 import {
@@ -80,6 +80,7 @@ function SickDetailScreen() {
             </Text>
             <Text className="text-xl">{sick?.name}</Text>
           </View>
+          <Image className="w-10" source={{ uri: sick?.images }} />
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickReason}

@@ -35,7 +35,6 @@ const homeSlice = createSlice({
     setSick: (state, action) => {
       const { sick } = action.payload;
       state.sick = sick;
-      console.log("state.sick :", state.sick);
     },
   },
   extraReducers: (builder) => {

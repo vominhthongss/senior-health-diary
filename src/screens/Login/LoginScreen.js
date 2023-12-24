@@ -17,7 +17,6 @@ function LoginScreen() {
   const { token, status } = useSelector((state) => state.auth);
 
   const handleLogin = (values) => {
-    console.log("values :", values);
     dispatch(login({ email: values.email, password: values.password }));
   };
 
