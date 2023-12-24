@@ -144,6 +144,11 @@ function ScheduleScreen() {
     setModalDiaryVisible(false);
   };
 
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    setDateSelected(today);
+  }, []);
+
   return (
     <View className="flex-1">
       <Agenda
