@@ -34,6 +34,21 @@ export const saveSavedSicks = createAsyncThunk(
     }
   }
 );
+export const unSaveSavedSicks = createAsyncThunk(
+  "sickDetail/saveSavedSicks",
+  async ({ usersId, sicksId }) => {
+    try {
+      const response = await api.post("/savedSicks", {
+        usersId: usersId,
+        sicksId: sicksId,
+      });
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 const sickDetailSlice = createSlice({
   name: "sickDetail",
   initialState,

@@ -18,12 +18,17 @@ function SickDetailScreen() {
   const { sick } = useSelector((state) => state.home);
   const { savedSicks, state } = useSelector((state) => state.sickDetail);
   const isSaved = () => {
-    return savedSicks.some(
-      (x) => x.usersId === user.id && x.sicksId === sick.id
+    return savedSicks?.some(
+      (x) =>
+        x.usersId.toString() === user.id.toString() &&
+        x.sicksId.toString() === sick.id.toString()
     );
   };
   const handleSave = () => {
     dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
+  };
+  const handleUnSave = () => {
+    // dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
   };
   useEffect(() => {
     if (!user || !savedSicks) {
@@ -47,12 +52,19 @@ function SickDetailScreen() {
     }
   }, [user, savedSicks, isSaved, dispatch]);
   return (
-    <View className="flex flex-row justify-center relative">
-      <View className="w-[90%]">
-        <View className="flex flex-row items-center space-x-2 mt-2">
-          <Icon size={30} name="heart" color={"red"} />
-          <Text className="text-xl">{isSaved && STRINGS.saveSick}</Text>
-        </View>
+    <View className="flex flex-row justify-center ">
+      <View className="w-[90%] ">
+        {isSaved() ? (
+          <View className="flex flex-row items-center space-x-2 mt-2">
+            <Icon size={30} name="heart" color={"red"} />
+            <Text className="text-xl">{STRINGS.saveSick}</Text>
+          </View>
+        ) : (
+          <View className="flex flex-row items-center space-x-2 mt-2">
+            <Icon size={30} name="heart" color={"black"} />
+            <Text className="text-xl">{STRINGS.unSaveSick}</Text>
+          </View>
+        )}
         <ScrollView className="h-full mt-5">
           <View>
             <Text className="text-xl font-bold uppercase">
@@ -80,7 +92,14 @@ function SickDetailScreen() {
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">
-          <CustomizeButton onPress={handleSave} title={STRINGS.savesickBtn} />
+          {!isSaved() ? (
+            <CustomizeButton onPress={handleSave} title={STRINGS.savesickBtn} />
+          ) : (
+            <CustomizeButton
+              onPress={handleUnSave}
+              title={STRINGS.unSavesickBtn}
+            />
+          )}
         </View>
       </View>
     </View>

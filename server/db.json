@@ -93,11 +93,6 @@
       "id": 1,
       "usersId": 1,
       "sicksId": "1"
-    },
-    {
-      "usersId": 1,
-      "sicksId": "1",
-      "id": 2
     }
   ]
 }
