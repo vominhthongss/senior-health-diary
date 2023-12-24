@@ -12,6 +12,7 @@ import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import * as STRINGS from "../../constants/strings";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SUCCEEDED } from "../../constants/store";
+import ShareButton from "../../ShareButton/ShareButton";
 
 function SickDetailScreen() {
   const dispatch = useDispatch();
@@ -63,16 +64,35 @@ function SickDetailScreen() {
     <View className="flex flex-row justify-center ">
       <View className="w-[90%] ">
         {isSaved() ? (
-          <View className="flex flex-row items-center space-x-2 mt-2">
-            <Icon size={30} name="heart" color={"red"} />
-            <Text className="text-xl">{STRINGS.saveSick}</Text>
+          <View className="flex flex-row items-center justify-between">
+            <View className="flex flex-row items-center space-x-2 mt-2">
+              <Icon size={30} name="heart" color={"red"} />
+              <Text className="text-xl">{STRINGS.saveSick}</Text>
+            </View>
+            <ShareButton
+              name={sick?.name}
+              reason={sick?.reason}
+              simpton={sick?.simpton}
+              description={sick?.description}
+              revention={sick?.revention}
+            />
           </View>
         ) : (
-          <View className="flex flex-row items-center space-x-2 mt-2">
-            <Icon size={30} name="heart" color={"black"} />
-            <Text className="text-xl">{STRINGS.unSaveSick}</Text>
+          <View className="flex flex-row items-center justify-between">
+            <View className="flex flex-row items-center space-x-2 mt-2">
+              <Icon size={30} name="heart" color={"black"} />
+              <Text className="text-xl">{STRINGS.unSaveSick}</Text>
+            </View>
+            <ShareButton
+              name={sick?.name}
+              reason={sick?.reason}
+              simpton={sick?.simpton}
+              description={sick?.description}
+              revention={sick?.revention}
+            />
           </View>
         )}
+
         <ScrollView className="h-full mt-5">
           <View>
             <Text className="text-xl font-bold uppercase">

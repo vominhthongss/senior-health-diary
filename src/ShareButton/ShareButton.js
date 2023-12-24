@@ -5,10 +5,28 @@ import * as Sharing from "expo-sharing";
 import * as STRINGS from "../constants/strings";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native-gesture-handler";
-function ShareButton({ symptoms, description, date }) {
+function ShareButton({ name, reason, symptoms, revention, description, date }) {
   const shareHealthLog = async () => {
     try {
-      const pdfContent = `Triệu chứng: ${symptoms}\nMô tả chi tiết:${description}\nNgày: ${date}`;
+      let pdfContent = "";
+      if (name !== "") {
+        pdfContent += "Tên bệnh: " + name + "\n";
+      }
+      if (reason !== "") {
+        pdfContent += "Nguyên nhân: " + reason + "\n";
+      }
+      if (symptoms !== "") {
+        pdfContent += "Triệu chứng: " + symptoms + "\n";
+      }
+      if (revention !== "") {
+        pdfContent += "Cách phòng tránh: " + revention + "\n";
+      }
+      if (description !== "") {
+        pdfContent += "Mô tả chi tiết: " + description + "\n";
+      }
+      if (date !== "") {
+        pdfContent += "\nNgày: " + date + "\n";
+      }
       const path = `${FileSystem.documentDirectory}HealthyLog.pdf`;
       await FileSystem.writeAsStringAsync(path, pdfContent, {
         encoding: FileSystem.EncodingType.UTF8,
