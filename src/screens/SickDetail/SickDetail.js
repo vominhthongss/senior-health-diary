@@ -78,9 +78,16 @@ function SickDetailScreen() {
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickName}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl text-blue-800 font-bold mb-3">
+              {sick?.name}
+            </Text>
           </View>
-          <Image className="w-10" source={{ uri: sick?.images }} />
+          <View className="flex flex-row justify-center">
+            <Image
+              className="w-96 h-96 object-fill"
+              source={{ uri: sick?.images }}
+            />
+          </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickReason}
