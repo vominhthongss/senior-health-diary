@@ -3,6 +3,7 @@ import { parseToSchedule } from "../../helps/parseToSchedule";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 const initialState = {
   user: undefined,
@@ -22,22 +23,43 @@ export const fetchUser = createAsyncThunk(
     }
   }
 );
+export const updateUser = createAsyncThunk(
+  "userInformation/updateUser",
+  async ({ user, id }) => {
+    try {
+      const response = await api.patch(`/users/${id}`, {
+        email: user.email,
+        age: user.age,
+        sex: user.sex,
+        fullName: user.fullName,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 const userInformationSlice = createSlice({
   name: "userInformation",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.pending, (state) => {
-        state.status = LOADING;
-      })
+      .addCase(fetchUser.pending, (state) => {})
       .addCase(fetchUser.fulfilled, (state, action) => {
-        state.status = SUCCEEDED;
         state.user = action.payload;
       })
       .addCase(fetchUser.rejected, (state, action) => {
-        state.status = FAILED;
         state.error = action.error.message;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.status = LOADING;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.status = SUCCEEDED;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.status = FAILED;
       });
   },
 });

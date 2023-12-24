@@ -7,6 +7,7 @@ export const noSchedule = "Không có nhắc nhở hôm nay";
 export const addDate = "Thêm nhắc nhở";
 export const alertName = "Thông báo";
 export const alertInfo = "Vui lòng nhập ngày và nội dung sự kiện";
+export const alerUpdate = "Thành công !";
 export const shareHealthLog = "Chia sẻ Nhật ký Bệnh";
 export const share = "Chia sẻ";
 export const signIn = "ĐĂNG NHẬP";

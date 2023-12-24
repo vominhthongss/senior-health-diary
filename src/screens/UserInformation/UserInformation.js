@@ -1,15 +1,19 @@
-import { ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import * as STRINGS from "../../constants/strings";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUser } from "../../store/userInformation/userInformationSlice";
+import {
+  fetchUser,
+  updateUser,
+} from "../../store/userInformation/userInformationSlice";
+import { SUCCEEDED } from "../../constants/store";
 
 function UserInformationScreen() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.userInformation);
+  const { user, status } = useSelector((state) => state.userInformation);
   const handleSave = (data) => {
-    console.log("data :", data);
+    dispatch(updateUser({ user: data, id: user.id }));
   };
   const fields = [
     {
@@ -60,7 +64,10 @@ function UserInformationScreen() {
     if (!user) {
       dispatch(fetchUser());
     }
-  }, [user, dispatch]);
+    if (status === SUCCEEDED) {
+      Alert.alert(STRINGS.alertName, STRINGS.alerUpdate);
+    }
+  }, [user, status, dispatch]);
   return (
     <ScrollView>
       {user && (
