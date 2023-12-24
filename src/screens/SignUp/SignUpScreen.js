@@ -14,7 +14,7 @@ function SignUpScreen() {
   const dispatch = useDispatch();
   const { token, status } = useSelector((state) => state.auth);
 
-  const handleLogin = (values) => {
+  const handleSignUp = (values) => {
     dispatch(
       signUp({
         fullName: values.fullName,
@@ -111,7 +111,7 @@ function SignUpScreen() {
         <View className="w-[90%]">
           <GeneralForm
             fields={fields}
-            handleData={handleLogin}
+            handleData={handleSignUp}
             titleSubmitBtn={STRINGS.createAccount}
           />
           <View className="flex flex-row justify-start py-5 ">

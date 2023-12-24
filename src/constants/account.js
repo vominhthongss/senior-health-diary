@@ -1,7 +1,8 @@
+import * as SCREENs_NAME from "../constants/screensName";
 export const accountOptionMenu = [
   {
     title: "Đổi mật khẩu",
-    navigateToScreen: "",
+    navigateToScreen: SCREENs_NAME.changePassword,
   },
   {
     title: "Trợ giúp và phản hồi",

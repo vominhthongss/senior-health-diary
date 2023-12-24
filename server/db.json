@@ -4,15 +4,17 @@
       "id": 1,
       "email": "nguyenvana@gmail.com",
       "password": "1234567",
-      "name": "Nguyễn Văn A",
-      "age": 25
+      "fullName": "Nguyễn Văn A",
+      "sex": "2",
+      "age": "26"
     },
     {
       "id": 2,
       "email": "tranthib@gmail.com",
       "password": "1234567",
-      "name": "Trần Thị B",
-      "age": 30
+      "fullName": "Trần Thị B",
+      "sex": "2",
+      "age": "30"
     }
   ],
   "schedules": [
@@ -74,6 +76,28 @@
         }
       ],
       "userEmail": "nguyenvana@gmail.com"
+    }
+  ],
+  "sicks": [
+    {
+      "id": "1",
+      "name": "Đái tháo đường"
+    },
+    {
+      "id": "2",
+      "name": "Tim"
+    }
+  ],
+  "savedSicks": [
+    {
+      "id": 1,
+      "usersId": 1,
+      "sicksId": "1"
+    },
+    {
+      "usersId": 1,
+      "sicksId": "1",
+      "id": 2
     }
   ]
 }
