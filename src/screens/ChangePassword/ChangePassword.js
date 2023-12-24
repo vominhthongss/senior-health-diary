@@ -9,8 +9,10 @@ import {
   resetState,
   updatePassword,
 } from "../../store/changePassword/changePasswordSlice";
+import { useNavigation } from "@react-navigation/native";
 
 function ChangePasswordScreen() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInformation);
   const { status } = useSelector((state) => state.changePassword);
@@ -65,6 +67,7 @@ function ChangePasswordScreen() {
             text: "OK",
             onPress: () => {
               dispatch(resetState());
+              navigation.goBack();
             },
           },
         ],
