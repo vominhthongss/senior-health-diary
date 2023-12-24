@@ -9,7 +9,10 @@ import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import ShareButton from "../../ShareButton/ShareButton";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
-import { fetchSchedule } from "../../store/schedule/scheduleSlice";
+import {
+  fetchSchedule,
+  updateSchedule,
+} from "../../store/schedule/scheduleSlice";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 
 LocaleConfig.locales["vi"] = localeConfig;
@@ -60,12 +63,9 @@ function ScheduleScreen() {
     );
   };
   const [dataSelected, setDateSelected] = useState("");
-  const [remindText, setRemindText] = useState("text");
-  const [diaryText, setDiaryText] = useState("text");
 
   const [modalRemindVisible, setModalRemindVisible] = useState(false);
   const [modalDiaryVisible, setModalDiaryVisible] = useState(false);
-  const [inputData, setInputData] = useState("");
 
   const fields = [
     {
@@ -77,7 +77,7 @@ function ScheduleScreen() {
       isRequired: true,
     },
     {
-      name: "content",
+      name: "text",
       placeholder: "Nội dung",
       value: "",
       type: "text",
@@ -114,81 +114,34 @@ function ScheduleScreen() {
       isRequired: true,
       status: 0,
     },
-    {
-      name: "date",
-      placeholder: "Ngày",
-      value: "",
-      type: "text",
-      label: "Ngày",
-      isRequired: true,
-    },
   ];
-  const handleSaveData = (data) => {
-    // Xử lý logic khi nhận dữ liệu từ modal
-    setInputData(data);
-  };
 
-  const handleAddRemind = () => {
-    setModalRemindVisible(true);
-    if (!dataSelected || !remindText) {
-      setModalRemindVisible(true);
-      return;
-    }
-    // trường hợp là "remind"
-    // dispatch(
-    //   updateSchedule({
-    //     date: dataSelected,
-    //     schedule: { type: "remind", time: "12:00", text: remindText },
-    //   })
-    // );
-    // trường hợp là "diary"›
-    // dispatch(
-    //   updateSchedule({
-    //     date: dataSelected,
-    //     schedule: {
-    //       type: "diary",
-    //       sick: "Mỏi",
-    //       symptoms: "Đau chân",
-    //       description: "Mỏi",
-    //       date: dataSelected,
-    //     },
-    //   })
-    // );
-  };
-  const handleAddDiary = () => {
-    setModalDiaryVisible(true);
-    if (!dataSelected || !diaryText) {
-      setModalDiaryVisible(true);
-      return;
-    }
-    // trường hợp là "remind"
-    // dispatch(
-    //   updateSchedule({
-    //     date: dataSelected,
-    //     schedule: { type: "remind", time: "12:00", text: remindText },
-    //   })
-    // );
-    // trường hợp là "diary"›
-    // dispatch(
-    //   updateSchedule({
-    //     date: dataSelected,
-    //     schedule: {
-    //       type: "diary",
-    //       sick: "Mỏi",
-    //       symptoms: "Đau chân",
-    //       description: "Mỏi",
-    //       date: dataSelected,
-    //     },
-    //   })
-    // );
-  };
   const handleDayPress = _.debounce(
     (value) => setDateSelected(value.dateString),
     100
   );
 
-  const handleFormSubmit = (values) => {
-    console.log("Form Data in Parent Component:", values);
+  const handleAddRemind = (values) => {
+    dispatch(
+      updateSchedule({
+        date: dataSelected,
+        schedule: { type: "remind", time: values?.time, text: values?.text },
+      })
+    );
+  };
+  const handleAddDiary = (values) => {
+    dispatch(
+      updateSchedule({
+        date: dataSelected,
+        schedule: {
+          type: "diary",
+          sick: values?.sick,
+          symptoms: values?.symptoms,
+          description: values?.description,
+          date: dataSelected,
+        },
+      })
+    );
   };
 
   return (
@@ -213,7 +166,6 @@ function ScheduleScreen() {
           visible={modalRemindVisible}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
-            // Handle any additional actions when the modal is closed
           }}
         >
           <View className="flex-1 justify-center content-center items-center">
@@ -225,12 +177,12 @@ function ScheduleScreen() {
                 <Text>X</Text>
               </TouchableOpacity>
               <Text className="text-center text-lg font-bold mb-4">
-                Thêm nhắc nhở
+                {STRINGS.addRemind}
               </Text>
               <GeneralForm
                 fields={fields}
-                titleSubmitBtn={STRINGS.addRemind}
-                handleData={handleFormSubmit}
+                titleSubmitBtn={STRINGS.save}
+                handleData={handleAddRemind}
               />
             </View>
           </View>
@@ -259,7 +211,7 @@ function ScheduleScreen() {
                 <Text>X</Text>
               </TouchableOpacity>
               <Text className="text-center text-lg font-bold mb-4">
-                Thêm nhật ký
+                {STRINGS.addDiary}
               </Text>
               <GeneralForm
                 fields={fieldDiary.map((field) =>
@@ -267,17 +219,25 @@ function ScheduleScreen() {
                     ? { ...field, value: dataSelected }
                     : field
                 )}
-                titleSubmitBtn={STRINGS.addDiary}
-                handleData={handleFormSubmit}
+                titleSubmitBtn={STRINGS.save}
+                handleData={handleAddDiary}
               ></GeneralForm>
             </View>
           </View>
         </Modal>
       </View>
 
-      <View className="flex justify-between flex-row w-full">
-        <CustomizeButton onPress={handleAddRemind} title={STRINGS.addRemind} />
-        <CustomizeButton onPress={handleAddDiary} title={STRINGS.addDiary} />
+      <View className="mb-2 px-2">
+        <CustomizeButton
+          onPress={() => setModalRemindVisible(true)}
+          title={STRINGS.addRemind}
+        />
+      </View>
+      <View className="px-2">
+        <CustomizeButton
+          onPress={() => setModalDiaryVisible(true)}
+          title={STRINGS.addDiary}
+        />
       </View>
     </View>
   );
