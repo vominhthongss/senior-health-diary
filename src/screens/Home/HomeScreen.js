@@ -1,13 +1,20 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import * as STRINGS from "../../constants/strings";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSicks, searchSicks } from "../../store/home/homeSlice";
+import { useEffect } from "react";
 
 function HomeScreen() {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { sicks } = useSelector((state) => state.home);
   const handleSearch = (data) => {
-    console.log("data :", data);
+    const { search } = data;
+    if (search) {
+      dispatch(searchSicks({ keyword: search }));
+    } else {
+      dispatch(fetchSicks());
+    }
   };
   const fields = [
     {
@@ -18,8 +25,13 @@ function HomeScreen() {
       label: "Tìm kiếm bệnh",
     },
   ];
+  useEffect(() => {
+    if (!sicks) {
+      dispatch(fetchSicks());
+    }
+  }, [sicks, dispatch]);
   return (
-    <View>
+    <View className="bg-blue-200">
       <View className="flex flex-row justify-center">
         <View className="w-[90%]">
           <GeneralForm
@@ -29,7 +41,13 @@ function HomeScreen() {
           />
         </View>
       </View>
-      <ScrollView></ScrollView>
+      <ScrollView className="bg-white rounded-t-xl py-3 px-2 mx-1">
+        <View className="roundet-t-xl">
+          {sicks?.map((sick, key) => (
+            <Text key={key}>{sick.name}</Text>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 }

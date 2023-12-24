@@ -3,6 +3,7 @@ import scheduleReducer from "./schedule/scheduleSlice";
 import authReducer from "./auth/authSlice";
 import userInformationReducer from "./userInformation/userInformationSlice";
 import changePasswordReducer from "./changePassword/changePasswordSlice";
+import homeReducer from "./home/homeSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     auth: authReducer,
     userInformation: userInformationReducer,
     changePassword: changePasswordReducer,
+    home: homeReducer,
   },
 });
 
