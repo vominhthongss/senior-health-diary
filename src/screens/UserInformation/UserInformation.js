@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   fetchUser,
+  resetState,
   updateUser,
 } from "../../store/userInformation/userInformationSlice";
 import { SUCCEEDED } from "../../constants/store";
@@ -65,7 +66,19 @@ function UserInformationScreen() {
       dispatch(fetchUser());
     }
     if (status === SUCCEEDED) {
-      Alert.alert(STRINGS.alertName, STRINGS.alerUpdate);
+      Alert.alert(
+        STRINGS.alertName,
+        STRINGS.alerUpdate,
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              dispatch(resetState());
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     }
   }, [user, status, dispatch]);
   return (

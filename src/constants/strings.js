@@ -8,6 +8,9 @@ export const addDate = "Thêm nhắc nhở";
 export const alertName = "Thông báo";
 export const alertInfo = "Vui lòng nhập ngày và nội dung sự kiện";
 export const alerUpdate = "Thành công !";
+export const alerWrongPassword = "Không đúng mật khẩu cũ !";
+export const alerIsNotTheSame =
+  "Mật khẩu mới và mật khẩu nhập lại không giống nhau !";
 export const shareHealthLog = "Chia sẻ Nhật ký Bệnh";
 export const share = "Chia sẻ";
 export const signIn = "ĐĂNG NHẬP";
