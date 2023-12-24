@@ -13,7 +13,7 @@ function HomeScreen() {
   const navigation = useNavigation();
   const handleGoToSickDetail = (sick) => {
     dispatch(setSick({ sick: sick }));
-    navigation.navigate(SCREENS_NAME);
+    navigation.navigate(SCREENS_NAME.sickDetail);
   };
   const { sicks } = useSelector((state) => state.home);
   const handleSearch = (data) => {

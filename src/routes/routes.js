@@ -5,6 +5,7 @@ import { screenChildOption, screenParentOption } from "../constants/options";
 import * as SCREENS_NAME from "../constants/screensName";
 import SignUpScreen from "../screens/SignUp/SignUpScreen";
 import ChangePasswordScreen from "../screens/ChangePassword/ChangePassword";
+import SickDetailScreen from "../screens/SickDetail/SickDetail";
 
 export const mainTab = {
   name: SCREENS_NAME.mainTab,
@@ -29,5 +30,10 @@ export const userInformation = {
 export const changePassword = {
   name: SCREENS_NAME.changePassword,
   component: ChangePasswordScreen,
+  options: screenChildOption,
+};
+export const sickDetail = {
+  name: SCREENS_NAME.sickDetail,
+  component: SickDetailScreen,
   options: screenChildOption,
 };
