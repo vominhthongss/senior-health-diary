@@ -49,7 +49,7 @@ function HomeScreen() {
           />
         </View>
       </View>
-      <ScrollView className="bg-white rounded-t-xl py-3 px-2 mx-1">
+      <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
         <View className="roundet-t-xl">
           {sicks?.map((sick, key) => (
             <TouchableOpacity
