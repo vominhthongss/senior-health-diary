@@ -84,19 +84,19 @@ function SickDetailScreen() {
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickReason}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl">{sick?.reason}</Text>
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickSimptom}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl">{sick?.simpton}</Text>
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickRevention}
             </Text>
-            <Text className="text-xl">{sick?.name}</Text>
+            <Text className="text-xl">{sick?.revention}</Text>
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">
