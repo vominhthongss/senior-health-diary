@@ -4,6 +4,7 @@ import api from "../../services/api";
 
 const initialState = {
   sicks: undefined,
+  sick: undefined,
   status: "idle",
   error: null,
 };
@@ -30,7 +31,13 @@ export const searchSicks = createAsyncThunk(
 const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {},
+  reducers: {
+    setSick: (state, action) => {
+      const { sick } = action.payload;
+      state.sick = sick;
+      console.log("state.sick :", state.sick);
+    },
+  },
   extraReducers: (builder) => {
     builder
 
@@ -57,6 +64,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const {} = homeSlice.actions;
+export const { setSick } = homeSlice.actions;
 
 export default homeSlice.reducer;
