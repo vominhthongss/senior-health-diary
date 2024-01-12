@@ -3,7 +3,6 @@ import { parseToSchedule } from "../../helps/parseToSchedule";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 
 const initialState = {
   token: undefined,
@@ -15,8 +14,8 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
     try {
-      const response = await axios.post(
-        `https://apimp.smartdevgroup.com/index.php?route=extension/mstore/account/login`,
+      const response = await api.post(
+        `/index.php?route=extension/mstore/account/login`,
         {
           email: email,
           password: password,
@@ -48,12 +47,19 @@ export const login = createAsyncThunk(
 );
 export const signUp = createAsyncThunk(
   "auth/signUp",
-  async ({ fullName, email, password, age }) => {
+  async ({ firstname, lastname, email, telephone, password, confirm }) => {
     try {
-      const response = await api.post("/users", {
-        email: email,
-        password: password,
-      });
+      const response = await api.post(
+        "/index.php?route=extension/mstore/account/register",
+        {
+          email: email,
+          firstname: firstname,
+          lastname: lastname,
+          telephone: telephone,
+          password: password,
+          confirm: confirm,
+        }
+      );
       AsyncStorage.setItem("userEmail", email);
 
       //đây chỉ là mô phỏng lấy token
@@ -62,8 +68,8 @@ export const signUp = createAsyncThunk(
       if (response.data) {
         return {
           token: "token",
-          fullName: fullName,
-          age: age,
+          fullName: firstname + " " + lastname,
+          age: "90",
         };
       }
 
