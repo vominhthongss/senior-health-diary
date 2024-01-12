@@ -3,6 +3,7 @@ import { parseToSchedule } from "../../helps/parseToSchedule";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const initialState = {
   token: undefined,
@@ -14,22 +15,23 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
     try {
-      const response = await api.get(
-        `/users/?email=${email}&?password=${password}`
+      const response = await axios.post(
+        `https://apimp.smartdevgroup.com/index.php?route=extension/mstore/account/login`,
+        {
+          email: email,
+          password: password,
+        }
       );
       AsyncStorage.setItem("userEmail", email);
 
       //đây chỉ là mô phỏng lấy token
       //khi có api login thực thì bỏ nó đi
-      if (response.status === 200) {
-        response.data[0].token = "AgVukCfSV8hMpX2MaTQBwCBkhEUpZBAX9XuJLRCFY";
-      }
 
-      if (response.data[0].id) {
+      if (response.status === 200) {
         return {
-          token: JSON.stringify(response.data[0]),
-          fullName: response.data[0].fullName,
-          age: JSON.stringify(response.data[0].age),
+          token: "AgVukCfSV8hMpX2MaTQBwCBkhEUpZBAX9XuJLRCFY",
+          fullName: `${response.data.firstname} ${response.data.lastname}`,
+          age: "90",
         };
       } else {
         return { token: "" };

@@ -2,9 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import * as STRINGS from "../constants/strings";
 import { Alert } from "react-native";
-
+const { ENDPOINT } = process.env;
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: ENDPOINT,
 });
 
 api.interceptors.request.use(
