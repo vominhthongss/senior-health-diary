@@ -14,19 +14,23 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
     try {
-      const response = await api.get(
-        `/users/?email=${email}&?password=${password}`
+      const response = await api.post(
+        `/index.php?route=extension/mstore/account/login`,
+        {
+          email: email,
+          password: password,
+        }
       );
       AsyncStorage.setItem("userEmail", email);
 
       //đây chỉ là mô phỏng lấy token
       //khi có api login thực thì bỏ nó đi
 
-      if (response.data[0].id) {
+      if (response.status === 200) {
         return {
-          token: JSON.stringify(response.data[0]),
-          fullName: response.data[0].fullName,
-          age: JSON.stringify(response.data[0].age),
+          token: "AgVukCfSV8hMpX2MaTQBwCBkhEUpZBAX9XuJLRCFY",
+          fullName: `${response.data.firstname} ${response.data.lastname}`,
+          age: "90",
         };
       } else {
         return { token: "" };
@@ -43,12 +47,19 @@ export const login = createAsyncThunk(
 );
 export const signUp = createAsyncThunk(
   "auth/signUp",
-  async ({ fullName, email, password, age }) => {
+  async ({ firstname, lastname, email, telephone, password, confirm }) => {
     try {
-      const response = await api.post("/users", {
-        email: email,
-        password: password,
-      });
+      const response = await api.post(
+        "/index.php?route=extension/mstore/account/register",
+        {
+          email: email,
+          firstname: firstname,
+          lastname: lastname,
+          telephone: telephone,
+          password: password,
+          confirm: confirm,
+        }
+      );
       AsyncStorage.setItem("userEmail", email);
 
       //đây chỉ là mô phỏng lấy token
@@ -57,8 +68,8 @@ export const signUp = createAsyncThunk(
       if (response.data) {
         return {
           token: "token",
-          fullName: fullName,
-          age: age,
+          fullName: firstname + " " + lastname,
+          age: "90",
         };
       }
 

@@ -43,7 +43,7 @@ function LoginScreen() {
       type: "password",
       value: "",
       label: "Mật khẩu",
-      minLength: 6,
+      minLength: 4,
       isRequired: true,
     },
   ];

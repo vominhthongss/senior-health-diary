@@ -17,10 +17,12 @@ function SignUpScreen() {
   const handleSignUp = (values) => {
     dispatch(
       signUp({
-        fullName: values.fullName,
+        firstname: values.firstname,
+        lastname: values.lastname,
         email: values.email,
+        telephone: values.telephone,
         password: values.password,
-        age: values.age,
+        confirm: values.confirm,
       })
     );
   };
@@ -39,11 +41,27 @@ function SignUpScreen() {
       isRequired: true,
     },
     {
-      name: "fullName",
-      placeholder: "Họ và tên",
+      name: "firstname",
+      placeholder: "Họ",
       value: "",
       type: "text",
-      label: "Họ và tên",
+      label: "Họ",
+      isRequired: true,
+    },
+    {
+      name: "lastname",
+      placeholder: "Tên và Tên lót",
+      value: "",
+      type: "text",
+      label: "Tên và Tên lót",
+      isRequired: true,
+    },
+    {
+      name: "telephone",
+      placeholder: "Điện thoại",
+      value: "",
+      type: "text",
+      label: "Điện thoại",
       isRequired: true,
     },
     {
@@ -56,7 +74,7 @@ function SignUpScreen() {
       isRequired: true,
     },
     {
-      name: "confirmPassword",
+      name: "confirm",
       placeholder: "Nhập lại mật khẩu",
       type: "password",
       value: "",
