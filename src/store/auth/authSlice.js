@@ -21,6 +21,9 @@ export const login = createAsyncThunk(
 
       //đây chỉ là mô phỏng lấy token
       //khi có api login thực thì bỏ nó đi
+      if (response.status === 200) {
+        response.data[0].token = "AgVukCfSV8hMpX2MaTQBwCBkhEUpZBAX9XuJLRCFY";
+      }
 
       if (response.data[0].id) {
         return {
