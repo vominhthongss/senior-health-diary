@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "login": "expo login",
+    "build-android": "expo build:run -p android"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
@@ -17,6 +19,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "add": "^2.0.6",
     "axios": "^1.6.2",
+    "eas": "^0.1.0",
     "expo": "~49.0.15",
     "expo-file-system": "~15.4.5",
     "expo-sharing": "~11.5.0",
