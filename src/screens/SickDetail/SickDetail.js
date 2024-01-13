@@ -40,25 +40,25 @@ function SickDetailScreen() {
     );
   };
   useEffect(() => {
-    if (!user || !savedSicks) {
-      dispatch(fetchUser());
-      dispatch(fetchSavedSicks());
-    }
-    if (state === SUCCEEDED) {
-      Alert.alert(
-        STRINGS.alertName,
-        STRINGS.alerUpdate,
-        [
-          {
-            text: "OK",
-            onPress: () => {
-              dispatch(resetState());
-            },
-          },
-        ],
-        { cancelable: false }
-      );
-    }
+    // if (!user || !savedSicks) {
+    //   dispatch(fetchUser());
+    //   dispatch(fetchSavedSicks());
+    // }
+    // if (state === SUCCEEDED) {
+    //   Alert.alert(
+    //     STRINGS.alertName,
+    //     STRINGS.alerUpdate,
+    //     [
+    //       {
+    //         text: "OK",
+    //         onPress: () => {
+    //           dispatch(resetState());
+    //         },
+    //       },
+    //     ],
+    //     { cancelable: false }
+    //   );
+    // }
   }, [user, sick, savedSicks, state, isSaved, dispatch]);
   return (
     <View className="flex flex-row justify-center ">
@@ -105,26 +105,26 @@ function SickDetailScreen() {
           <View className="flex flex-row justify-center">
             <Image
               className="w-96 h-96 object-fill"
-              source={{ uri: sick?.images }}
+              source={{ uri: sick?.thumb }}
             />
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickReason}
             </Text>
-            <Text className="text-xl">{sick?.reason}</Text>
+            <Text className="text-xl">{sick?.description}</Text>
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickSimptom}
             </Text>
-            <Text className="text-xl">{sick?.simpton}</Text>
+            <Text className="text-xl">{sick?.description}</Text>
           </View>
           <View>
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickRevention}
             </Text>
-            <Text className="text-xl">{sick?.revention}</Text>
+            <Text className="text-xl">{sick?.description}</Text>
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">

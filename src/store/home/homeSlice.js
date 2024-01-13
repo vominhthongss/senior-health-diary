@@ -11,8 +11,8 @@ const initialState = {
 
 export const fetchSicks = createAsyncThunk("home/fetchSicks", async () => {
   try {
-    const response = await api.get(`/index.php?route=api/product`);
-    return response.data;
+    const response = await api.get(`/index.php?route=extension/mstore/product`);
+    return response.data.data;
   } catch (error) {
     throw error;
   }
@@ -21,7 +21,9 @@ export const searchSicks = createAsyncThunk(
   "home/searchSicks",
   async ({ keyword }) => {
     try {
-      const response = await api.get(`/sicks?name=${keyword}`);
+      const response = await api.get(
+        `/index.php?route=extension/mstore/product?name=${keyword}`
+      );
       return response.data;
     } catch (error) {
       throw error;
@@ -45,7 +47,7 @@ const homeSlice = createSlice({
       })
       .addCase(fetchSicks.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        state.sicks = action.payload.products;
+        state.sicks = action.payload;
       })
       .addCase(fetchSicks.rejected, (state, action) => {
         state.status = FAILED;

@@ -28,8 +28,8 @@ export const login = createAsyncThunk(
 
       if (response.status === 200) {
         return {
-          token: "AgVukCfSV8hMpX2MaTQBwCBkhEUpZBAX9XuJLRCFY",
-          fullName: `${response.data.firstname} ${response.data.lastname}`,
+          token: JSON.stringify(response.data),
+          fullName: `${response.data.data.firstname} ${response.data.data.lastname}`,
           age: "90",
         };
       } else {
@@ -67,8 +67,8 @@ export const signUp = createAsyncThunk(
 
       if (response.data) {
         return {
-          token: "token",
-          fullName: firstname + " " + lastname,
+          token: JSON.stringify(response.data),
+          fullName: `${response.data.data.firstname} ${response.data.data.lastname}`,
           age: "90",
         };
       }

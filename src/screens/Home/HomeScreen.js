@@ -37,6 +37,7 @@ function HomeScreen() {
     if (!sicks) {
       dispatch(fetchSicks());
     }
+    console.log("sicks :", sicks);
   }, [sicks, dispatch]);
   return (
     <View className="bg-blue-200">
@@ -60,7 +61,11 @@ function HomeScreen() {
                 <View className="flex flex-row items-center space-x-3 bg-slate-200 p-1 rounded-md">
                   <Image
                     className="w-20 h-20 object-fill"
-                    source={{ uri: sick?.images }}
+                    source={{
+                      uri: sick.image
+                        ? sick.image
+                        : `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
+                    }}
                   />
                   <Text className="text-xl font-bold">{sick.name}</Text>
                 </View>
