@@ -78,27 +78,6 @@ function HomeScreen() {
             </TouchableOpacity>
           )}
         />
-        <View className="rounded-t-xl space-y-2">
-          {categories && categories.length ? (
-            categories?.map((x, key) => (
-              <TouchableOpacity key={key} onPress={() => handleGoToSickList()}>
-                <View className="flex flex-row items-center space-x-3 bg-slate-200 p-1 rounded-md">
-                  <Image
-                    className="w-20 h-20 object-fill"
-                    source={{
-                      uri: x.image
-                        ? x.image
-                        : `https://via.placeholder.com/100x100.png?text=${x?.name}`,
-                    }}
-                  />
-                  <Text className="text-xl font-bold">{x.name}</Text>
-                </View>
-              </TouchableOpacity>
-            ))
-          ) : (
-            <Text className="text-red-500 text-center">{STRINGS.noData}</Text>
-          )}
-        </View>
       </ScrollView>
     </View>
   );
