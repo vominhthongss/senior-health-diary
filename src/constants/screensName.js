@@ -8,3 +8,4 @@ export const schedule = "Schedule";
 export const diary = "Diary";
 export const changePassword = "ChangePassword";
 export const sickDetail = "SickDetail";
+export const sickList = "SickList";

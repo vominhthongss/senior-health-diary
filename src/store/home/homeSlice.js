@@ -3,28 +3,32 @@ import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
 
 const initialState = {
-  sicks: undefined,
-  sick: undefined,
+  catagories: undefined,
   status: "idle",
   error: null,
 };
 
-export const fetchSicks = createAsyncThunk("home/fetchSicks", async () => {
-  try {
-    const response = await api.get(`/index.php?route=extension/mstore/product`);
-    return response.data.data;
-  } catch (error) {
-    throw error;
+export const fetchCategories = createAsyncThunk(
+  "home/fetchCategories",
+  async () => {
+    try {
+      const response = await api.get(
+        `/index.php?route=extension/mstore/category`
+      );
+      return response.data.data;
+    } catch (error) {
+      throw error;
+    }
   }
-});
-export const searchSicks = createAsyncThunk(
-  "home/searchSicks",
+);
+export const searchCategories = createAsyncThunk(
+  "home/searchCategories",
   async ({ keyword }) => {
     try {
       const response = await api.get(
-        `/index.php?route=extension/mstore/product?name=${keyword}`
+        `/index.php?route=extension/mstore/category?name=${keyword}`
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       throw error;
     }
@@ -33,38 +37,33 @@ export const searchSicks = createAsyncThunk(
 const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {
-    setSick: (state, action) => {
-      const { sick } = action.payload;
-      state.sick = sick;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
 
-      .addCase(fetchSicks.pending, (state) => {
+      .addCase(fetchCategories.pending, (state) => {
         state.status = LOADING;
       })
-      .addCase(fetchSicks.fulfilled, (state, action) => {
+      .addCase(fetchCategories.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        state.sicks = action.payload;
+        state.categories = action.payload;
       })
-      .addCase(fetchSicks.rejected, (state, action) => {
+      .addCase(fetchCategories.rejected, (state, action) => {
         state.status = FAILED;
       })
-      .addCase(searchSicks.pending, (state) => {
+      .addCase(searchCategories.pending, (state) => {
         state.status = LOADING;
       })
-      .addCase(searchSicks.fulfilled, (state, action) => {
+      .addCase(searchCategories.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        state.sicks = action.payload;
+        state.categories = action.payload;
       })
-      .addCase(searchSicks.rejected, (state, action) => {
+      .addCase(searchCategories.rejected, (state, action) => {
         state.status = FAILED;
       });
   },
 });
 
-export const { setSick } = homeSlice.actions;
+export const {} = homeSlice.actions;
 
 export default homeSlice.reducer;

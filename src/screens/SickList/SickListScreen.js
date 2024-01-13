@@ -2,42 +2,47 @@ import { View, Text, ScrollView, Image } from "react-native";
 import * as STRINGS from "../../constants/strings";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories, searchCategories } from "../../store/home/homeSlice";
 import { useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import * as SCREENS_NAME from "../../constants/screensName";
+import {
+  fetchSicks,
+  searchSicks,
+  setSick,
+} from "../../store/sickList/sickListSlice";
 
-function HomeScreen() {
+function SickListScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const handleGoToSickList = () => {
-    navigation.navigate(SCREENS_NAME.sickList);
+  const handleGoToSickDetail = (sick) => {
+    dispatch(setSick({ sick: sick }));
+    navigation.navigate(SCREENS_NAME.sickDetail);
   };
-  const { categories } = useSelector((state) => state.home);
+  const { sicks } = useSelector((state) => state.sickList);
   const handleSearch = (data) => {
     const { search } = data;
     if (search) {
-      dispatch(searchCategories({ keyword: search }));
+      dispatch(searchSicks({ keyword: search }));
     } else {
-      dispatch(fetchCategories());
+      dispatch(fetchSicks());
     }
   };
   const fields = [
     {
       name: "search",
-      placeholder: "Tìm kiếm danh mục bệnh",
+      placeholder: "Tìm kiếm bệnh",
       value: "",
       type: "text",
-      label: "Tìm kiếm danh mục bệnh",
+      label: "Tìm kiếm bệnh",
     },
   ];
   useEffect(() => {
-    if (!categories) {
-      dispatch(fetchCategories());
+    if (!sicks) {
+      dispatch(fetchSicks());
     }
-    console.log("catagories :", categories);
-  }, [categories, dispatch]);
+    console.log("sicks :", sicks);
+  }, [sicks, dispatch]);
   return (
     <View className="bg-blue-200">
       <View className="flex flex-row justify-center">
@@ -51,19 +56,22 @@ function HomeScreen() {
       </View>
       <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
         <View className="rounded-t-xl space-y-2">
-          {categories && categories.length ? (
-            categories?.map((x, key) => (
-              <TouchableOpacity key={key} onPress={() => handleGoToSickList()}>
+          {sicks && sicks.length ? (
+            sicks?.map((sick, key) => (
+              <TouchableOpacity
+                key={key}
+                onPress={() => handleGoToSickDetail(sick)}
+              >
                 <View className="flex flex-row items-center space-x-3 bg-slate-200 p-1 rounded-md">
                   <Image
                     className="w-20 h-20 object-fill"
                     source={{
-                      uri: x.image
-                        ? x.image
-                        : `https://via.placeholder.com/100x100.png?text=${x?.name}`,
+                      uri: sick.image
+                        ? sick.image
+                        : `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
                     }}
                   />
-                  <Text className="text-xl font-bold">{x.name}</Text>
+                  <Text className="text-xl font-bold">{sick.name}</Text>
                 </View>
               </TouchableOpacity>
             ))
@@ -76,4 +84,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default SickListScreen;

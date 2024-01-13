@@ -17,7 +17,7 @@ import ShareButton from "../../ShareButton/ShareButton";
 function SickDetailScreen() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInformation);
-  const { sick } = useSelector((state) => state.home);
+  const { sick } = useSelector((state) => state.sickList);
   const { savedSicks, state } = useSelector((state) => state.sickDetail);
   const isSaved = () => {
     return savedSicks?.some(
@@ -105,7 +105,9 @@ function SickDetailScreen() {
           <View className="flex flex-row justify-center">
             <Image
               className="w-96 h-96 object-fill"
-              source={{ uri: sick?.thumb }}
+              source={{
+                uri: `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
+              }}
             />
           </View>
           <View>
