@@ -41,7 +41,6 @@ function SickListScreen() {
     if (!sicks) {
       dispatch(fetchSicks());
     }
-    console.log("sicks :", sicks);
   }, [sicks, dispatch]);
   return (
     <View className="bg-blue-200">
@@ -54,6 +53,10 @@ function SickListScreen() {
           />
         </View>
       </View>
+      <Text className="font-bold text-slate-500 uppercase text-start ml-6 text-xl my-2">
+        {STRINGS.sickListName}
+      </Text>
+
       <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
         <View className="rounded-t-xl space-y-2">
           {sicks && sicks.length ? (

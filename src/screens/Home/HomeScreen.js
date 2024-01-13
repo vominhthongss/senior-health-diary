@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import * as SCREENS_NAME from "../../constants/screensName";
+import { FlatGrid } from "react-native-super-grid";
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -49,7 +50,34 @@ function HomeScreen() {
           />
         </View>
       </View>
+      <Text className="font-bold text-green-800 uppercase text-center text-xl my-2">
+        {STRINGS.categoryName}
+      </Text>
+
       <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
+        <FlatGrid
+          itemDimension={130}
+          data={categories}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => handleGoToSickList()}>
+              <View className="flex flex-col items-center space-x-3  p-1 rounded-md">
+                <View className="bg-slate-200 rounded-lg w-full py-2 flex justify-center flex-row">
+                  <Image
+                    className="w-20 h-20 object-fill"
+                    source={{
+                      uri: item.image
+                        ? item.image
+                        : `https://via.placeholder.com/100x100.png?text=${item?.name}`,
+                    }}
+                  />
+                </View>
+                <Text className="text-md font-bold uppercase mt-2">
+                  {item.name}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
         <View className="rounded-t-xl space-y-2">
           {categories && categories.length ? (
             categories?.map((x, key) => (

@@ -38,3 +38,5 @@ export const sickReason = "Nguyên nhân";
 export const sickSimptom = "Triệu chứng";
 export const sickRevention = "Cáchh phòng tránh";
 export const noData = "Không có dữ liệu";
+export const categoryName = "Danh mục các bệnh";
+export const sickListName = "Danh sách bệnh";
