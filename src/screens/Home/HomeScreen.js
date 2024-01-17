@@ -40,7 +40,7 @@ function HomeScreen() {
     console.log("catagories :", categories);
   }, [categories, dispatch]);
   return (
-    <View className="bg-blue-200">
+    <View className="bg-blue-200 h-full">
       <View className="flex flex-row justify-center">
         <View className="w-[90%]">
           <GeneralForm

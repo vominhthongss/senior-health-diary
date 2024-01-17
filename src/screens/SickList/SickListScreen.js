@@ -43,7 +43,7 @@ function SickListScreen() {
     }
   }, [sicks, dispatch]);
   return (
-    <View className="bg-blue-200">
+    <View className="bg-blue-200 h-full">
       <View className="flex flex-row justify-center">
         <View className="w-[90%]">
           <GeneralForm
@@ -58,7 +58,7 @@ function SickListScreen() {
       </Text>
 
       <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
-        <View className="rounded-t-xl space-y-2">
+        <View className="rounded-t-xl space-y-2 mb-10">
           {sicks && sicks.length ? (
             sicks?.map((sick, key) => (
               <TouchableOpacity
