@@ -13,6 +13,7 @@ import _ from "lodash";
 import {
   addDiary,
   addRemind,
+  addSchedule,
   fetchSchedule,
   updateSchedule,
 } from "../../store/schedule/scheduleSlice";
@@ -134,12 +135,27 @@ function ScheduleScreen() {
         schedule: { type: "remind", time: values?.time, text: values?.text },
       })
     );
-    const data = {
-      scheduleId: scheduleId,
-      time: values?.time,
-      text: values?.text,
-    };
-    dispatch(addRemind(data));
+    if (scheduleId) {
+      const data = {
+        scheduleId: scheduleId,
+        time: values?.time,
+        text: values?.text,
+      };
+      dispatch(addRemind(data));
+    } else {
+      const data = {
+        date: dataSelected,
+        type: "remind",
+        reminds: [
+          {
+            time: values?.time,
+            text: values?.text,
+          },
+        ],
+        diaries: [],
+      };
+      dispatch(addSchedule(data));
+    }
     setModalRemindVisible(false);
   };
   const handleAddDiary = (values) => {
@@ -155,12 +171,28 @@ function ScheduleScreen() {
         },
       })
     );
-    const data = {
-      scheduleId: scheduleId,
-      sick: values?.sick,
-      symptoms: values?.symptoms,
-      description: values?.description,
-    };
+    if (scheduleId) {
+      const data = {
+        scheduleId: scheduleId,
+        sick: values?.sick,
+        symptoms: values?.symptoms,
+        description: values?.description,
+      };
+    } else {
+      const data = {
+        date: dataSelected,
+        type: "diary",
+        reminds: [],
+        diaries: [
+          {
+            sick: values?.sick,
+            symptoms: values?.symptoms,
+            description: values?.description,
+          },
+        ],
+      };
+      dispatch(addSchedule(data));
+    }
     dispatch(addDiary(data));
     setModalDiaryVisible(false);
   };

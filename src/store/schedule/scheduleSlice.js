@@ -49,6 +49,20 @@ export const addDiary = createAsyncThunk("schedules/addDiary", async (data) => {
     throw error;
   }
 });
+export const addSchedule = createAsyncThunk(
+  "schedules/addSchedule",
+  async (data) => {
+    try {
+      const response = await api.post(
+        `/index.php?route=extension/mstore/schedule/addSchedule`,
+        { ...data }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 const scheduleSlice = createSlice({
   name: "schedule",
