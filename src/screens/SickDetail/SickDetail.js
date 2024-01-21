@@ -23,42 +23,46 @@ function SickDetailScreen() {
     return savedSicks?.some(
       (x) =>
         x.usersId.toString() === user?.id.toString() &&
-        x.sicksId.toString() === sick?.id.toString()
+        x.sicksId.toString() === sick?.product_id.toString()
     );
   };
   const handleSave = () => {
-    dispatch(saveSavedSicks({ usersId: user.id, sicksId: sick.id }));
+    dispatch(saveSavedSicks({ usersId: user?.id, sicksId: sick?.product_id }));
   };
   const handleUnSave = () => {
     const obj = savedSicks.find(
       (x) =>
         x.usersId.toString() === user?.id.toString() &&
-        x.sicksId.toString() === sick?.id.toString()
+        x.sicksId.toString() === sick?.product_id.toString()
     );
     dispatch(
-      unSaveSavedSicks({ id: obj?.id, usersId: user.id, sicksId: sick.id })
+      unSaveSavedSicks({
+        id: obj?.id,
+        usersId: user?.id,
+        sicksId: sick?.product_id,
+      })
     );
   };
   useEffect(() => {
-    // if (!user || !savedSicks) {
-    //   dispatch(fetchUser());
-    //   dispatch(fetchSavedSicks());
-    // }
-    // if (state === SUCCEEDED) {
-    //   Alert.alert(
-    //     STRINGS.alertName,
-    //     STRINGS.alerUpdate,
-    //     [
-    //       {
-    //         text: "OK",
-    //         onPress: () => {
-    //           dispatch(resetState());
-    //         },
-    //       },
-    //     ],
-    //     { cancelable: false }
-    //   );
-    // }
+    if (!user || !savedSicks) {
+      dispatch(fetchUser());
+      dispatch(fetchSavedSicks());
+    }
+    if (state === SUCCEEDED) {
+      Alert.alert(
+        STRINGS.alertName,
+        STRINGS.alerUpdate,
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              dispatch(resetState());
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }, [user, sick, savedSicks, state, isSaved, dispatch]);
   return (
     <View className="flex flex-row justify-center ">

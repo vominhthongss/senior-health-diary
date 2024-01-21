@@ -16,8 +16,16 @@ export const fetchUser = createAsyncThunk(
   async () => {
     try {
       const userEmail = await AsyncStorage.getItem("userEmail");
-      const response = await api.get(`/users/?email=${userEmail}`);
-      return response.data[0];
+      const response = await api.post(
+        `index.php?route=extension/mstore/user/userinfo`,
+        {
+          email: userEmail,
+        }
+      );
+      const user = {
+        id: response.data.customer_id,
+      };
+      return user;
     } catch (error) {
       throw error;
     }

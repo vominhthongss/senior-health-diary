@@ -12,8 +12,10 @@ export const fetchSavedSicks = createAsyncThunk(
   "sickDetail/fetchSavedSicks",
   async () => {
     try {
-      const response = await api.get("/savedSicks");
-      return response.data;
+      const response = await api.get(
+        "/index.php?route=extension/mstore/save_sick"
+      );
+      return response.data.savedSicks;
     } catch (error) {
       throw error;
     }
@@ -23,12 +25,20 @@ export const saveSavedSicks = createAsyncThunk(
   "sickDetail/saveSavedSicks",
   async ({ usersId, sicksId }) => {
     try {
-      const response = await api.post("/savedSicks", {
-        usersId: usersId,
-        sicksId: sicksId,
-      });
+      const response = await api.post(
+        "/index.php?route=extension/mstore/save_sick/add",
+        {
+          usersId: usersId,
+          sicksId: sicksId,
+        }
+      );
 
-      return response.data;
+      if (response.data) {
+        return {
+          usersId: usersId,
+          sicksId: sicksId,
+        };
+      }
     } catch (error) {
       throw error;
     }
@@ -38,10 +48,12 @@ export const unSaveSavedSicks = createAsyncThunk(
   "sickDetail/unSaveSavedSicks",
   async ({ id, usersId, sicksId }) => {
     try {
-      const response = await api.delete(`/savedSicks/${id}`, {
-        usersId: usersId,
-        sicksId: sicksId,
-      });
+      const response = await api.post(
+        `index.php?route=extension/mstore/save_sick/delete`,
+        {
+          id: id,
+        }
+      );
 
       if (response.data) {
         return { id };
