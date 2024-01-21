@@ -4,7 +4,7 @@ export const parseToSchedule = (schedules) => {
     result[schedule.date] =
       schedule.reminds && schedule.reminds.length
         ? schedule.reminds.map((remind) => {
-            return { ...remind, type: "remind" };
+            return { ...remind, type: "remind", scheduleId: schedule.id };
           })
         : schedule.diaries && schedule.diaries.length
         ? schedule.diaries.map((diary) => {
@@ -12,6 +12,7 @@ export const parseToSchedule = (schedules) => {
               ...diary,
               type: "diary",
               date: schedule.date,
+              scheduleId: schedule.id,
             };
           })
         : [];

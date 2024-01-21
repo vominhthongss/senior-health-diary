@@ -37,7 +37,6 @@ function HomeScreen() {
     if (!categories) {
       dispatch(fetchCategories());
     }
-    console.log("catagories :", categories);
   }, [categories, dispatch]);
   return (
     <View className="bg-blue-200 h-full">

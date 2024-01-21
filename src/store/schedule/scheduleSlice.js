@@ -18,13 +18,37 @@ export const fetchSchedule = createAsyncThunk(
       const response = await api.get(
         `/index.php?route=extension/mstore/schedule`
       );
-      console.log("response.data :", response.data.schedules);
       return response.data.schedules.filter((x) => x.customer_id === userEmail);
     } catch (error) {
       throw error;
     }
   }
 );
+export const addRemind = createAsyncThunk(
+  "schedules/addRemind",
+  async (data) => {
+    try {
+      const response = await api.post(
+        `/index.php?route=extension/mstore/schedule/addRemind`,
+        { ...data }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+export const addDiary = createAsyncThunk("schedules/addDiary", async (data) => {
+  try {
+    const response = await api.post(
+      `/index.php?route=extension/mstore/schedule/addDiary`,
+      { ...data }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+});
 
 const scheduleSlice = createSlice({
   name: "schedule",

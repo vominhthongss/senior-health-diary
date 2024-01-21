@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import _ from "lodash";
 import {
+  addDiary,
+  addRemind,
   fetchSchedule,
   updateSchedule,
 } from "../../store/schedule/scheduleSlice";
@@ -25,6 +27,7 @@ function ScheduleScreen() {
   useEffect(() => {
     dispatch(fetchSchedule());
   }, [dispatch]);
+  const [scheduleId, setScheduleId] = useState("");
 
   const renderItem = (item) => {
     return (
@@ -114,10 +117,15 @@ function ScheduleScreen() {
     },
   ];
 
-  const handleDayPress = _.debounce(
-    (value) => setDateSelected(value.dateString),
-    100
-  );
+  const handleDayPress = _.debounce((value) => {
+    setDateSelected(value.dateString);
+    if (schedules[value.dateString]) {
+      const scheduleId = schedules[value.dateString][0].scheduleId;
+      setScheduleId(scheduleId);
+    } else {
+      setScheduleId("");
+    }
+  }, 100);
 
   const handleAddRemind = (values) => {
     dispatch(
@@ -126,6 +134,12 @@ function ScheduleScreen() {
         schedule: { type: "remind", time: values?.time, text: values?.text },
       })
     );
+    const data = {
+      scheduleId: scheduleId,
+      time: values?.time,
+      text: values?.text,
+    };
+    dispatch(addRemind(data));
     setModalRemindVisible(false);
   };
   const handleAddDiary = (values) => {
@@ -141,6 +155,13 @@ function ScheduleScreen() {
         },
       })
     );
+    const data = {
+      scheduleId: scheduleId,
+      sick: values?.sick,
+      symptoms: values?.symptoms,
+      description: values?.description,
+    };
+    dispatch(addDiary(data));
     setModalDiaryVisible(false);
   };
 
