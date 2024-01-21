@@ -15,8 +15,11 @@ export const fetchSchedule = createAsyncThunk(
   async () => {
     try {
       const userEmail = await AsyncStorage.getItem("userEmail");
-      const response = await api.get(`/schedules/?userEmail=${userEmail}`);
-      return response.data;
+      const response = await api.get(
+        `/index.php?route=extension/mstore/schedule`
+      );
+      console.log("response.data :", response.data.schedules);
+      return response.data.schedules.filter((x) => x.customer_id === userEmail);
     } catch (error) {
       throw error;
     }
