@@ -11,6 +11,7 @@ import {
   searchSicks,
   setSick,
 } from "../../store/sickList/sickListSlice";
+import Loading from "../../components/Loading/Loading";
 
 function SickListScreen() {
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ function SickListScreen() {
               </TouchableOpacity>
             ))
           ) : (
-            <Text className="text-red-500 text-center">{STRINGS.noData}</Text>
+            <Loading />
           )}
         </View>
       </ScrollView>

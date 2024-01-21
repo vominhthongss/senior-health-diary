@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import * as SCREENS_NAME from "../../constants/screensName";
 import { FlatGrid } from "react-native-super-grid";
+import Loading from "../../components/Loading/Loading";
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ function HomeScreen() {
             </TouchableOpacity>
           )}
         />
+        {!categories && <Loading />}
       </ScrollView>
     </View>
   );
