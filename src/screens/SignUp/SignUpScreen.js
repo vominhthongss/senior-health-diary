@@ -82,33 +82,6 @@ function SignUpScreen() {
       minLength: 6,
       isRequired: true,
     },
-    {
-      name: "sex",
-      type: "radio",
-      options: [
-        {
-          id: "1",
-          label: "Nam",
-          value: "0",
-        },
-        {
-          id: "2",
-          label: "Nữ",
-          value: "1",
-        },
-      ],
-      value: "",
-      label: "Giới tính",
-      isRequired: true,
-    },
-    {
-      name: "age",
-      placeholder: "Tuổi",
-      value: "",
-      type: "number",
-      label: "Tuổi",
-      isRequired: true,
-    },
   ];
   useEffect(() => {
     if (token && token !== "" && status === SUCCEEDED) {
