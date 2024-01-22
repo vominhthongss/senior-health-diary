@@ -13,23 +13,77 @@ import * as STRINGS from "../../constants/strings";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SUCCEEDED } from "../../constants/store";
 import ShareButton from "../../ShareButton/ShareButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from "react";
 
 function SickDetailScreen() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInformation);
   const { sick } = useSelector((state) => state.sickList);
   const { savedSicks, state } = useSelector((state) => state.sickDetail);
-  const isSaved = () => {
-    return savedSicks?.some(
-      (x) =>
-        x.usersId.toString() === user?.id.toString() &&
-        x.sicksId.toString() === sick?.product_id.toString()
-    );
+  const [isSickSaved, setIsSickSaved] = useState(false);
+
+  const checkIsSaved = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (!token) {
+      const savedSicksLocal = await AsyncStorage.getItem("savedSicks");
+      const savedSicksArray = savedSicksLocal
+        ? JSON.parse(savedSicksLocal)
+        : [];
+      return savedSicksArray.some(
+        (x) => x.sicksId.toString() === sick?.product_id.toString()
+      );
+    } else {
+      return savedSicks?.some(
+        (x) =>
+          x.usersId.toString() === user?.id.toString() &&
+          x.sicksId.toString() === sick?.product_id.toString()
+      );
+    }
   };
-  const handleSave = () => {
+
+  const saveToLocal = async (sickData) => {
+    try {
+      const existingSaves = await AsyncStorage.getItem("savedSicks");
+      let newSave = JSON.parse(existingSaves);
+      if (!newSave) {
+        newSave = [];
+      }
+      newSave.push(sickData);
+      await AsyncStorage.setItem("savedSicks", JSON.stringify(newSave));
+    } catch (error) {
+      console.error("Error saving data", error);
+    }
+  };
+
+  const unsaveFromLocal = async (sickId) => {
+    try {
+      const existingSaves = await AsyncStorage.getItem("savedSicks");
+      let saves = JSON.parse(existingSaves);
+      if (saves) {
+        saves = saves.filter((item) => item.sicksId !== sickId);
+        await AsyncStorage.setItem("savedSicks", JSON.stringify(saves));
+      }
+    } catch (error) {
+      console.error("Error removing data", error);
+    }
+  };
+
+  const handleSave = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (!token) {
+      saveToLocal({ usersId: user?.id, sicksId: sick?.product_id });
+      return;
+    }
     dispatch(saveSavedSicks({ usersId: user?.id, sicksId: sick?.product_id }));
   };
-  const handleUnSave = () => {
+
+  const handleUnSave = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (!token) {
+      unsaveFromLocal(sick?.product_id);
+      return;
+    }
     const obj = savedSicks.find(
       (x) =>
         x.usersId.toString() === user?.id.toString() &&
@@ -43,9 +97,13 @@ function SickDetailScreen() {
       })
     );
   };
-  useEffect(() => {
+
+  const loadData = async () => {
     if (!user || !savedSicks) {
-      dispatch(fetchUser());
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        dispatch(fetchUser());
+      }
       dispatch(fetchSavedSicks());
     }
     if (state === SUCCEEDED) {
@@ -63,11 +121,17 @@ function SickDetailScreen() {
         { cancelable: false }
       );
     }
-  }, [user, sick, savedSicks, state, isSaved, dispatch]);
+    const isSaved = await checkIsSaved();
+    setIsSickSaved(isSaved);
+  };
+
+  useEffect(() => {
+    loadData(); // Call the async function here
+  }, [user, sick, savedSicks, state, dispatch]);
   return (
     <View className="flex flex-row justify-center ">
       <View className="w-[90%] ">
-        {isSaved() ? (
+        {isSickSaved ? (
           <View className="flex flex-row items-center justify-between">
             <View className="flex flex-row items-center space-x-2 mt-2">
               <Icon size={30} name="heart" color={"red"} />
@@ -134,7 +198,7 @@ function SickDetailScreen() {
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">
-          {!isSaved() ? (
+          {!isSickSaved ? (
             <CustomizeButton onPress={handleSave} title={STRINGS.savesickBtn} />
           ) : (
             <CustomizeButton
