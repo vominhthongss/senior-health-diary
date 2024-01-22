@@ -10,6 +10,7 @@ import { login } from "../../store/auth/authSlice";
 import { SUCCEEDED } from "../../constants/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 
 function LoginScreen() {
   const navigation = useNavigation();
@@ -21,6 +22,9 @@ function LoginScreen() {
   };
 
   const handleLoginGoogle = () => {
+    navigation.navigate(SCREENS_NAME.mainTab);
+  };
+  const handleGoMain = () => {
     navigation.navigate(SCREENS_NAME.mainTab);
   };
 
@@ -68,6 +72,7 @@ function LoginScreen() {
           handleData={handleLogin}
           titleSubmitBtn={STRINGS.signIn}
         />
+        <CustomizeButton title={STRINGS.notLoginBtn} onPress={handleGoMain} />
         <GoogleButton onPress={handleLoginGoogle} />
       </View>
       <View className="w-[90%] flex flex-row justify-between py-5 ">

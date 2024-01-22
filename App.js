@@ -12,15 +12,16 @@ function App() {
   const [initialRoute, setInitialRoute] = useState(null);
 
   useEffect(() => {
-    const checkToken = async () => {
-      const token = await AsyncStorage.getItem("token");
-      if (token) {
-        setInitialRoute(ROUTES.mainTab.name);
-      } else {
-        setInitialRoute(ROUTES.login.name);
-      }
-    };
-    checkToken();
+    // const checkToken = async () => {
+    //   const token = await AsyncStorage.getItem("token");
+    //   if (token) {
+    //     setInitialRoute(ROUTES.mainTab.name);
+    //   } else {
+    //     setInitialRoute(ROUTES.login.name);
+    //   }
+    // };
+    // checkToken();
+    setInitialRoute(ROUTES.mainTab.name);
   }, [initialRoute]);
   if (initialRoute === null) {
     return null;

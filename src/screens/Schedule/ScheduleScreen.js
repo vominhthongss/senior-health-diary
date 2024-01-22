@@ -18,15 +18,28 @@ import {
   updateSchedule,
 } from "../../store/schedule/scheduleSlice";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
+import * as SCREENS_NAME from "../../constants/screensName";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 LocaleConfig.locales["vi"] = localeConfig;
 LocaleConfig.defaultLocale = "vi";
 
 function ScheduleScreen() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const { schedules } = useSelector((state) => state.schedule);
-  useEffect(() => {
-    dispatch(fetchSchedule());
+  const goToLogin = () => {
+    navigation.navigate(SCREENS_NAME.login);
+  };
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      dispatch(fetchSchedule());
+    } else {
+      Alert.alert(STRINGS.alertName, STRINGS.alertLogin);
+      goToLogin();
+    }
   }, [dispatch]);
   const [scheduleId, setScheduleId] = useState("");
 

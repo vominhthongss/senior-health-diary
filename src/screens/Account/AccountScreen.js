@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as SCREENS_NAME from "../../constants/screensName";
 import * as ACCOUNT_MENU from "../../constants/account";
@@ -23,15 +30,24 @@ function AccountScreen() {
       className="w-5 h-5"
     />
   );
-  useEffect(() => {
-    const getUserInfo = async () => {
-      const fullName = await AsyncStorage.getItem("fullName");
-      const age = await AsyncStorage.getItem("age");
-      if (fullName && age) {
-        setUser({ fullName: fullName, age: age });
-      }
-    };
-    getUserInfo();
+  const goToLogin = () => {
+    navigation.navigate(SCREENS_NAME.login);
+  };
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      const getUserInfo = async () => {
+        const fullName = await AsyncStorage.getItem("fullName");
+        const age = await AsyncStorage.getItem("age");
+        if (fullName && age) {
+          setUser({ fullName: fullName, age: age });
+        }
+      };
+      getUserInfo();
+    } else {
+      Alert.alert(STRINGS.alertName, STRINGS.alertLogin);
+      goToLogin();
+    }
   }, [user]);
 
   return (
