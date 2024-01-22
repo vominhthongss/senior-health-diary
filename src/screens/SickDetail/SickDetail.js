@@ -194,7 +194,7 @@ function SickDetailScreen() {
             <Text className="text-xl font-bold uppercase">
               {STRINGS.sickRevention}
             </Text>
-            <Text className="text-xl">{sick?.description}</Text>
+            <Text className="text-xl mb-44">{sick?.description}</Text>
           </View>
         </ScrollView>
         <View className="absolute bottom-20 w-full">
