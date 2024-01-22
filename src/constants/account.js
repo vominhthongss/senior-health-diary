@@ -9,7 +9,7 @@ export const accountOptionMenu = [
     navigateToScreen: "",
   },
   {
-    title: "Xoá tài khoản",
+    title: "Báo lỗi",
     navigateToScreen: "",
   },
 ];

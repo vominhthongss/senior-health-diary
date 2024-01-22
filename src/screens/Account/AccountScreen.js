@@ -15,7 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function AccountScreen() {
   const navigation = useNavigation();
-  const [user, setUser] = useState({});
+  const [fullName, setFullName] = useState();
+  const [age, setAge] = useState();
 
   const goToUserInformation = () => {
     navigation.navigate(SCREENS_NAME.userInformation);
@@ -33,22 +34,23 @@ function AccountScreen() {
   const goToLogin = () => {
     navigation.navigate(SCREENS_NAME.login);
   };
-  useEffect(async () => {
-    const token = await AsyncStorage.getItem("token");
-    if (token) {
-      const getUserInfo = async () => {
-        const fullName = await AsyncStorage.getItem("fullName");
-        const age = await AsyncStorage.getItem("age");
-        if (fullName && age) {
-          setUser({ fullName: fullName, age: age });
+  useEffect(() => {
+    async function loadData() {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        const _fullName = await AsyncStorage.getItem("fullName");
+        const _age = await AsyncStorage.getItem("age");
+        if (_fullName && _age) {
+          setFullName(_fullName);
+          setAge(_age);
         }
-      };
-      getUserInfo();
-    } else {
-      Alert.alert(STRINGS.alertName, STRINGS.alertLogin);
-      goToLogin();
+      } else {
+        Alert.alert(STRINGS.alertName, STRINGS.alertLogin);
+        goToLogin();
+      }
     }
-  }, [user]);
+    loadData();
+  }, []);
 
   return (
     <ScrollView>
@@ -61,10 +63,7 @@ function AccountScreen() {
                 className="w-20 h-20 rounded-full"
               />
               <View>
-                <Text className="text-xl">{user.fullName}</Text>
-                <Text className="text-lg text-gray-400">
-                  {user.age} {STRINGS.ageText}
-                </Text>
+                <Text className="text-xl uppercase font-bold">{fullName}</Text>
               </View>
             </View>
             {arrow}
@@ -91,22 +90,24 @@ function AccountScreen() {
           );
         })}
 
-        <TouchableOpacity className="mt-20">
-          <View className="border border-gray-400 w-full">
-            <View className="flex justify-start p-5">
-              <TouchableOpacity
-                onPress={async () => {
-                  await AsyncStorage.clear();
-                  navigation.navigate(SCREENS_NAME.login);
-                }}
-              >
-                <Text className="text-red-500 font-bold text-lg">
-                  {STRINGS.logOut}
-                </Text>
-              </TouchableOpacity>
+        {fullName && (
+          <TouchableOpacity className="mt-20">
+            <View className="border border-gray-400 w-full">
+              <View className="flex justify-start p-5">
+                <TouchableOpacity
+                  onPress={async () => {
+                    await AsyncStorage.clear();
+                    navigation.navigate(SCREENS_NAME.login);
+                  }}
+                >
+                  <Text className="text-red-500 font-bold text-lg">
+                    {STRINGS.logOut}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
       </View>
     </ScrollView>
   );
