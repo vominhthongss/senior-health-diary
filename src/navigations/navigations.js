@@ -14,7 +14,9 @@ export const home = {
   component: HomeScreen,
   options: {
     ...screenBottomOption,
-    headerTitle: () => <Text>{STRINGS.home}</Text>,
+    headerTitle: () => (
+      <Text className="text-lg font-bold">{STRINGS.home} </Text>
+    ),
     tabBarIcon: ({ color, size }) => (
       <Icon name="home" size={size} color={color} />
     ),
@@ -27,7 +29,9 @@ export const schedule = {
   component: ScheduleScreen,
   options: {
     ...screenBottomOption,
-    headerTitle: () => <Text>{STRINGS.schedule}</Text>,
+    headerTitle: () => (
+      <Text className="text-lg font-bold">{STRINGS.schedule}</Text>
+    ),
     tabBarIcon: ({ color, size }) => (
       <Icon name="table" size={size} color={color} />
     ),
@@ -52,7 +56,9 @@ export const account = {
   component: AccountScreen,
   options: {
     ...screenBottomOption,
-    headerTitle: () => <Text>{STRINGS.account}</Text>,
+    headerTitle: () => (
+      <Text className="text-lg font-bold">{STRINGS.account}</Text>
+    ),
     tabBarIcon: ({ color, size }) => (
       <Icon name="user" size={size} color={color} />
     ),

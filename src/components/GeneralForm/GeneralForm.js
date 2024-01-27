@@ -7,7 +7,12 @@ import CustomizeButton from "../CustomizeButton/CustomizeButton";
 import ErrorText from "../ErrorText/ErrorText";
 import CustomizeRadio from "../CustomizeRadio/CustomizeRadio";
 
-function GeneralForm({ fields, handleData, titleSubmitBtn }) {
+function GeneralForm({
+  fields,
+  handleData,
+  titleSubmitBtn,
+  isVertical = false,
+}) {
   const fieldRender = (field, key, { handleChange, values, errors }) => {
     let element = null;
 
@@ -143,13 +148,17 @@ function GeneralForm({ fields, handleData, titleSubmitBtn }) {
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-        <View className="w-full">
+        <View
+          className={`w-full ${
+            isVertical && "flex flex-row justify-between items-center space-x-2"
+          }`}
+        >
           {fields.map((field, key) => (
-            <View key={key} className="my-4">
+            <View key={key} className={`${isVertical ? "w-3/4 my-4" : "my-4"}`}>
               {fieldRender(field, key, { handleChange, values, errors })}
             </View>
           ))}
-          <View className="mt-6 mb-3">
+          <View className={`${isVertical ? "w-1/4" : "mt-6 mb-3"}`}>
             <CustomizeButton title={titleSubmitBtn} onPress={handleSubmit} />
           </View>
         </View>

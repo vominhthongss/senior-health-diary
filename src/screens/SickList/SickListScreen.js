@@ -51,6 +51,7 @@ function SickListScreen() {
             fields={fields}
             titleSubmitBtn={STRINGS.search}
             handleData={handleSearch}
+            isVertical={true}
           />
         </View>
       </View>

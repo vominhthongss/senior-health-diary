@@ -47,6 +47,7 @@ function HomeScreen() {
             fields={fields}
             titleSubmitBtn={STRINGS.search}
             handleData={handleSearch}
+            isVertical={true}
           />
         </View>
       </View>
