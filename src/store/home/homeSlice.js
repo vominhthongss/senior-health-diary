@@ -37,7 +37,11 @@ export const searchCategories = createAsyncThunk(
 const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {},
+  reducers: {
+    updateCategories: (state, action) => {
+      state.categories = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
 
@@ -64,6 +68,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const {} = homeSlice.actions;
+export const { updateCategories } = homeSlice.actions;
 
 export default homeSlice.reducer;

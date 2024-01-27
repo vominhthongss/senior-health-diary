@@ -2,7 +2,11 @@ import { View, Text, ScrollView, Image } from "react-native";
 import * as STRINGS from "../../constants/strings";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories, searchCategories } from "../../store/home/homeSlice";
+import {
+  fetchCategories,
+  searchCategories,
+  updateCategories,
+} from "../../store/home/homeSlice";
 import { useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
@@ -20,7 +24,10 @@ function HomeScreen() {
   const handleSearch = (data) => {
     const { search } = data;
     if (search) {
-      dispatch(searchCategories({ keyword: search }));
+      const filteredCategories = categories.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+      dispatch(updateCategories(filteredCategories));
     } else {
       dispatch(fetchCategories());
     }

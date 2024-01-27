@@ -10,6 +10,7 @@ import {
   fetchSicks,
   searchSicks,
   setSick,
+  updateSickList,
 } from "../../store/sickList/sickListSlice";
 import Loading from "../../components/Loading/Loading";
 
@@ -24,7 +25,10 @@ function SickListScreen() {
   const handleSearch = (data) => {
     const { search } = data;
     if (search) {
-      dispatch(searchSicks({ keyword: search }));
+      const filteredSicks = sicks.filter((item) => {
+        return item.name.toLowerCase().includes(search.toLowerCase());
+      });
+      dispatch(updateSickList({ sickList: filteredSicks }));
     } else {
       dispatch(fetchSicks());
     }

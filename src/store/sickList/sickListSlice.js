@@ -38,6 +38,10 @@ const sickListSlice = createSlice({
       const { sick } = action.payload;
       state.sick = sick;
     },
+    updateSickList: (state, action) => {
+      const { sickList } = action.payload;
+      state.sicks = sickList;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,6 +69,6 @@ const sickListSlice = createSlice({
   },
 });
 
-export const { setSick } = sickListSlice.actions;
+export const { setSick, updateSickList } = sickListSlice.actions;
 
 export default sickListSlice.reducer;
