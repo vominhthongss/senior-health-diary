@@ -31,7 +31,7 @@ function ScheduleScreen() {
   const goToLogin = () => {
     navigation.navigate(SCREENS_NAME.login);
   };
-  useEffect(async () => {
+  const loader = async () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
       dispatch(fetchSchedule());
@@ -39,6 +39,9 @@ function ScheduleScreen() {
       Alert.alert(STRINGS.alertName, STRINGS.alertLogin);
       goToLogin();
     }
+  };
+  useEffect(() => {
+    loader();
   }, [dispatch]);
   const [scheduleId, setScheduleId] = useState("");
 
@@ -140,7 +143,7 @@ function ScheduleScreen() {
     }
   }, 100);
 
-  const handleAddRemind = (values) => {
+  const handleAddRemind = async (values) => {
     dispatch(
       updateSchedule({
         date: dataSelected,
@@ -156,6 +159,7 @@ function ScheduleScreen() {
       dispatch(addRemind(data));
     } else {
       const data = {
+        customer_id: await AsyncStorage.getItem("userEmail"),
         date: dataSelected,
         type: "remind",
         reminds: [
@@ -170,7 +174,7 @@ function ScheduleScreen() {
     }
     setModalRemindVisible(false);
   };
-  const handleAddDiary = (values) => {
+  const handleAddDiary = async (values) => {
     dispatch(
       updateSchedule({
         date: dataSelected,
@@ -190,8 +194,10 @@ function ScheduleScreen() {
         symptoms: values?.symptoms,
         description: values?.description,
       };
+      dispatch(addDiary(data));
     } else {
       const data = {
+        customer_id: await AsyncStorage.getItem("userEmail"),
         date: dataSelected,
         type: "diary",
         reminds: [],
@@ -205,7 +211,7 @@ function ScheduleScreen() {
       };
       dispatch(addSchedule(data));
     }
-    dispatch(addDiary(data));
+
     setModalDiaryVisible(false);
   };
 

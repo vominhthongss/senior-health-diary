@@ -20,6 +20,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "add": "^2.0.6",
     "axios": "^1.6.2",
+    "date-fns": "^3.3.1",
     "eas": "^0.1.0",
     "expo": "~49.0.15",
     "expo-file-system": "~15.4.5",
