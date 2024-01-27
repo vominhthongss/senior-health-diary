@@ -69,14 +69,16 @@ function SickListScreen() {
               >
                 <View className="flex flex-row items-center space-x-3 bg-slate-200 p-1 rounded-md">
                   <Image
-                    className="w-20 h-20 object-fill"
+                    className="w-20 h-20 object-fill rounded-md"
                     source={{
                       uri: sick.image
                         ? sick.image
                         : `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
                     }}
                   />
-                  <Text className="text-xl font-bold">{sick.name}</Text>
+                  <Text className="text-xl font-bold border w-2/3">
+                    {sick.name}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))

@@ -172,7 +172,7 @@ function SickDetailScreen() {
           </View>
           <View className="flex flex-row justify-center">
             <Image
-              className="w-96 h-96 object-fill"
+              className="w-96 h-96 object-fill rounded-md"
               source={{
                 uri: `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
               }}

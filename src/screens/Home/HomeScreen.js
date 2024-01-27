@@ -64,7 +64,7 @@ function HomeScreen() {
               <View className="flex flex-col items-center space-x-3  p-1 rounded-md">
                 <View className="bg-slate-200 rounded-lg w-full py-2 flex justify-center flex-row">
                   <Image
-                    className="w-20 h-20 object-fill"
+                    className="w-20 h-20 object-fill rounded-md"
                     source={{
                       uri: item.image
                         ? item.image
