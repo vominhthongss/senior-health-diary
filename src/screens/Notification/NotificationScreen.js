@@ -39,6 +39,11 @@ function NotificationScreen() {
         <Text className="text-lg font-bold">{item.time}</Text>
         <Text className="text-lg">{item.text}</Text>
       </View>
+      <View>
+        <Text className="text-lg font-bold">{item.sick}</Text>
+        <Text className="text-lg">{item.symptons}</Text>
+        <Text className="text-lg">{item.description}</Text>
+      </View>
     </View>
   );
 
@@ -47,9 +52,7 @@ function NotificationScreen() {
       {sortedNotifications.map(({ date, notifications }, index) => (
         <View key={date}>
           <Text className="text-xl font-bold text-gray-800 mt-4">
-            {index === 0 && isToday(new Date(date)) && (
-              <Text>{STRINGS.today} - </Text>
-            )}
+            {isToday(new Date(date)) && <Text>{STRINGS.today} - </Text>}
             {format(new Date(date), "dd/MM/yyyy")}
           </Text>
           <FlatList
