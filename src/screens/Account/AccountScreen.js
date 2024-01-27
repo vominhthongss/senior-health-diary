@@ -50,7 +50,13 @@ function AccountScreen() {
       }
     }
     loadData();
-  }, []);
+
+    const unsubscribe = navigation.addListener("focus", () => {
+      loadData();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <ScrollView>

@@ -31,16 +31,37 @@ export const fetchUser = createAsyncThunk(
     }
   }
 );
+export const getInfoUser = createAsyncThunk(
+  "userInformation/getInfoUser",
+  async () => {
+    try {
+      const userEmail = await AsyncStorage.getItem("userEmail");
+      const response = await api.post(
+        `/index.php?route=extension/mstore/account/getUserInfoByEmail`,
+        {
+          email: userEmail,
+        }
+      );
+      console.log("response.data :", response.data.data);
+      const user = {
+        ...response.data.data,
+      };
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 export const updateUser = createAsyncThunk(
   "userInformation/updateUser",
-  async ({ user, id }) => {
+  async (user) => {
     try {
-      const response = await api.patch(`/users/${id}`, {
-        email: user.email,
-        age: user.age,
-        sex: user.sex,
-        fullName: user.fullName,
-      });
+      const response = await api.patch(
+        `/index.php?route=extension/mstore/account/updateUserInfo`,
+        {
+          ...user,
+        }
+      );
       return response.data;
     } catch (error) {
       throw error;
@@ -53,6 +74,7 @@ const userInformationSlice = createSlice({
   reducers: {
     resetState: (state, action) => {
       state.status = "idle";
+      state.user = undefined;
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +94,13 @@ const userInformationSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.status = FAILED;
+      })
+      .addCase(getInfoUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        AsyncStorage.setItem(
+          "fullName",
+          `${state.user.firstname} ${state.user.lastname}`
+        );
       });
   },
 });
