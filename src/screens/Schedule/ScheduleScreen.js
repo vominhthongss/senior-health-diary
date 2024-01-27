@@ -8,7 +8,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import CustomizeButton from "../../components/CustomizeButton/CustomizeButton";
 import ShareButton from "../../ShareButton/ShareButton";
 import { useDispatch, useSelector } from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
 import _ from "lodash";
 import {
   addDiary,
@@ -90,7 +89,7 @@ function ScheduleScreen() {
       name: "time",
       placeholder: "Thời gian",
       value: "",
-      type: "text",
+      type: "time",
       label: "Thời gian",
       isRequired: true,
     },

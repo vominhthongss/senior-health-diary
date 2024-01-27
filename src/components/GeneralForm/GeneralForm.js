@@ -34,6 +34,23 @@ function GeneralForm({
           </View>
         );
         break;
+      case "time":
+        element = (
+          <View className="relative">
+            <CustomizeTextInput
+              key={key}
+              placeholder={field.placeholder}
+              value={values[field.name]}
+              onChangeText={handleChange(field.name)}
+              secureTextEntry={false}
+              numericInput={"time"}
+            />
+            <View className="absolute -bottom-6">
+              {errors[field.name] && <ErrorText content={errors[field.name]} />}
+            </View>
+          </View>
+        );
+        break;
       case "text":
         element = (
           <View className="relative">
