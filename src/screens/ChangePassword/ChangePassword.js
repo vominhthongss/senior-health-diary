@@ -62,7 +62,7 @@ function ChangePasswordScreen() {
         STRINGS.alerUpdate,
         [
           {
-            text: "OK",
+            text: STRINGS.alertClose,
             onPress: () => {
               dispatch(resetState());
               navigation.goBack();

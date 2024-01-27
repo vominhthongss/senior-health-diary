@@ -112,7 +112,7 @@ function SickDetailScreen() {
         STRINGS.alerUpdate,
         [
           {
-            text: "OK",
+            text: STRINGS.alertClose,
             onPress: () => {
               dispatch(resetState());
             },

@@ -22,7 +22,20 @@ function AccountScreen() {
     navigation.navigate(SCREENS_NAME.userInformation);
   };
   const goToScreen = (screen) => {
-    navigation.navigate(screen);
+    if (!screen) {
+      Alert.alert(
+        STRINGS.alertName,
+        STRINGS.alertNoFeature,
+        [
+          {
+            text: STRINGS.alertClose,
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      navigation.navigate(screen);
+    }
   };
 
   const arrow = (

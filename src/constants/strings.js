@@ -6,9 +6,11 @@ export const diary = "Nhật ký";
 export const noSchedule = "Không có nhắc nhở hôm nay";
 export const addRemind = "Thêm nhắc nhở";
 export const alertName = "Thông báo";
+export const alertNoFeature = "Hiện tại chưa có tính năng này!";
 export const alertInfo = "Vui lòng nhập ngày và nội dung sự kiện";
 export const alertLogin = "Vui lòng nhập đăng nhập để tạo lịch uống thuốc";
 export const alerUpdate = "Thành công !";
+export const alertClose = "Đóng";
 export const alerWrongPassword = "Không đúng mật khẩu cũ !";
 export const alerIsNotTheSame =
   "Mật khẩu mới và mật khẩu nhập lại không giống nhau !";

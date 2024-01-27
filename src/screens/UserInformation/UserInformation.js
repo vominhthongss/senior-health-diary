@@ -61,7 +61,7 @@ function UserInformationScreen() {
         STRINGS.alerUpdate,
         [
           {
-            text: "OK",
+            text: STRINGS.alertClose,
             onPress: () => {
               dispatch(resetState());
             },
