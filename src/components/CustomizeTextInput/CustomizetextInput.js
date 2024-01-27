@@ -77,6 +77,7 @@ function CustomizeTextInput({
         mode="time"
         onConfirm={handleTimeConfirm}
         onCancel={hideTimePicker}
+        is24Hour={false}
       />
     </View>
   );
