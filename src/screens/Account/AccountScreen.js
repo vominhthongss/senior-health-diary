@@ -63,6 +63,7 @@ function AccountScreen() {
                 className="w-20 h-20 rounded-full"
               />
               <View>
+                <Text>{STRINGS.info}</Text>
                 <Text className="text-xl uppercase font-bold">{fullName}</Text>
               </View>
             </View>

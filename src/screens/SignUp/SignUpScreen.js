@@ -85,7 +85,10 @@ function SignUpScreen() {
   ];
   useEffect(() => {
     if (token && token !== "" && status === SUCCEEDED) {
-      navigation.navigate(SCREENS_NAME.mainTab);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: SCREENS_NAME.mainTab }],
+      });
     }
   }, [token, status]);
 

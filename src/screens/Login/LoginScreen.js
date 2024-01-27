@@ -53,7 +53,10 @@ function LoginScreen() {
   ];
   useEffect(() => {
     if (token && token !== "" && status === SUCCEEDED) {
-      navigation.navigate(SCREENS_NAME.mainTab);
+      navigation.reset({
+        index: 0, // Thiết lập chỉ số màn hình hiện tại trong ngăn xếp
+        routes: [{ name: SCREENS_NAME.mainTab }], // Chỉ định màn hình bạn muốn chuyển đến
+      });
     }
   }, [token, status]);
 
