@@ -80,9 +80,7 @@ function SickListScreen() {
                         : `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
                     }}
                   />
-                  <Text className="text-xl font-bold border w-2/3">
-                    {sick.name}
-                  </Text>
+                  <Text className="text-xl font-bold w-2/3">{sick.name}</Text>
                 </View>
               </TouchableOpacity>
             ))
