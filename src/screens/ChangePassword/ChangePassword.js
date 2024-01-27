@@ -3,38 +3,36 @@ import * as STRINGS from "../../constants/strings";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUser } from "../../store/userInformation/userInformationSlice";
+import {
+  fetchUser,
+  getInfoUser,
+} from "../../store/userInformation/userInformationSlice";
 import { SUCCEEDED } from "../../constants/store";
 import {
   resetState,
   updatePassword,
 } from "../../store/changePassword/changePasswordSlice";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function ChangePasswordScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInformation);
   const { status } = useSelector((state) => state.changePassword);
-  const handleSave = (data) => {
-    if (data.password_old !== user.password) {
-      Alert.alert(STRINGS.alertName, STRINGS.alerWrongPassword);
-    } else if (data.password !== data.confirmPassword) {
+  const handleSave = async (data) => {
+    if (data.password !== data.confirmPassword) {
       Alert.alert(STRINGS.alertName, STRINGS.alerIsNotTheSame);
     } else {
-      dispatch(updatePassword({ password: data.password, id: user.id }));
+      dispatch(
+        updatePassword({
+          email: await AsyncStorage.getItem("userEmail"),
+          password: data.password,
+        })
+      );
     }
   };
   const fields = [
-    {
-      name: "password_old",
-      placeholder: "Mật khẩu cũ",
-      type: "password",
-      value: "",
-      label: "Mật khẩu cũ",
-      minLength: 6,
-      isRequired: true,
-    },
     {
       name: "password",
       placeholder: "Mật khẩu mới",
@@ -56,7 +54,7 @@ function ChangePasswordScreen() {
   ];
   useEffect(() => {
     if (!user) {
-      dispatch(fetchUser());
+      dispatch(getInfoUser());
     }
     if (user && status === SUCCEEDED) {
       Alert.alert(

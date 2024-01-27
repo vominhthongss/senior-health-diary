@@ -42,7 +42,6 @@ export const getInfoUser = createAsyncThunk(
           email: userEmail,
         }
       );
-      console.log("response.data :", response.data.data);
       const user = {
         ...response.data.data,
       };

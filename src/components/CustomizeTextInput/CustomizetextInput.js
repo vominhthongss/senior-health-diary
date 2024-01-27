@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, TouchableWithoutFeedback, Text } from "react-native";
+import { TextInput, View, TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -33,25 +33,43 @@ function CustomizeTextInput({
     });
     setSelectedTime(time);
     hideTimePicker();
-    onChangeText(formattedTime); // Sử dụng thời gian đã định dạng
+    onChangeText(formattedTime);
   };
+
   return (
-    <View className="w-full rounded-xl border p-3 bg-slate-200">
+    <View
+      style={{
+        width: "100%",
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 12,
+        backgroundColor: "#E2E8F0",
+      }}
+    >
       <TextInput
-        className="p-3 pr-6 h-11"
+        style={{ padding: 12, paddingRight: 30, height: 44 }}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        secureTextEntry={!isPasswordVisible && secureTextEntry}
+        secureTextEntry={secureTextEntry && !isPasswordVisible}
         keyboardType={numericInput === "time" ? "default" : numericInput}
         onFocus={() => numericInput === "time" && showTimePicker()}
       />
+      {secureTextEntry && (
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={{ position: "absolute", top: 20, right: 10 }}
+        >
+          <Icon name={isPasswordVisible ? "eye-slash" : "eye"} size={20} />
+        </TouchableOpacity>
+      )}
       {numericInput === "time" && (
-        <TouchableWithoutFeedback onPress={showTimePicker}>
-          <View className="absolute top-5 right-3">
-            <Icon size={20} name="bell" />
-          </View>
-        </TouchableWithoutFeedback>
+        <TouchableOpacity
+          onPress={showTimePicker}
+          style={{ position: "absolute", top: 25, right: 10 }}
+        >
+          <Icon name="clock-o" size={20} />
+        </TouchableOpacity>
       )}
 
       <DateTimePickerModal

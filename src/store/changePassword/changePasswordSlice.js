@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const initialState = {
   status: "idle",
@@ -9,11 +10,15 @@ const initialState = {
 
 export const updatePassword = createAsyncThunk(
   "changePassword/updatePassword",
-  async ({ password, id }) => {
+  async ({ email, password }) => {
     try {
-      const response = await api.patch(`/users/${id}`, {
-        password: password,
-      });
+      const response = await api.patch(
+        `/index.php?route=extension/mstore/account/changePassword`,
+        {
+          email: email,
+          newPassword: password,
+        }
+      );
       return response.data;
     } catch (error) {
       throw error;
