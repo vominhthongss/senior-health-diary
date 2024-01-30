@@ -126,7 +126,7 @@ function SickDetailScreen() {
   };
 
   useEffect(() => {
-    loadData(); // Call the async function here
+    loadData();
   }, [user, sick, savedSicks, state, dispatch]);
   return (
     <View className="flex flex-row justify-center ">
