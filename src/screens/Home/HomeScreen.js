@@ -1,26 +1,34 @@
-import { View, Text, ScrollView, Image } from "react-native";
-import * as STRINGS from "../../constants/strings";
-import GeneralForm from "../../components/GeneralForm/GeneralForm";
+import React, { useEffect } from "react";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { FlatGrid } from "react-native-super-grid";
+
+import GeneralForm from "../../components/GeneralForm/GeneralForm";
+import Loading from "../../components/Loading/Loading";
+import * as STRINGS from "../../constants/strings";
+import * as SCREENS_NAME from "../../constants/screensName";
 import {
   fetchCategories,
   searchCategories,
   updateCategories,
 } from "../../store/home/homeSlice";
-import { useEffect } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import * as SCREENS_NAME from "../../constants/screensName";
-import { FlatGrid } from "react-native-super-grid";
-import Loading from "../../components/Loading/Loading";
 
 function HomeScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const categories = useSelector((state) => state.home.categories);
+
+  useEffect(() => {
+    if (!categories) {
+      dispatch(fetchCategories());
+    }
+  }, [categories, dispatch]);
+
   const handleGoToSickList = () => {
     navigation.navigate(SCREENS_NAME.sickList);
   };
-  const { categories } = useSelector((state) => state.home);
+
   const handleSearch = (data) => {
     const { search } = data;
     if (search) {
@@ -32,6 +40,7 @@ function HomeScreen() {
       dispatch(fetchCategories());
     }
   };
+
   const fields = [
     {
       name: "search",
@@ -41,11 +50,29 @@ function HomeScreen() {
       label: "Tìm kiếm danh mục bệnh",
     },
   ];
-  useEffect(() => {
-    if (!categories) {
-      dispatch(fetchCategories());
-    }
-  }, [categories, dispatch]);
+
+  const renderCategoryItem = ({ item }) => (
+    <TouchableOpacity onPress={handleGoToSickList}>
+      <View className="flex flex-col items-center space-x-3 p-1 rounded-md">
+        <View className="bg-slate-200 rounded-lg w-full py-2 flex justify-center flex-row">
+          <Image
+            className="w-20 h-20 object-fill rounded-md"
+            source={{
+              uri: item.image
+                ? item.image
+                : `https://via.placeholder.com/100x100.png?text=${item?.name}`,
+            }}
+          />
+        </View>
+        <Text className="text-md font-bold uppercase mt-2">{item.name}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const renderEmptyComponent = () => {
+    return categories ? <Text>No categories found.</Text> : <Loading />;
+  };
+
   return (
     <View className="bg-blue-200 h-full">
       <View className="flex flex-row justify-center">
@@ -54,7 +81,7 @@ function HomeScreen() {
             fields={fields}
             titleSubmitBtn={STRINGS.search}
             handleData={handleSearch}
-            isVertical={true}
+            isVertical
           />
         </View>
       </View>
@@ -62,32 +89,20 @@ function HomeScreen() {
         {STRINGS.categoryName}
       </Text>
 
-      <ScrollView className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
-        <FlatGrid
-          itemDimension={130}
-          data={categories}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleGoToSickList()}>
-              <View className="flex flex-col items-center space-x-3  p-1 rounded-md">
-                <View className="bg-slate-200 rounded-lg w-full py-2 flex justify-center flex-row">
-                  <Image
-                    className="w-20 h-20 object-fill rounded-md"
-                    source={{
-                      uri: item.image
-                        ? item.image
-                        : `https://via.placeholder.com/100x100.png?text=${item?.name}`,
-                    }}
-                  />
-                </View>
-                <Text className="text-md font-bold uppercase mt-2">
-                  {item.name}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-        {!categories && <Loading />}
-      </ScrollView>
+      <View className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
+        {categories ? (
+          <ScrollView>
+            <FlatGrid
+              itemDimension={130}
+              data={categories}
+              renderItem={renderCategoryItem}
+              ListEmptyComponent={renderEmptyComponent}
+            />
+          </ScrollView>
+        ) : (
+          <Loading />
+        )}
+      </View>
     </View>
   );
 }

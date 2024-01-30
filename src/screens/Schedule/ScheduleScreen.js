@@ -20,6 +20,8 @@ import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import * as SCREENS_NAME from "../../constants/screensName";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import RemindModal from "../../components/RemindModal/RemindModal";
+import DiaryModal from "../../components/DiaryModal/DiaryModal";
 
 LocaleConfig.locales["vi"] = localeConfig;
 LocaleConfig.defaultLocale = "vi";
@@ -235,58 +237,20 @@ function ScheduleScreen() {
         renderEmptyData={renderEmptyData}
       />
 
-      <View className="absolute bottom-1 right-0 w-[100%] px-2 ">
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalRemindVisible}
-        >
-          <View className="flex-1 bg-gray-400/30 justify-center content-center items-center">
-            <View className="bg-white p-4 rounded-lg w-[90%]">
-              <Text className="text-center text-lg font-bold mb-4">
-                {STRINGS.addRemind}
-              </Text>
-              <GeneralForm
-                fields={fieldsRemind}
-                titleSubmitBtn={STRINGS.save}
-                handleData={handleAddRemind}
-              />
-              <CustomizeButton
-                onPress={() => setModalRemindVisible(false)}
-                title={STRINGS.close}
-              />
-            </View>
-          </View>
-        </Modal>
-      </View>
-      <View className="absolute bottom-1 right-0 w-[100%] px-2 ">
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalDiaryVisible}
-        >
-          <View className="flex-1 bg-gray-400/30 justify-center content-center items-center">
-            <View className="bg-white p-4 rounded-lg w-[90%]">
-              <Text className="text-center text-lg font-bold mb-4">
-                {STRINGS.addDiary}
-              </Text>
-              <GeneralForm
-                fields={fieldDiary.map((field) =>
-                  field.name === "date"
-                    ? { ...field, value: dataSelected }
-                    : field
-                )}
-                titleSubmitBtn={STRINGS.save}
-                handleData={handleAddDiary}
-              ></GeneralForm>
-              <CustomizeButton
-                onPress={() => setModalDiaryVisible(false)}
-                title={STRINGS.close}
-              />
-            </View>
-          </View>
-        </Modal>
-      </View>
+      <RemindModal
+        visible={modalRemindVisible}
+        onSave={handleAddRemind}
+        onClose={() => setModalRemindVisible(false)}
+        fields={fieldsRemind}
+      />
+      <DiaryModal
+        visible={modalDiaryVisible}
+        onSave={handleAddDiary}
+        onClose={() => setModalDiaryVisible(false)}
+        fields={fieldDiary.map((field) =>
+          field.name === "date" ? { ...field, value: dataSelected } : field
+        )}
+      />
 
       <View className="mb-2 px-2">
         <CustomizeButton
