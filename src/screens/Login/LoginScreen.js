@@ -47,15 +47,15 @@ function LoginScreen() {
       type: "password",
       value: "",
       label: "Mật khẩu",
-      minLength: 4,
+      minLength: 6,
       isRequired: true,
     },
   ];
   useEffect(() => {
     if (token && token !== "" && status === SUCCEEDED) {
       navigation.reset({
-        index: 0, // Thiết lập chỉ số màn hình hiện tại trong ngăn xếp
-        routes: [{ name: SCREENS_NAME.mainTab }], // Chỉ định màn hình bạn muốn chuyển đến
+        index: 0,
+        routes: [{ name: SCREENS_NAME.mainTab }],
       });
     }
   }, [token, status]);

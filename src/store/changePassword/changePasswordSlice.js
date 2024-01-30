@@ -10,15 +10,22 @@ const initialState = {
 
 export const updatePassword = createAsyncThunk(
   "changePassword/updatePassword",
-  async ({ email, password }) => {
+  async ({ email, password, oldPassword }) => {
     try {
+      console.log("({ email, password, oldPassword } :", {
+        email,
+        password,
+        oldPassword,
+      });
       const response = await api.patch(
         `/index.php?route=extension/mstore/account/changePassword`,
         {
           email: email,
+          oldPassword: oldPassword,
           newPassword: password,
         }
       );
+
       return response.data;
     } catch (error) {
       throw error;

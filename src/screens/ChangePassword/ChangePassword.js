@@ -28,11 +28,21 @@ function ChangePasswordScreen() {
         updatePassword({
           email: await AsyncStorage.getItem("userEmail"),
           password: data.password,
+          oldPassword: data.oldPassword,
         })
       );
     }
   };
   const fields = [
+    {
+      name: "oldPassword",
+      placeholder: "Mật khẩu cũ",
+      type: "password",
+      value: "",
+      label: "Mật khẩu cũ",
+      minLength: 6,
+      isRequired: true,
+    },
     {
       name: "password",
       placeholder: "Mật khẩu mới",
