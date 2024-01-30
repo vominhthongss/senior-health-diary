@@ -17,19 +17,7 @@ export const fetchSicks = createAsyncThunk("sickList/fetchSicks", async () => {
     throw error;
   }
 });
-export const searchSicks = createAsyncThunk(
-  "sickList/searchSicks",
-  async ({ keyword }) => {
-    try {
-      const response = await api.get(
-        `/index.php?route=extension/mstore/product?name=${keyword}`
-      );
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
+
 const sickListSlice = createSlice({
   name: "sickList",
   initialState,
@@ -54,16 +42,6 @@ const sickListSlice = createSlice({
         state.sicks = action.payload;
       })
       .addCase(fetchSicks.rejected, (state, action) => {
-        state.status = FAILED;
-      })
-      .addCase(searchSicks.pending, (state) => {
-        state.status = LOADING;
-      })
-      .addCase(searchSicks.fulfilled, (state, action) => {
-        state.status = SUCCEEDED;
-        state.sicks = action.payload;
-      })
-      .addCase(searchSicks.rejected, (state, action) => {
         state.status = FAILED;
       });
   },

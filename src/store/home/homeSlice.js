@@ -21,19 +21,6 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 );
-export const searchCategories = createAsyncThunk(
-  "home/searchCategories",
-  async ({ keyword }) => {
-    try {
-      const response = await api.get(
-        `/index.php?route=extension/mstore/category?name=${keyword}`
-      );
-      return response.data.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
 const homeSlice = createSlice({
   name: "home",
   initialState,
@@ -53,16 +40,6 @@ const homeSlice = createSlice({
         state.categories = action.payload;
       })
       .addCase(fetchCategories.rejected, (state, action) => {
-        state.status = FAILED;
-      })
-      .addCase(searchCategories.pending, (state) => {
-        state.status = LOADING;
-      })
-      .addCase(searchCategories.fulfilled, (state, action) => {
-        state.status = SUCCEEDED;
-        state.categories = action.payload;
-      })
-      .addCase(searchCategories.rejected, (state, action) => {
         state.status = FAILED;
       });
   },
