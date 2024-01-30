@@ -36,6 +36,13 @@ function CustomizeTextInput({
     onChangeText(formattedTime);
   };
 
+  let keyboardType = "default";
+  if (numericInput === true) {
+    keyboardType = "numeric";
+  } else if (numericInput === "time") {
+    keyboardType = "default"; // Time picker does not need a specific keyboard type
+  }
+
   return (
     <View
       style={{
@@ -52,7 +59,7 @@ function CustomizeTextInput({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry && !isPasswordVisible}
-        keyboardType={numericInput === "time" ? "default" : numericInput}
+        keyboardType={keyboardType}
         onFocus={() => numericInput === "time" && showTimePicker()}
       />
       {secureTextEntry && (

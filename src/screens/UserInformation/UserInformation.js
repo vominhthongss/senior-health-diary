@@ -71,25 +71,23 @@ function UserInformationScreen() {
       );
     }
   }, [user, status, dispatch]);
-  return (
+  return user ? (
     <ScrollView>
-      {user ? (
-        <View className="flex flex-column items-center">
-          <Text className="text-2xl my-5 uppercase">{STRINGS.editTitle}</Text>
-          <View className="w-[90%] ">
-            <GeneralForm
-              fields={fields}
-              handleData={handleSave}
-              titleSubmitBtn={STRINGS.save}
-            />
-          </View>
+      <View className="flex flex-column items-center">
+        <Text className="text-2xl my-5 uppercase">{STRINGS.editTitle}</Text>
+        <View className="w-[90%] ">
+          <GeneralForm
+            fields={fields}
+            handleData={handleSave}
+            titleSubmitBtn={STRINGS.save}
+          />
         </View>
-      ) : (
-        <View className="flex flex-row justify-center items-center h-screen -mt-28">
-          <Loading />
-        </View>
-      )}
+      </View>
     </ScrollView>
+  ) : (
+    <View className="flex flex-row justify-center items-center h-screen -mt-28">
+      <Loading />
+    </View>
   );
 }
 
