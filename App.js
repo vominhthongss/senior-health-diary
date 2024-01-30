@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as ROUTES from "./src/routes/routes";
 import { Provider } from "react-redux";
 import store from "./src/store/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 
@@ -11,7 +12,15 @@ function App() {
   const [initialRoute, setInitialRoute] = useState(null);
 
   useEffect(() => {
-    setInitialRoute(ROUTES.mainTab.name);
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        setInitialRoute(ROUTES.mainTab.name);
+      } else {
+        setInitialRoute(ROUTES.login.name);
+      }
+    };
+    checkToken();
   }, [initialRoute]);
   if (initialRoute === null) {
     return null;

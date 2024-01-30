@@ -11,8 +11,8 @@ const initialState = {
 
 export const fetchSicks = createAsyncThunk("sickList/fetchSicks", async () => {
   try {
-    const response = await api.get(`/index.php?route=extension/mstore/product`);
-    return response.data.data;
+    const response = await api.get(`/index.php?route=api/product`);
+    return response.data.products;
   } catch (error) {
     throw error;
   }

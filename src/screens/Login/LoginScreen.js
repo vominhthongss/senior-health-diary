@@ -6,7 +6,7 @@ import GoogleButton from "../../components/GoogleButton/GoogleButton";
 import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import * as STRINGS from "../../constants/strings";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/auth/authSlice";
+import { login, unmounteAuth } from "../../store/auth/authSlice";
 import { SUCCEEDED } from "../../constants/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -58,6 +58,9 @@ function LoginScreen() {
         routes: [{ name: SCREENS_NAME.mainTab }],
       });
     }
+    return () => {
+      dispatch(unmounteAuth());
+    };
   }, [token, status]);
 
   return (
