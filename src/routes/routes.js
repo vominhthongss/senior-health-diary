@@ -7,6 +7,8 @@ import SignUpScreen from "../screens/SignUp/SignUpScreen";
 import ChangePasswordScreen from "../screens/ChangePassword/ChangePassword";
 import SickDetailScreen from "../screens/SickDetail/SickDetail";
 import SickListScreen from "../screens/SickList/SickListScreen";
+import RemindScreen from "../screens/Remind/RemindScreen";
+import DiaryScreen from "../screens/Diary/DiaryScreen";
 
 export const mainTab = {
   name: SCREENS_NAME.mainTab,
@@ -41,5 +43,15 @@ export const sickDetail = {
 export const sickList = {
   name: SCREENS_NAME.sickList,
   component: SickListScreen,
+  options: screenChildOption,
+};
+export const remind = {
+  name: SCREENS_NAME.remind,
+  component: RemindScreen,
+  options: screenChildOption,
+};
+export const diary = {
+  name: SCREENS_NAME.diary,
+  component: DiaryScreen,
   options: screenChildOption,
 };

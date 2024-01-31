@@ -9,3 +9,5 @@ export const notification = "Notification";
 export const changePassword = "ChangePassword";
 export const sickDetail = "SickDetail";
 export const sickList = "SickList";
+export const remind = "Remind";
+export const diary = "Diary";

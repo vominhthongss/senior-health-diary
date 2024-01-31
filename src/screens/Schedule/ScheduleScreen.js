@@ -16,12 +16,9 @@ import {
   fetchSchedule,
   updateSchedule,
 } from "../../store/schedule/scheduleSlice";
-import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import * as SCREENS_NAME from "../../constants/screensName";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import RemindModal from "../../components/RemindModal/RemindModal";
-import DiaryModal from "../../components/DiaryModal/DiaryModal";
 
 LocaleConfig.locales["vi"] = localeConfig;
 LocaleConfig.defaultLocale = "vi";
@@ -85,9 +82,6 @@ function ScheduleScreen() {
     );
   };
   const [dataSelected, setDateSelected] = useState("");
-
-  const [modalRemindVisible, setModalRemindVisible] = useState(false);
-  const [modalDiaryVisible, setModalDiaryVisible] = useState(false);
 
   const fieldsRemind = [
     {
@@ -174,7 +168,6 @@ function ScheduleScreen() {
       };
       dispatch(addSchedule(data));
     }
-    setModalRemindVisible(false);
   };
   const handleAddDiary = async (values) => {
     dispatch(
@@ -213,8 +206,6 @@ function ScheduleScreen() {
       };
       dispatch(addSchedule(data));
     }
-
-    setModalDiaryVisible(false);
   };
 
   useEffect(() => {
@@ -237,30 +228,25 @@ function ScheduleScreen() {
         renderEmptyData={renderEmptyData}
       />
 
-      <RemindModal
-        visible={modalRemindVisible}
-        onSave={handleAddRemind}
-        onClose={() => setModalRemindVisible(false)}
-        fields={fieldsRemind}
-      />
-      <DiaryModal
-        visible={modalDiaryVisible}
-        onSave={handleAddDiary}
-        onClose={() => setModalDiaryVisible(false)}
-        fields={fieldDiary.map((field) =>
-          field.name === "date" ? { ...field, value: dataSelected } : field
-        )}
-      />
-
       <View className="mb-2 px-2">
         <CustomizeButton
-          onPress={() => setModalRemindVisible(true)}
+          onPress={() =>
+            navigation.navigate(SCREENS_NAME.remind, {
+              onSave: handleAddRemind,
+              fields: fieldsRemind,
+            })
+          }
           title={STRINGS.addRemind}
         />
       </View>
       <View className="px-2">
         <CustomizeButton
-          onPress={() => setModalDiaryVisible(true)}
+          onPress={() =>
+            navigation.navigate(SCREENS_NAME.diary, {
+              onSave: handleAddDiary,
+              fields: fieldDiary,
+            })
+          }
           title={STRINGS.addDiary}
         />
       </View>
