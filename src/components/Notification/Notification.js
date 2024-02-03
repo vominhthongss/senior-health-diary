@@ -1,42 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as Notifications from "expo-notifications";
 
 export function useSetReminders({ value }) {
-  const scheduleNoti = async () => {
-    if (!value) return; // Check if value is defined
-
-    // Lấy Expo Push Token
-    const expoPushToken = await registerForPushNotificationsAsync();
-    console.log("Expo Push Token:", expoPushToken);
-
-    Object.keys(value).forEach((key) => {
-      value[key].forEach(async (schedule) => {
-        const { time, text } = schedule;
-        const [hours, minutesCon] = time.split(":");
-        const [minutes, m] = minutesCon.split("PM" || "AM");
-
-        const schedulingOptions = {
-          hour: Number(
-            minutesCon.includes("PM") ? parseInt(hours) + 12 : hours
-          ),
-          minute: Number(minutes),
-          repeats: false,
-        };
-
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "Báo nhắc",
-            body: "text",
-          },
-          // trigger: schedulingOptions,
-          trigger: {
-            seconds: 10, // Hẹn giờ sau 10 giây
-          },
-        });
-        console.log("Scheduled notification with options:", schedulingOptions);
-      });
-    });
-  };
+  const isMounted = useRef(false);
 
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
@@ -48,8 +14,45 @@ export function useSetReminders({ value }) {
     return () => subscription.remove();
   }, [value]);
 
-  // Gọi hàm scheduleNoti để lên lịch thông báo
-  scheduleNoti();
+  useEffect(() => {
+    const scheduleNoti = async () => {
+      if (!value) return;
+
+      const expoPushToken = await registerForPushNotificationsAsync();
+
+      Object.keys(value).forEach((key) => {
+        value[key].forEach(async (schedule) => {
+          const { time, text } = schedule;
+          const [hours, minutesCon] = time.split(":");
+          const [minutes, m] = minutesCon.split("PM" || "AM");
+
+          const schedulingOptions = {
+            hour: Number(
+              minutesCon.includes("PM") ? parseInt(hours) + 12 : hours
+            ),
+            minute: Number(minutes),
+            repeats: false,
+          };
+          console.log("schedulingOptions :", schedulingOptions);
+          await Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Báo nhắc",
+              body: text,
+            },
+            trigger: schedulingOptions,
+          });
+        });
+      });
+    };
+
+    if (isMounted.current) {
+      scheduleNoti();
+    } else {
+      isMounted.current = true;
+    }
+  }, [value]);
+
+  return null; // Hoặc trả về JSX tương ứng với component của bạn
 }
 
 async function registerForPushNotificationsAsync() {
