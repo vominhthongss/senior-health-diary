@@ -86,6 +86,7 @@ const scheduleSlice = createSlice({
       .addCase(fetchSchedule.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
         state.schedules = parseToSchedule(action.payload);
+        console.log("state.schedules :", state.schedules);
       })
       .addCase(fetchSchedule.rejected, (state, action) => {
         state.status = FAILED;

@@ -7,26 +7,30 @@ import GeneralForm from "../../components/GeneralForm/GeneralForm";
 import Loading from "../../components/Loading/Loading";
 import * as STRINGS from "../../constants/strings";
 import * as SCREENS_NAME from "../../constants/screensName";
-import {
-  fetchCategories,
-  searchCategories,
-  updateCategories,
-} from "../../store/home/homeSlice";
+import { fetchCategories, updateCategories } from "../../store/home/homeSlice";
 import { useNavigation } from "@react-navigation/native";
+import { useSetReminders } from "../../components/Notification/Notification";
+import { fetchSchedule } from "../../store/schedule/scheduleSlice";
 
 function HomeScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const categories = useSelector((state) => state.home.categories);
-
+  const { schedules } = useSelector((state) => state.schedule);
+  // if (schedules) {
+  //   useSetReminders(schedules);
+  // }
   useEffect(() => {
     if (!categories) {
       dispatch(fetchCategories());
     }
-  }, [categories, dispatch]);
+    if (!schedules) {
+      dispatch(fetchSchedule());
+    }
+  }, [categories, schedules, dispatch]);
 
   const handleGoToSickList = (id) => {
-    navigation.navigate(SCREENS_NAME.sickList, { category_id: id });
+    navigation.navigater(SCREENS_NAME.sickList, { category_id: id });
   };
 
   const handleSearch = (data) => {
