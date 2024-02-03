@@ -17,17 +17,13 @@ function HomeScreen() {
   const navigation = useNavigation();
   const categories = useSelector((state) => state.home.categories);
   const { schedules } = useSelector((state) => state.schedule);
-  // if (schedules) {
-  //   useSetReminders(schedules);
-  // }
   useEffect(() => {
     if (!categories) {
       dispatch(fetchCategories());
     }
-    if (!schedules) {
-      dispatch(fetchSchedule());
-    }
-  }, [categories, schedules, dispatch]);
+    dispatch(fetchSchedule());
+  }, [categories, dispatch]);
+  useSetReminders({ value: schedules });
 
   const handleGoToSickList = (id) => {
     navigation.navigater(SCREENS_NAME.sickList, { category_id: id });

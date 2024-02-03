@@ -3,6 +3,7 @@ import { parseToSchedule } from "../../helps/parseToSchedule";
 import { FAILED, LOADING, SUCCEEDED } from "../../constants/store";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSetReminders } from "../../components/Notification/Notification";
 
 const initialState = {
   schedules: undefined,
@@ -86,7 +87,6 @@ const scheduleSlice = createSlice({
       .addCase(fetchSchedule.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
         state.schedules = parseToSchedule(action.payload);
-        console.log("state.schedules :", state.schedules);
       })
       .addCase(fetchSchedule.rejected, (state, action) => {
         state.status = FAILED;

@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as ROUTES from "./src/routes/routes";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./src/store/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useSetReminders } from "./src/components/Notification/Notification";
 
 const Stack = createStackNavigator();
 
 function App() {
   const [initialRoute, setInitialRoute] = useState(null);
-
   useEffect(() => {
     const checkToken = async () => {
       const token = await AsyncStorage.getItem("token");

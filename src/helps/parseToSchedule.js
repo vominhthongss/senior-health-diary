@@ -4,6 +4,7 @@ export const parseToSchedule = (schedules) => {
     result[schedule.date] =
       schedule.reminds && schedule.reminds.length
         ? schedule.reminds.map((remind) => {
+            remind.time = remind.time.replace("?", "");
             return { ...remind, type: "remind", scheduleId: schedule.id };
           })
         : schedule.diaries && schedule.diaries.length

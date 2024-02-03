@@ -1,25 +1,33 @@
 import { useEffect } from "react";
 import * as Notifications from "expo-notifications";
 
-export function useSetReminders(schedules) {
+export function useSetReminders({ value }) {
   useEffect(() => {
-    schedules.forEach((schedule) => {
-      const { time, text } = schedule;
-      const [hours, minutes] = time.split(":");
+    if (!value) return; // Check if value is defined
 
-      const schedulingOptions = {
-        hour: Number(hours),
-        minute: Number(minutes),
-        repeats: true,
-      };
+    Object.keys(value).forEach((key) => {
+      value[key].forEach((schedule) => {
+        const { time, text } = schedule;
+        const [hours, minutesCon] = time.split(":");
+        const [minutes, m] = minutesCon.split("PM" || "AM");
 
-      Notifications.scheduleNotificationAsync({
-        content: {
-          title: "Báo nhắc",
-          body: text,
-        },
-        trigger: schedulingOptions,
+        const schedulingOptions = {
+          hour: Number(
+            minutesCon.includes("PM") ? parseInt(hours) + 12 : hours
+          ),
+          minute: Number(minutes),
+          repeats: true,
+        };
+
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: "Báo nhắc",
+            body: text,
+          },
+          trigger: schedulingOptions,
+        });
+        console.log("schedulingOptions :", schedulingOptions);
       });
     });
-  }, [schedules]);
+  }, [value]);
 }
