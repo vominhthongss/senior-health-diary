@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import * as Notifications from "expo-notifications";
 
 export function useSetReminders({ value }) {
-  useEffect(() => {
+  const scheduleNoti = () => {
     if (!value) return; // Check if value is defined
 
     Object.keys(value).forEach((key) => {
-      value[key].forEach((schedule) => {
+      value[key].forEach(async (schedule) => {
         const { time, text } = schedule;
         const [hours, minutesCon] = time.split(":");
         const [minutes, m] = minutesCon.split("PM" || "AM");
@@ -19,7 +19,7 @@ export function useSetReminders({ value }) {
           repeats: true,
         };
 
-        Notifications.scheduleNotificationAsync({
+        await Notifications.scheduleNotificationAsync({
           content: {
             title: "Báo nhắc",
             body: text,
@@ -29,5 +29,15 @@ export function useSetReminders({ value }) {
         console.log("schedulingOptions :", schedulingOptions);
       });
     });
+  };
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log(notification);
+      }
+    );
+
+    return () => subscription.remove();
   }, [value]);
+  scheduleNoti();
 }
