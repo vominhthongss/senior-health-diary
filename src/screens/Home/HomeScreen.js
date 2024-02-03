@@ -26,7 +26,7 @@ function HomeScreen() {
   useSetReminders({ value: schedules });
 
   const handleGoToSickList = (id) => {
-    navigation.navigater(SCREENS_NAME.sickList, { category_id: id });
+    navigation.navigate(SCREENS_NAME.sickList, { category_id: id });
   };
 
   const handleSearch = (data) => {
