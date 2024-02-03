@@ -25,8 +25,8 @@ function HomeScreen() {
     }
   }, [categories, dispatch]);
 
-  const handleGoToSickList = () => {
-    navigation.navigate(SCREENS_NAME.sickList);
+  const handleGoToSickList = (id) => {
+    navigation.navigate(SCREENS_NAME.sickList, { category_id: id });
   };
 
   const handleSearch = (data) => {
@@ -52,7 +52,7 @@ function HomeScreen() {
   ];
 
   const renderCategoryItem = ({ item }) => (
-    <TouchableOpacity onPress={handleGoToSickList}>
+    <TouchableOpacity onPress={() => handleGoToSickList(item.id)}>
       <View className="flex flex-col items-center space-x-3 p-1 rounded-md">
         <View className="bg-slate-200 rounded-lg w-full py-2 flex justify-center flex-row">
           <Image

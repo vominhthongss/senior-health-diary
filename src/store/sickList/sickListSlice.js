@@ -9,14 +9,19 @@ const initialState = {
   error: null,
 };
 
-export const fetchSicks = createAsyncThunk("sickList/fetchSicks", async () => {
-  try {
-    const response = await api.get(`/index.php?route=api/product`);
-    return response.data.products;
-  } catch (error) {
-    throw error;
+export const fetchSicks = createAsyncThunk(
+  "sickList/fetchSicks",
+  async ({ category_id }) => {
+    try {
+      const response = await api.get(
+        `/index.php?route=extension/mstore/product&category=${category_id}`
+      );
+      return response.data.data;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
 const sickListSlice = createSlice({
   name: "sickList",

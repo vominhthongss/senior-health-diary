@@ -2,8 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import * as STRINGS from "../constants/strings";
 import { Alert } from "react-native";
+import { BASE_URL } from "../constants/url";
 const api = axios.create({
-  baseURL: "https://apimp.smartdevgroup.com",
+  baseURL: BASE_URL,
 });
 
 api.interceptors.request.use(

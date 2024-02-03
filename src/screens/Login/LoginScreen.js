@@ -78,8 +78,8 @@ function LoginScreen() {
           handleData={handleLogin}
           titleSubmitBtn={STRINGS.signIn}
         />
-        <CustomizeButton title={STRINGS.notLoginBtn} onPress={handleGoMain} />
         <GoogleButton onPress={handleLoginGoogle} />
+        <CustomizeButton title={STRINGS.notLoginBtn} onPress={handleGoMain} />
       </View>
       <View className="w-[90%] flex flex-row justify-between py-5 ">
         <Text className="text-blue-500">{STRINGS.forgotPassword}</Text>

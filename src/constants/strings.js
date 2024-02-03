@@ -47,4 +47,4 @@ export const noData = "Không có dữ liệu";
 export const categoryName = "Kiến thức y khoa";
 export const sickListName = "Danh sách bệnh";
 export const loading = "Đang tải...";
-export const notLoginBtn = "ĐĂNG NHẬP KHÔNG TÀI KHOẢN";
+export const notLoginBtn = "KIẾN THỨC Y KHOA";

@@ -8,13 +8,14 @@ import { useNavigation } from "@react-navigation/native";
 import * as SCREENS_NAME from "../../constants/screensName";
 import {
   fetchSicks,
-  searchSicks,
   setSick,
   updateSickList,
 } from "../../store/sickList/sickListSlice";
 import Loading from "../../components/Loading/Loading";
+import { BASE_URL } from "../../constants/url";
 
-function SickListScreen() {
+function SickListScreen({ route }) {
+  const { category_id } = route.params || {};
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const handleGoToSickDetail = (sick) => {
@@ -30,7 +31,7 @@ function SickListScreen() {
       });
       dispatch(updateSickList({ sickList: filteredSicks }));
     } else {
-      dispatch(fetchSicks());
+      dispatch(fetchSicks({ category_id }));
     }
   };
   const fields = [
@@ -43,9 +44,7 @@ function SickListScreen() {
     },
   ];
   useEffect(() => {
-    if (!sicks) {
-      dispatch(fetchSicks());
-    }
+    dispatch(fetchSicks({ category_id }));
   }, [sicks, dispatch]);
   return (
     <View className="bg-blue-200 h-full">
@@ -76,7 +75,7 @@ function SickListScreen() {
                     className="w-20 h-20 object-fill rounded-md"
                     source={{
                       uri:
-                        sick.thumb ??
+                        `${BASE_URL}/image/cache/${sick.image}` ??
                         `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
                     }}
                   />
