@@ -19,6 +19,7 @@ import {
 import * as SCREENS_NAME from "../../constants/screensName";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { useSetReminders } from "../../components/Notification/Notification";
 
 LocaleConfig.locales["vi"] = localeConfig;
 LocaleConfig.defaultLocale = "vi";
@@ -27,6 +28,7 @@ function ScheduleScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { schedules } = useSelector((state) => state.schedule);
+  useSetReminders({ value: schedules });
   const goToLogin = () => {
     navigation.navigate(SCREENS_NAME.login);
   };
