@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Notifications from "expo-notifications";
+import * as TaskManager from "expo-task-manager";
 
 export function useSetReminders({ value }) {
   const isMounted = useRef(false);
+  const [reminders, setReminders] = useState(value);
 
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
@@ -12,64 +14,89 @@ export function useSetReminders({ value }) {
     );
 
     return () => subscription.remove();
+  }, []);
+
+  useEffect(() => {
+    setReminders(value);
   }, [value]);
 
   useEffect(() => {
-    const scheduleNoti = async () => {
-      if (!value) return;
+    const checkReminders = async () => {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const day = String(currentDate.getDate()).padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
 
-      const expoPushToken = await registerForPushNotificationsAsync();
+      const currentReminders = reminders?.[formattedDate] || [];
 
-      Object.keys(value).forEach((key) => {
-        value[key].forEach(async (schedule) => {
-          const { time, text } = schedule;
-          const [hours, minutesCon] = time.split(":");
-          const [minutes, m] = minutesCon.split("PM" || "AM");
+      for (const reminder of currentReminders) {
+        const { time, text } = reminder;
+        const [hours, minutesCon] = time.split(":");
+        const [minutes, m] = minutesCon.split(/PM|AM/);
 
-          const schedulingOptions = {
-            hour: Number(
-              minutesCon.includes("PM") ? parseInt(hours) + 12 : hours
-            ),
-            minute: Number(minutes),
-            repeats: false,
-          };
-          console.log("schedulingOptions :", schedulingOptions);
+        const schedulingOptions = {
+          hour: Number(
+            minutesCon.includes("PM") ? parseInt(hours) + 12 : hours
+          ),
+          minute: Number(minutes),
+          repeats: false,
+        };
+
+        const scheduledTime = new Date(
+          year,
+          currentDate.getMonth(),
+          currentDate.getDate(),
+          schedulingOptions.hour,
+          schedulingOptions.minute
+        );
+        // await Notifications.scheduleNotificationAsync({
+        //   content: {
+        //     title: "Nhắc nhở",
+        //     body: text,
+        //   },
+        //   trigger: scheduledTime,
+        // });
+        const notifications =
+          await Notifications.getAllScheduledNotificationsAsync();
+        const isScheduled = notifications.some(
+          (notification) =>
+            notification.content.title === "Nhắc nhở" &&
+            notification.content.body === text
+        );
+
+        if (!isScheduled) {
           await Notifications.scheduleNotificationAsync({
             content: {
-              title: "Báo nhắc",
+              title: "Nhắc nhở",
               body: text,
             },
-            trigger: schedulingOptions,
+            trigger: scheduledTime,
           });
-        });
-      });
+        }
+      }
     };
 
-    if (isMounted.current) {
-      scheduleNoti();
-    } else {
-      isMounted.current = true;
-    }
-  }, [value]);
+    const intervalId = setInterval(() => {
+      checkReminders();
+    }, 1000);
 
-  return null; // Hoặc trả về JSX tương ứng với component của bạn
-}
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [reminders]);
 
-async function registerForPushNotificationsAsync() {
-  let token;
+  useEffect(() => {
+    const backgroundTask = () => {
+      checkReminders();
+    };
 
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus !== "granted") {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
-  if (finalStatus !== "granted") {
-    alert("Failed to get push token for push notification!");
-    return;
-  }
+    TaskManager.defineTask("backgroundTask", backgroundTask);
 
-  // Lấy Expo Push Token
-  token = (await Notifications.getExpoPushTokenAsync()).data;
-  return token;
+    return () => {
+      TaskManager.unregisterAllTasksAsync();
+    };
+  }, [reminders]);
+
+  return null;
 }
