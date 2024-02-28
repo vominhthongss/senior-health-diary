@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { screenBottomOption } from "../constants/options";
 import * as SCREENS_NAME from "../constants/screensName";
 import * as STRINGS from "../constants/strings";
@@ -7,6 +7,10 @@ import HomeScreen from "../screens/Home/HomeScreen";
 import ScheduleScreen from "../screens/Schedule/ScheduleScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
 import NotificationScreen from "../screens/Notification/NotificationScreen";
+import NotificationCounter from "../components/NotificationCounter/NotificationCounter";
+import { useEffect } from "react";
+import { fetchSchedule } from "../store/schedule/scheduleSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const home = {
   index: 1,
@@ -62,8 +66,20 @@ export const notification = {
     headerTitle: () => (
       <Text className="text-lg font-bold">{STRINGS.notification}</Text>
     ),
-    tabBarIcon: ({ color, size }) => (
-      <Icon name="bell" size={size} color={color} />
-    ),
+    tabBarIcon: ({ color, size }) => {
+      const dispatch = useDispatch();
+      const { schedules } = useSelector((state) => state.schedule);
+      useEffect(() => {
+        dispatch(fetchSchedule());
+      }, [dispatch]);
+      return (
+        <View className="relative">
+          <View className="absolute -top-4 -right-3 z-10">
+            <NotificationCounter schedules={schedules} />
+          </View>
+          <Icon name="bell" size={size} color={color} />
+        </View>
+      );
+    },
   },
 };

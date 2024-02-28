@@ -11,6 +11,7 @@ import { fetchCategories, updateCategories } from "../../store/home/homeSlice";
 import { useNavigation } from "@react-navigation/native";
 import { useSetReminders } from "../../components/Notification/Notification";
 import { fetchSchedule } from "../../store/schedule/scheduleSlice";
+import NotificationCounter from "../../components/NotificationCounter/NotificationCounter";
 
 function HomeScreen() {
   const dispatch = useDispatch();
