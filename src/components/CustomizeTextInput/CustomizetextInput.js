@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, TouchableOpacity, Text } from "react-native";
+import { TextInput, View, TouchableOpacity, Text, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -51,11 +51,16 @@ function CustomizeTextInput({
           borderRadius: 10,
           borderWidth: 1,
           padding: 12,
-          backgroundColor: "#E2E8F0",
+          backgroundColor: "white",
         }}
       >
+        <Image
+          className="absolute top-2 left-2"
+          source={require("../../../assets/images/searchIcon.png")}
+          style={{ width: 25, height: 25 }}
+        />
         <TextInput
-          style={{ paddingRight: 10, height: 20 }}
+          style={{ paddingLeft: 20, paddingRight: 10, height: 20 }}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}

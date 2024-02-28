@@ -90,7 +90,7 @@ function HomeScreen() {
         {STRINGS.categoryName}
       </Text>
 
-      <View className="bg-white h-full rounded-t-xl py-3 px-2 mx-1">
+      <View className="bg-white h-full rounded-t-xl py-3 pb-32 px-2 mx-1">
         {categories ? (
           <ScrollView>
             <FlatGrid
