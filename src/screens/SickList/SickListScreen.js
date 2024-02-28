@@ -49,12 +49,13 @@ function SickListScreen({ route }) {
   return (
     <View className="bg-blue-200 h-full">
       <View className="flex flex-row justify-center">
-        <View className="w-[90%]">
+        <View className="w-full px-5 pr-8">
           <GeneralForm
             fields={fields}
             titleSubmitBtn={STRINGS.search}
             handleData={handleSearch}
-            isVertical={true}
+            isVertical
+            isSearch={true}
           />
         </View>
       </View>

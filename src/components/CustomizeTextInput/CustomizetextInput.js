@@ -9,6 +9,7 @@ function CustomizeTextInput({
   onChangeText,
   secureTextEntry,
   numericInput,
+  isSearch,
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isTimePickerVisible, setTimePickerVisible] = useState(false);
@@ -42,52 +43,74 @@ function CustomizeTextInput({
   } else if (numericInput === "time") {
     keyboardType = "default"; // Time picker does not need a specific keyboard type
   }
+  if (isSearch) {
+    return (
+      <View
+        style={{
+          width: "100%",
+          borderRadius: 10,
+          borderWidth: 1,
+          padding: 12,
+          backgroundColor: "#E2E8F0",
+        }}
+      >
+        <TextInput
+          style={{ paddingRight: 10, height: 20 }}
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={secureTextEntry && !isPasswordVisible}
+          keyboardType={keyboardType}
+          onFocus={() => numericInput === "time" && showTimePicker()}
+        />
+      </View>
+    );
+  } else
+    return (
+      <View
+        style={{
+          width: "100%",
+          borderRadius: 10,
+          borderWidth: 1,
+          padding: 12,
+          backgroundColor: "#E2E8F0",
+        }}
+      >
+        <TextInput
+          style={{ padding: 12, paddingRight: 30, height: 44 }}
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={secureTextEntry && !isPasswordVisible}
+          keyboardType={keyboardType}
+          onFocus={() => numericInput === "time" && showTimePicker()}
+        />
+        {secureTextEntry && (
+          <TouchableOpacity
+            onPress={togglePasswordVisibility}
+            style={{ position: "absolute", top: 20, right: 10 }}
+          >
+            <Icon name={isPasswordVisible ? "eye-slash" : "eye"} size={20} />
+          </TouchableOpacity>
+        )}
+        {numericInput === "time" && (
+          <TouchableOpacity
+            onPress={showTimePicker}
+            style={{ position: "absolute", top: 25, right: 10 }}
+          >
+            <Icon name="clock-o" size={20} />
+          </TouchableOpacity>
+        )}
 
-  return (
-    <View
-      style={{
-        width: "100%",
-        borderRadius: 10,
-        borderWidth: 1,
-        padding: 12,
-        backgroundColor: "#E2E8F0",
-      }}
-    >
-      <TextInput
-        style={{ padding: 12, paddingRight: 30, height: 44 }}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry && !isPasswordVisible}
-        keyboardType={keyboardType}
-        onFocus={() => numericInput === "time" && showTimePicker()}
-      />
-      {secureTextEntry && (
-        <TouchableOpacity
-          onPress={togglePasswordVisibility}
-          style={{ position: "absolute", top: 20, right: 10 }}
-        >
-          <Icon name={isPasswordVisible ? "eye-slash" : "eye"} size={20} />
-        </TouchableOpacity>
-      )}
-      {numericInput === "time" && (
-        <TouchableOpacity
-          onPress={showTimePicker}
-          style={{ position: "absolute", top: 25, right: 10 }}
-        >
-          <Icon name="clock-o" size={20} />
-        </TouchableOpacity>
-      )}
-
-      <DateTimePickerModal
-        isVisible={isTimePickerVisible}
-        mode="time"
-        onConfirm={handleTimeConfirm}
-        onCancel={hideTimePicker}
-        is24Hour={false}
-      />
-    </View>
-  );
+        <DateTimePickerModal
+          isVisible={isTimePickerVisible}
+          mode="time"
+          onConfirm={handleTimeConfirm}
+          onCancel={hideTimePicker}
+          is24Hour={false}
+        />
+      </View>
+    );
 }
 
 export default CustomizeTextInput;

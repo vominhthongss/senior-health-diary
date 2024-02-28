@@ -12,6 +12,7 @@ function GeneralForm({
   handleData,
   titleSubmitBtn,
   isVertical = false,
+  isSearch,
 }) {
   const fieldRender = (field, key, { handleChange, values, errors }) => {
     let element = null;
@@ -60,6 +61,7 @@ function GeneralForm({
               value={values[field.name]}
               onChangeText={handleChange(field.name)}
               secureTextEntry={false}
+              isSearch={isSearch}
             />
             <View className="absolute -bottom-6">
               {errors[field.name] && <ErrorText content={errors[field.name]} />}
@@ -176,7 +178,11 @@ function GeneralForm({
             </View>
           ))}
           <View className={`${isVertical ? "w-1/4" : "mt-6 mb-3"}`}>
-            <CustomizeButton title={titleSubmitBtn} onPress={handleSubmit} />
+            <CustomizeButton
+              isSearch={isSearch}
+              title={titleSubmitBtn}
+              onPress={handleSubmit}
+            />
           </View>
         </View>
       )}
