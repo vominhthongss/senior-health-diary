@@ -21,11 +21,13 @@ const DiaryScreen = ({ route, navigation }) => {
         fields={fields}
         titleSubmitBtn={STRINGS.save}
         handleData={handleSaveAndGoBack}
+        backBtn={true}
+        goBack={() => navigation.goBack()}
       />
-      <CustomizeButton
+      {/* <CustomizeButton
         onPress={() => navigation.goBack()}
         title={STRINGS.close}
-      />
+      /> */}
     </View>
   );
 };

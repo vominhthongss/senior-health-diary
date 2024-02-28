@@ -94,6 +94,7 @@ function ChangePasswordScreen() {
             fields={fields}
             handleData={handleSave}
             titleSubmitBtn={STRINGS.save}
+            isSmall={true}
           />
         </View>
       </View>

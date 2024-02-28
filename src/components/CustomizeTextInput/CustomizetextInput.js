@@ -78,11 +78,11 @@ function CustomizeTextInput({
           borderRadius: 10,
           borderWidth: 1,
           padding: 12,
-          backgroundColor: "#E2E8F0",
+          backgroundColor: "white",
         }}
       >
         <TextInput
-          style={{ padding: 12, paddingRight: 30, height: 44 }}
+          style={{ paddingLeft: 8, paddingRight: 10, height: 20 }}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
@@ -93,7 +93,7 @@ function CustomizeTextInput({
         {secureTextEntry && (
           <TouchableOpacity
             onPress={togglePasswordVisibility}
-            style={{ position: "absolute", top: 20, right: 10 }}
+            style={{ position: "absolute", top: 12, right: 10 }}
           >
             <Icon name={isPasswordVisible ? "eye-slash" : "eye"} size={20} />
           </TouchableOpacity>
@@ -101,7 +101,7 @@ function CustomizeTextInput({
         {numericInput === "time" && (
           <TouchableOpacity
             onPress={showTimePicker}
-            style={{ position: "absolute", top: 25, right: 10 }}
+            style={{ position: "absolute", top: 12, right: 10 }}
           >
             <Icon name="clock-o" size={20} />
           </TouchableOpacity>

@@ -6,6 +6,7 @@ import { parseToForm } from "../../helps/parseToForm";
 import CustomizeButton from "../CustomizeButton/CustomizeButton";
 import ErrorText from "../ErrorText/ErrorText";
 import CustomizeRadio from "../CustomizeRadio/CustomizeRadio";
+import * as STRINGS from "../../constants/strings";
 
 function GeneralForm({
   fields,
@@ -13,6 +14,9 @@ function GeneralForm({
   titleSubmitBtn,
   isVertical = false,
   isSearch,
+  backBtn,
+  goBack,
+  isSmall,
 }) {
   const fieldRender = (field, key, { handleChange, values, errors }) => {
     let element = null;
@@ -177,13 +181,40 @@ function GeneralForm({
               {fieldRender(field, key, { handleChange, values, errors })}
             </View>
           ))}
-          <View className={`${isVertical ? "w-1/4" : "mt-6 mb-3"}`}>
-            <CustomizeButton
-              isSearch={isSearch}
-              title={titleSubmitBtn}
-              onPress={handleSubmit}
-            />
-          </View>
+          {backBtn ? (
+            <View className="w-full flex flex-row justify-center">
+              <View className="w-1/2">
+                <CustomizeButton
+                  isSearch={isSearch}
+                  title={titleSubmitBtn}
+                  onPress={handleSubmit}
+                />
+              </View>
+              <View className="w-1/2 ml-2">
+                <CustomizeButton
+                  isSearch={isSearch}
+                  title={STRINGS.close}
+                  onPress={goBack}
+                />
+              </View>
+            </View>
+          ) : (
+            <View className={`${isVertical ? "w-1/4" : "mt-6 mb-3"}`}>
+              <View
+                className={`${
+                  isSmall ? "w-full flex flex-row justify-center" : "w-full"
+                }`}
+              >
+                <View className={`${isSmall ? "w-1/4" : "w-full"}`}>
+                  <CustomizeButton
+                    isSearch={isSearch}
+                    title={titleSubmitBtn}
+                    onPress={handleSubmit}
+                  />
+                </View>
+              </View>
+            </View>
+          )}
         </View>
       )}
     </Formik>

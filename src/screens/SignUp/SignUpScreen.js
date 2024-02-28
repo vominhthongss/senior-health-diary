@@ -106,7 +106,8 @@ function SignUpScreen() {
           <GeneralForm
             fields={fields}
             handleData={handleSignUp}
-            titleSubmitBtn={STRINGS.createAccount}
+            titleSubmitBtn={STRINGS.save}
+            isSmall={true}
           />
           <View className="flex flex-row justify-start py-5 ">
             <TouchableOpacity onPress={handleBack}>
