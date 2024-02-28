@@ -8,7 +8,6 @@ const NotificationCounter = ({ schedules }) => {
     let remindCount = 0;
     let diaryCount = 0;
     events.forEach((event) => {
-      console.log("event :", event);
       if (event.type === "remind") {
         remindCount++;
       } else if (event.type === "diary") {
@@ -18,7 +17,7 @@ const NotificationCounter = ({ schedules }) => {
 
     return (
       <View className="bg-red-500 w-7 h-7 rounded-full flex flex-row justify-center items-center border-white border-2 ">
-        <Text className="text-white">{remindCount + diaryCount}</Text>
+        <Text className="text-white">{schedules[today].length}</Text>
       </View>
     );
   } catch (error) {
