@@ -15,6 +15,7 @@ import { SUCCEEDED } from "../../constants/store";
 import ShareButton from "../../ShareButton/ShareButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
+import { BASE_URL } from "../../constants/url";
 
 function SickDetailScreen() {
   const dispatch = useDispatch();
@@ -175,7 +176,7 @@ function SickDetailScreen() {
               className="w-96 h-96 object-fill rounded-md"
               source={{
                 uri:
-                  sick.thumb ??
+                  `${BASE_URL}/image/cache/${sick.image}` ??
                   `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
               }}
             />
