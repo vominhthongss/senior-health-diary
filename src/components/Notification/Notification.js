@@ -8,9 +8,7 @@ export function useSetReminders({ value }) {
 
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        console.log(notification);
-      }
+      (notification) => {}
     );
 
     return () => subscription.remove();

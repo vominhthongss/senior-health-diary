@@ -13,10 +13,26 @@ export const fetchSicks = createAsyncThunk(
   "sickList/fetchSicks",
   async ({ category_id }) => {
     try {
+      let result = [];
       const response = await api.get(
         `/index.php?route=extension/mstore/product&category=${category_id}`
       );
-      return response.data.data;
+      if (response.data) {
+        const response2 = await api.get(`/index.php?route=api/product`);
+        if (response2.data) {
+          response.data.data.forEach((x) => {
+            response2.data.products.forEach((y) => {
+              if (x.product_id === y.product_id) {
+                result.push({
+                  ...x,
+                  thumb: y.thumb,
+                });
+              }
+            });
+          });
+        }
+      }
+      return result;
     } catch (error) {
       throw error;
     }

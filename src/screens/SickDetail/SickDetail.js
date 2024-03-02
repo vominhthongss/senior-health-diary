@@ -175,9 +175,10 @@ function SickDetailScreen() {
             <Image
               className="w-96 h-96 object-fill rounded-md"
               source={{
-                uri:
-                  `${BASE_URL}/image/cache/${sick.image}` ??
-                  `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
+                uri: sick.thumb
+                  ? sick.thumb
+                  : `${BASE_URL}/image/cache/${sick.image}` ??
+                    `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
               }}
             />
           </View>

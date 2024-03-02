@@ -103,9 +103,7 @@ const authSlice = createSlice({
         const { token, fullName, age } = action.payload;
         AsyncStorage.setItem("token", token);
         AsyncStorage.setItem("fullName", fullName);
-        console.log("fullName :", fullName);
         AsyncStorage.setItem("age", age);
-        console.log("age :", age);
         state.token = token;
       })
       .addCase(login.rejected, (state, action) => {

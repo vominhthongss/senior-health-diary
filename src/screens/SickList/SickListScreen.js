@@ -75,9 +75,10 @@ function SickListScreen({ route }) {
                   <Image
                     className="w-20 h-20 object-fill rounded-md"
                     source={{
-                      uri:
-                        `${BASE_URL}/image/cache/${sick.image}` ??
-                        `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
+                      uri: sick.thumb
+                        ? sick.thumb
+                        : `${BASE_URL}/image/cache/${sick.image}` ??
+                          `https://via.placeholder.com/100x100.png?text=${sick?.name}`,
                     }}
                   />
                   <Text className="text-xl font-bold w-2/3">{sick.name}</Text>

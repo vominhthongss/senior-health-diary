@@ -22,11 +22,9 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log("status code :", response.status);
     return response;
   },
   (error) => {
-    console.log("error :", error);
     Alert.alert(STRINGS.alertName, STRINGS.errorResponse);
     return Promise.reject(error);
   }
